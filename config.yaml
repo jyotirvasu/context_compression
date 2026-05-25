@@ -37,13 +37,13 @@ compression:
   enabled: true
   model_type: "gpt2"  # Options: "gpt2", "curie"
   lang: "en"  # Options: "en", "zh"
-  reduce_ratio: 0.5  # Target reduction ratio (0.0 - 1.0)
+  reduce_ratio: 0.7  # Target reduction ratio (0.0 - 1.0)
   target_token_budget: 2048  # Max tokens after compression
   granularity: "phrase"  # Options: "sentence", "phrase", "token"
 
 # Stage E: Position-Aware Packing (Lost in the Middle)
 packing:
-  strategy: "edges_first"  # Options: "edges_first", "decreasing", "round_robin"
+  strategy: "round_robin"  # Options: "edges_first", "decreasing", "round_robin"
   max_context_tokens: 4096
   # Based on "Lost in the Middle" (Liu et al., 2023):
   # LLMs attend better to beginning and end of context.

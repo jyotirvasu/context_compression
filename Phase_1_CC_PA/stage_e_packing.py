@@ -16,7 +16,7 @@ Strategies:
     - round_robin: Alternate placing chunks at start and end
 """
 
-from typing import List
+from typing import List, Tuple
 
 import tiktoken
 
@@ -107,22 +107,40 @@ class PositionAwarePacker:
 
         return [c for c in result if c is not None]
 
-    def _concat_with_budget(self, chunks: List[Chunk]) -> str:
-        """Concatenate chunks respecting the token budget."""
-        parts = []
+    def _select_chunks_with_budget(
+        self, chunks: List[Chunk]
+    ) -> List[Tuple[Chunk, bool, int]]:
+        """Select chunks that fit in the token budget.
+
+        Returns a list of (chunk, truncated, tokens_used) tuples.
+        """
+        selected = []
         total_tokens = 0
 
         for chunk in chunks:
             chunk_tokens = len(self._tokenizer.encode(chunk.text))
             if total_tokens + chunk_tokens > self.max_context_tokens:
-                # Truncate final chunk to fit
                 remaining = self.max_context_tokens - total_tokens
                 if remaining > 0:
-                    tokens = self._tokenizer.encode(chunk.text)[:remaining]
-                    parts.append(self._tokenizer.decode(tokens))
+                    selected.append((chunk, True, remaining))
                 break
-            parts.append(chunk.text)
+
+            selected.append((chunk, False, chunk_tokens))
             total_tokens += chunk_tokens
+
+        return selected
+
+    def _concat_with_budget(self, chunks: List[Chunk]) -> str:
+        """Concatenate chunks respecting the token budget."""
+        parts = []
+        selected = self._select_chunks_with_budget(chunks)
+
+        for chunk, truncated, tokens_used in selected:
+            if truncated:
+                tokens = self._tokenizer.encode(chunk.text)[:tokens_used]
+                parts.append(self._tokenizer.decode(tokens))
+            else:
+                parts.append(chunk.text)
 
         return "\n\n".join(parts)
 
@@ -131,9 +149,23 @@ class PositionAwarePacker:
 
         Useful for analysis and debugging the packing strategy.
         """
-        n = len(chunks)
+        if not chunks:
+            return {}
+
+        if self.strategy == "edges_first":
+            ordered = self._edges_first(chunks)
+        elif self.strategy == "decreasing":
+            ordered = self._decreasing(chunks)
+        elif self.strategy == "round_robin":
+            ordered = self._round_robin(chunks)
+        else:
+            raise ValueError(f"Unknown packing strategy: {self.strategy}")
+
+        selected = self._select_chunks_with_budget(ordered)
+        n = len(selected)
         positions = {}
-        for i, chunk in enumerate(chunks):
+
+        for i, (chunk, truncated, tokens_used) in enumerate(selected):
             if i < n * self.start_ratio:
                 zone = "start (high attention)"
             elif i >= n * (1 - self.end_ratio):
@@ -144,5 +176,8 @@ class PositionAwarePacker:
                 "packed_position": i,
                 "attention_zone": zone,
                 "relevance_score": chunk.metadata.get("relevance_score", None),
+                "truncated": truncated,
+                "tokens_used": tokens_used,
             }
+
         return positions
