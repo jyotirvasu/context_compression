@@ -1,0 +1,148 @@
+<mxfile>
+  <diagram name="Context Compression Pipeline" id="context-compression-arch">
+    <mxGraphModel dx="1422" dy="762" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1400" pageHeight="750" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <!-- Title -->
+        <mxCell id="title" value="Context Compression Pipeline v1" style="text;html=1;align=center;verticalAlign=middle;fontSize=20;fontStyle=1;fontColor=#1a1a2e;" vertex="1" parent="1">
+          <mxGeometry x="400" y="20" width="400" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="subtitle" value="5-Stage Token Compression for LLM Inputs" style="text;html=1;align=center;verticalAlign=middle;fontSize=12;fontColor=#666666;" vertex="1" parent="1">
+          <mxGeometry x="430" y="55" width="340" height="25" as="geometry" />
+        </mxCell>
+
+        <!-- INPUT -->
+        <mxCell id="input" value="Raw Document&#xa;(e.g. 5000 tokens)" style="shape=document;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontSize=11;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="40" y="280" width="130" height="80" as="geometry" />
+        </mxCell>
+
+        <!-- STAGE A -->
+        <mxCell id="stageA" value="STAGE A&#xa;Chunking" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=12;fontStyle=1;verticalAlign=top;spacingTop=5;" vertex="1" parent="1">
+          <mxGeometry x="220" y="120" width="180" height="130" as="geometry" />
+        </mxCell>
+        <mxCell id="stageA-detail" value="• Sentence splitting (spaCy)&#xa;• Paragraph splitting&#xa;• Fixed token windows&#xa;• Sliding window + overlap" style="text;html=1;align=left;fontSize=9;verticalAlign=top;" vertex="1" parent="1">
+          <mxGeometry x="230" y="165" width="160" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="stageA-file" value="stage_a_chunking.py" style="text;html=1;align=center;fontSize=8;fontColor=#9673a6;fontStyle=2;" vertex="1" parent="1">
+          <mxGeometry x="240" y="240" width="140" height="15" as="geometry" />
+        </mxCell>
+
+        <!-- STAGE B -->
+        <mxCell id="stageB" value="STAGE B&#xa;Cleanup" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=12;fontStyle=1;verticalAlign=top;spacingTop=5;" vertex="1" parent="1">
+          <mxGeometry x="220" y="290" width="180" height="130" as="geometry" />
+        </mxCell>
+        <mxCell id="stageB-detail" value="• Remove URLs &amp; emails&#xa;• Unicode normalization&#xa;• Whitespace cleanup&#xa;• Deduplication&#xa;• Length filtering" style="text;html=1;align=left;fontSize=9;verticalAlign=top;" vertex="1" parent="1">
+          <mxGeometry x="230" y="335" width="160" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="stageB-file" value="stage_b_cleanup.py" style="text;html=1;align=center;fontSize=8;fontColor=#9673a6;fontStyle=2;" vertex="1" parent="1">
+          <mxGeometry x="240" y="410" width="140" height="15" as="geometry" />
+        </mxCell>
+
+        <!-- STAGE C -->
+        <mxCell id="stageC" value="STAGE C&#xa;Retrieval" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=12;fontStyle=1;verticalAlign=top;spacingTop=5;" vertex="1" parent="1">
+          <mxGeometry x="220" y="460" width="180" height="130" as="geometry" />
+        </mxCell>
+        <mxCell id="stageC-detail" value="• Dense embeddings (MiniLM)&#xa;• Sparse BM25&#xa;• Hybrid fusion:&#xa;  α·emb + (1-α)·BM25&#xa;• Top-N selection" style="text;html=1;align=left;fontSize=9;verticalAlign=top;" vertex="1" parent="1">
+          <mxGeometry x="230" y="505" width="160" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="stageC-file" value="stage_c_retrieval.py" style="text;html=1;align=center;fontSize=8;fontColor=#9673a6;fontStyle=2;" vertex="1" parent="1">
+          <mxGeometry x="240" y="580" width="140" height="15" as="geometry" />
+        </mxCell>
+
+        <!-- STAGE D -->
+        <mxCell id="stageD" value="STAGE D&#xa;Compression" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=12;fontStyle=1;verticalAlign=top;spacingTop=5;" vertex="1" parent="1">
+          <mxGeometry x="460" y="200" width="200" height="150" as="geometry" />
+        </mxCell>
+        <mxCell id="stageD-detail" value="Selective Context (Li et al. 2023)&#xa;&#xa;• GPT-2 computes self-information&#xa;  per lexical unit&#xa;• Drops low-info (predictable)&#xa;  tokens/phrases/sentences&#xa;• Configurable reduce_ratio" style="text;html=1;align=left;fontSize=9;verticalAlign=top;" vertex="1" parent="1">
+          <mxGeometry x="470" y="240" width="180" height="95" as="geometry" />
+        </mxCell>
+        <mxCell id="stageD-file" value="stage_d_compression.py" style="text;html=1;align=center;fontSize=8;fontColor=#9673a6;fontStyle=2;" vertex="1" parent="1">
+          <mxGeometry x="480" y="340" width="160" height="15" as="geometry" />
+        </mxCell>
+
+        <!-- STAGE E -->
+        <mxCell id="stageE" value="STAGE E&#xa;Position-Aware Packing" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=12;fontStyle=1;verticalAlign=top;spacingTop=5;" vertex="1" parent="1">
+          <mxGeometry x="460" y="400" width="200" height="170" as="geometry" />
+        </mxCell>
+        <mxCell id="stageE-detail" value="&quot;Lost in the Middle&quot; (Liu et al. 2023)&#xa;&#xa;LLMs attend best to START &amp; END&#xa;&#xa;┌────────────────────────────┐&#xa;│ ▓▓▓ HIGH  │ ░░ LOW ░░ │ ▓▓▓ HIGH │&#xa;│  start    │  middle   │   end    │&#xa;└────────────────────────────┘&#xa;&#xa;edges_first: top chunks → edges" style="text;html=1;align=left;fontSize=9;verticalAlign=top;" vertex="1" parent="1">
+          <mxGeometry x="470" y="440" width="180" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="stageE-file" value="stage_e_packing.py" style="text;html=1;align=center;fontSize=8;fontColor=#9673a6;fontStyle=2;" vertex="1" parent="1">
+          <mxGeometry x="480" y="560" width="160" height="15" as="geometry" />
+        </mxCell>
+
+        <!-- OUTPUT -->
+        <mxCell id="output" value="Compressed Context&#xa;(e.g. 2000 tokens)&#xa;&#xa;55-60% smaller" style="shape=document;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=11;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="720" y="350" width="140" height="90" as="geometry" />
+        </mxCell>
+
+        <!-- QUERY -->
+        <mxCell id="query" value="User Query" style="shape=parallelogram;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=10;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="40" y="470" width="120" height="40" as="geometry" />
+        </mxCell>
+
+        <!-- ARROWS -->
+        <mxCell id="e1" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;" edge="1" source="input" target="stageA" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e2" value="chunks" style="edgeStyle=orthogonalEdgeStyle;rounded=1;fontSize=9;" edge="1" source="stageA" target="stageB" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e3" value="clean chunks" style="edgeStyle=orthogonalEdgeStyle;rounded=1;fontSize=9;" edge="1" source="stageB" target="stageC" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e4" value="top-N ranked" style="edgeStyle=orthogonalEdgeStyle;rounded=1;fontSize=9;" edge="1" source="stageC" target="stageD" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="420" y="525" />
+              <mxPoint x="420" y="275" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e5" value="compressed" style="edgeStyle=orthogonalEdgeStyle;rounded=1;fontSize=9;" edge="1" source="stageD" target="stageE" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e6" value="packed context" style="edgeStyle=orthogonalEdgeStyle;rounded=1;fontSize=9;" edge="1" source="stageE" target="output" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e7" value="guides retrieval" style="edgeStyle=orthogonalEdgeStyle;rounded=1;fontSize=9;dashed=1;strokeColor=#d6b656;" edge="1" source="query" target="stageC" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- LLM box -->
+        <mxCell id="llm" value="LLM&#xa;(GPT-4 / Claude)" style="shape=hexagon;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#333333;fontSize=11;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="720" y="500" width="140" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="e8" value="feed" style="edgeStyle=orthogonalEdgeStyle;rounded=1;fontSize=9;" edge="1" source="output" target="llm" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Stats box -->
+        <mxCell id="stats" value="Pipeline Stats (Demo Run)&#xa;─────────────────────&#xa;Original:   320 tokens&#xa;Compressed: 141 tokens&#xa;Ratio:      55.9% saved&#xa;Chunks:     5 → 5 → 5 → 5" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=9;align=left;spacingLeft=10;" vertex="1" parent="1">
+          <mxGeometry x="720" y="130" width="180" height="100" as="geometry" />
+        </mxCell>
+
+        <!-- Config box -->
+        <mxCell id="config" value="config.yaml" style="shape=note;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontSize=10;fontStyle=2;" vertex="1" parent="1">
+          <mxGeometry x="40" y="130" width="100" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="e-config" value="configures all stages" style="edgeStyle=orthogonalEdgeStyle;rounded=1;fontSize=8;dashed=1;strokeColor=#999999;" edge="1" source="config" target="stageA" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Key insight box -->
+        <mxCell id="insight" value="KEY PAPERS&#xa;─────────────────────────────&#xa;Stage D: Li et al. &quot;Compressing Context&#xa;to Enhance Inference Efficiency&quot; (EMNLP 2023)&#xa;→ Self-information filtering via GPT-2&#xa;&#xa;Stage E: Liu et al. &quot;Lost in the Middle&quot;&#xa;(TACL 2023)&#xa;→ LLMs attend to edges, not middle" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#999999;fontSize=9;align=left;spacingLeft=10;" vertex="1" parent="1">
+          <mxGeometry x="720" y="240" width="230" height="100" as="geometry" />
+        </mxCell>
+
+        <!-- Pipeline.py label -->
+        <mxCell id="orchestrator" value="pipeline.py (orchestrator)" style="text;html=1;align=center;fontSize=10;fontStyle=3;fontColor=#333333;" vertex="1" parent="1">
+          <mxGeometry x="350" y="640" width="180" height="20" as="geometry" />
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

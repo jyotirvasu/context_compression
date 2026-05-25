@@ -1,0 +1,24 @@
+# Context Compression Pipeline v1 - Dependencies
+
+# Core NLP
+spacy>=3.5.0
+nltk>=3.8.0
+
+# Embeddings & Retrieval
+sentence-transformers>=2.2.0
+rank-bm25>=0.2.2
+numpy>=1.24.0
+scikit-learn>=1.2.0
+
+# Selective Context (Stage D)
+selective-context>=0.1.0
+
+# Configuration
+pyyaml>=6.0
+
+# Tokenization
+tiktoken>=0.5.0
+transformers>=4.30.0
+
+# Utilities
+tqdm>=4.65.0

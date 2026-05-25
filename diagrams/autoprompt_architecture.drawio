@@ -1,0 +1,181 @@
+<mxfile>
+  <diagram name="AutoPrompt Architecture" id="autoprompt-arch">
+    <mxGraphModel dx="1422" dy="762" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="900" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <!-- Title -->
+        <mxCell id="title" value="AutoPrompt: Gradient-Guided Trigger Token Search" style="text;html=1;align=center;verticalAlign=middle;fontSize=20;fontStyle=1;fontColor=#1a1a2e;" vertex="1" parent="1">
+          <mxGeometry x="400" y="20" width="500" height="40" as="geometry" />
+        </mxCell>
+
+        <!-- Input Section -->
+        <mxCell id="input-group" value="INPUT" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=11;fontStyle=1;verticalAlign=top;spacingTop=5;" vertex="1" parent="1">
+          <mxGeometry x="40" y="80" width="200" height="180" as="geometry" />
+        </mxCell>
+        <mxCell id="template" value="Template&#xa;[T] [T] [T] {sent} [P] ." style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="60" y="115" width="160" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="train-data" value="Training Data&#xa;(sentence, label) pairs" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="60" y="165" width="160" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="label-map" value="Label Map&#xa;positive→&quot;good&quot;, negative→&quot;bad&quot;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="60" y="215" width="160" height="35" as="geometry" />
+        </mxCell>
+
+        <!-- Templatizer -->
+        <mxCell id="templatizer" value="TriggerTemplatizer&#xa;&#xa;Fills template with data,&#xa;creates trigger_mask &amp;&#xa;predict_mask tensors" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="300" y="100" width="170" height="80" as="geometry" />
+        </mxCell>
+
+        <!-- Arrow: Input -> Templatizer -->
+        <mxCell id="e1" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="input-group" target="templatizer" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- MLM Model -->
+        <mxCell id="mlm-box" value="Pretrained MLM&#xa;(BERT / RoBERTa)&#xa;&#xa;FROZEN weights" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=11;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="540" y="90" width="160" height="90" as="geometry" />
+        </mxCell>
+
+        <!-- Arrow: Templatizer -> MLM -->
+        <mxCell id="e2" value="tokenized input&#xa;+ trigger IDs" style="edgeStyle=orthogonalEdgeStyle;fontSize=9;" edge="1" source="templatizer" target="mlm-box" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- MAIN LOOP Box -->
+        <mxCell id="loop-box" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;strokeWidth=2;dashed=1;dashPattern=5 5;" vertex="1" parent="1">
+          <mxGeometry x="280" y="220" width="700" height="420" as="geometry" />
+        </mxCell>
+        <mxCell id="loop-label" value="ITERATIVE SEARCH LOOP (iters × positions)" style="text;html=1;align=center;fontSize=12;fontStyle=1;fontColor=#333333;" vertex="1" parent="1">
+          <mxGeometry x="420" y="225" width="350" height="25" as="geometry" />
+        </mxCell>
+
+        <!-- Step 1: Forward Pass -->
+        <mxCell id="step1" value="① Forward Pass&#xa;&#xa;predict_logits = MLM(input)&#xa;loss = -log P(label | input)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="310" y="260" width="200" height="70" as="geometry" />
+        </mxCell>
+
+        <!-- Step 2: Backward Pass -->
+        <mxCell id="step2" value="② Backward Pass&#xa;&#xa;∇_embedding = grad of loss&#xa;w.r.t. trigger embeddings&#xa;(via GradientStorage hook)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="310" y="350" width="200" height="80" as="geometry" />
+        </mxCell>
+
+        <!-- Step 3: HotFlip -->
+        <mxCell id="step3" value="③ HotFlip Attack&#xa;&#xa;score(token) = emb(token) · ∇&#xa;candidates = top-k by score&#xa;&#xa;Find tokens in vocab closest&#xa;to gradient direction" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=10;fontStyle=0;" vertex="1" parent="1">
+          <mxGeometry x="310" y="450" width="200" height="100" as="geometry" />
+        </mxCell>
+
+        <!-- Step 4: Evaluate -->
+        <mxCell id="step4" value="④ Evaluate Candidates&#xa;&#xa;For each candidate token:&#xa;  - Replace trigger position&#xa;  - Forward pass (no grad)&#xa;  - Measure accuracy&#xa;Keep best if improved" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="560" y="350" width="200" height="110" as="geometry" />
+        </mxCell>
+
+        <!-- Step 5: Update -->
+        <mxCell id="step5" value="⑤ Update Trigger&#xa;&#xa;trigger[pos] = best_candidate&#xa;Evaluate on dev set" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="560" y="490" width="200" height="70" as="geometry" />
+        </mxCell>
+
+        <!-- Trigger State -->
+        <mxCell id="trigger-state" value="Current Triggers&#xa;&#xa;[MASK] [MASK] [MASK]&#xa;     ↓ optimized ↓&#xa;[certainly] [always] [clearly]" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=10;fontStyle=0;" vertex="1" parent="1">
+          <mxGeometry x="800" y="280" width="160" height="90" as="geometry" />
+        </mxCell>
+
+        <!-- Embedding Matrix -->
+        <mxCell id="emb-matrix" value="Embedding Matrix&#xa;[vocab_size × emb_dim]&#xa;&#xa;30,522 tokens&#xa;(BERT vocab)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="800" y="400" width="160" height="80" as="geometry" />
+        </mxCell>
+
+        <!-- Arrows within loop -->
+        <mxCell id="e3" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="step1" target="step2" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e4" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="step2" target="step3" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e5" value="candidates" style="edgeStyle=orthogonalEdgeStyle;fontSize=9;" edge="1" source="step3" target="step4" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="530" y="500" />
+              <mxPoint x="530" y="405" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e6" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="step4" target="step5" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e7" value="updated triggers" style="edgeStyle=orthogonalEdgeStyle;fontSize=9;dashed=1;" edge="1" source="step5" target="trigger-state" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e8" value="dot product" style="edgeStyle=orthogonalEdgeStyle;fontSize=9;dashed=1;" edge="1" source="step3" target="emb-matrix" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="530" y="520" />
+              <mxPoint x="530" y="520" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <!-- Loop back arrow -->
+        <mxCell id="e9" value="next iteration" style="edgeStyle=orthogonalEdgeStyle;fontSize=9;curved=1;dashed=1;strokeColor=#666666;" edge="1" source="step5" target="step1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="760" y="580" />
+              <mxPoint x="760" y="600" />
+              <mxPoint x="290" y="600" />
+              <mxPoint x="290" y="295" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <!-- Output Section -->
+        <mxCell id="output-box" value="OUTPUT" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=11;fontStyle=1;verticalAlign=top;spacingTop=5;" vertex="1" parent="1">
+          <mxGeometry x="1020" y="80" width="240" height="180" as="geometry" />
+        </mxCell>
+        <mxCell id="out-triggers" value="Optimized Trigger Tokens&#xa;e.g. [&quot;certainly&quot;, &quot;always&quot;, &quot;clearly&quot;]" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="1040" y="115" width="200" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="out-prompt" value="Generated Prompt&#xa;&quot;certainly always clearly {sent} [MASK] .&quot;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="1040" y="165" width="200" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="out-acc" value="Dev Accuracy: 0.91" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="1040" y="215" width="200" height="30" as="geometry" />
+        </mxCell>
+
+        <!-- Arrow: MLM -> Output -->
+        <mxCell id="e10" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="mlm-box" target="output-box" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Module Labels -->
+        <mxCell id="mod1" value="gradient_search.py" style="text;html=1;align=center;fontSize=9;fontColor=#9673a6;fontStyle=2;" vertex="1" parent="1">
+          <mxGeometry x="310" y="430" width="130" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="mod2" value="trigger_search.py" style="text;html=1;align=center;fontSize=9;fontColor=#9673a6;fontStyle=2;" vertex="1" parent="1">
+          <mxGeometry x="560" y="460" width="130" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="mod3" value="template.py" style="text;html=1;align=center;fontSize=9;fontColor=#9673a6;fontStyle=2;" vertex="1" parent="1">
+          <mxGeometry x="300" y="180" width="100" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="mod4" value="data.py" style="text;html=1;align=center;fontSize=9;fontColor=#9673a6;fontStyle=2;" vertex="1" parent="1">
+          <mxGeometry x="60" y="255" width="80" height="20" as="geometry" />
+        </mxCell>
+
+        <!-- Key Insight Box -->
+        <mxCell id="insight" value="KEY INSIGHT: No fine-tuning!&#xa;Model weights stay frozen.&#xa;Only trigger tokens change." style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=10;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="1020" y="300" width="200" height="60" as="geometry" />
+        </mxCell>
+
+        <!-- File mapping box -->
+        <mxCell id="files-box" value="Module Files" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontSize=11;fontStyle=1;verticalAlign=top;spacingTop=5;" vertex="1" parent="1">
+          <mxGeometry x="1020" y="400" width="240" height="220" as="geometry" />
+        </mxCell>
+        <mxCell id="f1" value="gradient_search.py → GradientStorage, hotflip_attack&#xa;template.py → TriggerTemplatizer&#xa;data.py → load data, Collator, synthetic gen&#xa;trigger_search.py → AutoPromptSearcher (main loop)&#xa;label_search.py → find best label tokens&#xa;run.py → CLI entry point" style="text;html=1;align=left;fontSize=9;fontColor=#333333;spacingLeft=10;" vertex="1" parent="1">
+          <mxGeometry x="1030" y="430" width="220" height="100" as="geometry" />
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

@@ -1,0 +1,52 @@
+# Context Compression Pipeline v1 - Configuration
+
+pipeline:
+  name: "context_compression_v1"
+  stages: ["chunking", "cleanup", "retrieval", "compression", "packing"]
+
+# Stage A: Chunking
+chunking:
+  method: "sentence"  # Options: "sentence", "paragraph", "fixed_token", "sliding_window"
+  max_chunk_tokens: 256
+  overlap_tokens: 32  # For sliding_window method
+  sentence_splitter: "spacy"  # Options: "spacy", "nltk"
+
+# Stage B: Cleanup Rules
+cleanup:
+  remove_urls: true
+  remove_emails: true
+  remove_excessive_whitespace: true
+  remove_special_chars: false
+  normalize_unicode: true
+  min_chunk_length: 10  # Minimum characters to keep a chunk
+  max_chunk_length: 2048  # Maximum characters per chunk
+  remove_duplicates: true
+  lowercase: false  # Typically keep original case for LLM input
+
+# Stage C: Retrieval (Embedding / BM25)
+retrieval:
+  method: "bm25"  # Options: "embedding", "bm25", "hybrid"
+  top_n: 10
+  embedding_model: "all-MiniLM-L6-v2"
+  bm25_k1: 1.5
+  bm25_b: 0.75
+  hybrid_alpha: 0.5  # Weight for embedding score (1 - alpha for BM25)
+
+# Stage D: Selective Context Compression
+compression:
+  enabled: true
+  model_type: "gpt2"  # Options: "gpt2", "curie"
+  lang: "en"  # Options: "en", "zh"
+  reduce_ratio: 0.5  # Target reduction ratio (0.0 - 1.0)
+  target_token_budget: 2048  # Max tokens after compression
+  granularity: "phrase"  # Options: "sentence", "phrase", "token"
+
+# Stage E: Position-Aware Packing (Lost in the Middle)
+packing:
+  strategy: "edges_first"  # Options: "edges_first", "decreasing", "round_robin"
+  max_context_tokens: 4096
+  # Based on "Lost in the Middle" (Liu et al., 2023):
+  # LLMs attend better to beginning and end of context.
+  # edges_first: place top chunks at start/end, less relevant in middle
+  prioritize_start_ratio: 0.4  # Fraction of top chunks placed at start
+  prioritize_end_ratio: 0.3    # Fraction of top chunks placed at end
