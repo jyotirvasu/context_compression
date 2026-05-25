@@ -3,7 +3,7 @@
 import time
 import re
 from pipeline import ContextCompressionPipeline
-from utils.helpers import count_tokens
+from utils.helpers import count_tokens, load_config
 
 # Test documents of varying sizes
 docs = {
@@ -113,7 +113,20 @@ def keyword_retention(original, compressed, query):
 
 
 def main():
-    pipe = ContextCompressionPipeline("config.yaml")
+    config_path = "config.yaml"
+    pipe = ContextCompressionPipeline(config_path)
+    config = load_config(config_path)
+    retrieval_method = config.get("retrieval", {}).get("method", "unknown")
+    packing_strategy = config.get("packing", {}).get("strategy", "unknown")
+    compression_cfg = config.get("compression", {})
+    if not compression_cfg.get("enabled", True):
+        compression_method = "Disabled"
+    else:
+        try:
+            import selective_context  # noqa: F401
+            compression_method = "Selective Context"
+        except Exception:
+            compression_method = "Truncation (fallback)"
 
     print("=" * 80)
     print("CONTEXT COMPRESSION PIPELINE - EVALUATION METRICS")
@@ -226,9 +239,9 @@ def main():
     print(f"  Avg Token Reduction:      {sum(reduction.values())/3:.1f}%")
     print(f"  Avg Latency:              {avg_latency:.2f} ms")
     print(f"  Avg Keyword Retention:    {avg_retention:.1f}%")
-    print(f"  Retrieval Method:         BM25")
-    print(f"  Compression Method:       Truncation (fallback)")
-    print(f"  Packing Strategy:         edges_first (position-aware)")
+    print(f"  Retrieval Method:         {retrieval_method}")
+    print(f"  Compression Method:       {compression_method}")
+    print(f"  Packing Strategy:         {packing_strategy} (position-aware)")
 
 
 if __name__ == "__main__":
