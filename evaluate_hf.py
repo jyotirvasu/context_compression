@@ -222,11 +222,27 @@ def evaluate_at_ratio(pipe: ContextCompressionPipeline, samples: List[Dict],
     if reduce_ratio is not None:
         pipe.compressor.reduce_ratio = reduce_ratio
 
+    total = len(samples)
+    loop_start = time.perf_counter()
     per_sample = []
-    for s in samples:
+    for i, s in enumerate(samples, 1):
         start = time.perf_counter()
         result = pipe.run(s["document"], s["question"])
         latency_ms = (time.perf_counter() - start) * 1000
+
+        # Lightweight single-line progress indicator with elapsed time and ETA
+        elapsed = time.perf_counter() - loop_start
+        avg = elapsed / i
+        eta = avg * (total - i)
+        bar_len = 24
+        filled = int(bar_len * i / total)
+        bar = "#" * filled + "-" * (bar_len - filled)
+        print(
+            f"\r  [{bar}] {i}/{total} "
+            f"| {latency_ms/1000:5.1f}s/sample "
+            f"| elapsed {elapsed:5.1f}s | ETA {eta:5.1f}s",
+            end="", flush=True,
+        )
 
         per_sample.append({
             "question": s["question"][:120],
@@ -238,6 +254,8 @@ def evaluate_at_ratio(pipe: ContextCompressionPipeline, samples: List[Dict],
             "keyword_retention": keyword_retention(s["document"], result.compressed_context),
             "answer_retained": answer_retained(result.compressed_context, s["answer"]),
         })
+
+    print()  # finish the progress line
 
     n = len(per_sample) or 1
     agg = {
