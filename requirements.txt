@@ -23,5 +23,8 @@ transformers>=4.30.0
 # Dataset evaluation (evaluate_hf.py)
 datasets>=2.14.0
 
+# Plotting (plot_results.py)
+matplotlib>=3.7.0
+
 # Utilities
 tqdm>=4.65.0
