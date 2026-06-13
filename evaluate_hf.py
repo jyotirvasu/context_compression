@@ -19,7 +19,7 @@ USAGE (on a machine with internet / HF access)
     python evaluate_hf.py                          # HotpotQA, 50 samples
     python evaluate_hf.py --num-samples 200
     python evaluate_hf.py --reduce-ratios 0.3 0.5 0.7   # sweep compression
-    python evaluate_hf.py --dataset hotpot_qa --config distractor --split validation
+    python evaluate_hf.py --dataset hotpotqa/hotpot_qa --config distractor --split validation
     python evaluate_hf.py --offline                # use built-in sample (no internet)
 
 OUTPUTS
@@ -277,7 +277,7 @@ def print_table(rows: List[Dict]):
 
 def main():
     parser = argparse.ArgumentParser(description="HF dataset evaluation for the compression pipeline.")
-    parser.add_argument("--dataset", default="hotpot_qa", help="HF dataset id (default: hotpot_qa)")
+    parser.add_argument("--dataset", default="hotpotqa/hotpot_qa", help="HF dataset id (default: hotpotqa/hotpot_qa)")
     parser.add_argument("--config", default="distractor", help="HF dataset config/subset (default: distractor)")
     parser.add_argument("--split", default="validation", help="Dataset split (default: validation)")
     parser.add_argument("--num-samples", type=int, default=50, help="Number of samples to evaluate")
