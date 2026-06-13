@@ -1,0 +1,162 @@
+<mxfile host="app.diagrams.net">
+  <diagram name="LLMLingua Pipeline Architecture" id="llmlingua-pipeline-arch">
+    <mxGraphModel dx="648" dy="451" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="900" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="title" parent="1" style="text;html=1;align=center;verticalAlign=middle;fontSize=20;fontStyle=1;fontColor=#1a1a2e;" value="LLMLingua: Coarse-to-Fine Prompt Compression Pipeline" vertex="1">
+          <mxGeometry height="40" width="550" x="350" y="15" as="geometry" />
+        </mxCell>
+        <mxCell id="subtitle" parent="1" style="text;html=1;align=center;verticalAlign=middle;fontSize=11;fontColor=#666666;" value="Based on Jiang et al. (EMNLP 2023) — 5-Stage Perplexity-Based Token Pruning" vertex="1">
+          <mxGeometry height="25" width="490" x="380" y="50" as="geometry" />
+        </mxCell>
+        <mxCell id="input" parent="1" style="shape=document;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontSize=11;fontStyle=0;" value="&lt;b&gt;Original Prompt&lt;/b&gt;&#xa;Instruction + Contexts + Question&#xa;(e.g. 2365 tokens)" vertex="1">
+          <mxGeometry height="100" width="160" x="30" y="340" as="geometry" />
+        </mxCell>
+        <mxCell id="small-lm" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=10;verticalAlign=middle;dashed=1;dashPattern=5 5;" value="&lt;b&gt;Small Language Model&lt;/b&gt;&#xa;(GPT-2 / LLaMA-7B / phi-2)&#xa;&#xa;Computes perplexity&#xa;at all granularities" vertex="1">
+          <mxGeometry height="90" width="230" x="560" y="750" as="geometry" />
+        </mxCell>
+        <mxCell id="stageA" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=12;fontStyle=0;verticalAlign=top;spacingTop=5;" value="&lt;b&gt;STAGE A&lt;/b&gt;&#xa;Budget Controller" vertex="1">
+          <mxGeometry height="150" width="200" x="240" y="160" as="geometry" />
+        </mxCell>
+        <mxCell id="stageA-detail" parent="1" style="text;html=1;align=left;fontSize=9;verticalAlign=top;" value="• Compute total token budget&#xa;• Preserve instruction (rate=1.0)&#xa;• Preserve question (rate=1.0)&#xa;• Allocate remaining to contexts&#xa;• Apply context_budget expr (+100)&#xa;• Compute dynamic ratios" vertex="1">
+          <mxGeometry height="85" width="180" x="250" y="205" as="geometry" />
+        </mxCell>
+        <mxCell id="stageA-file" parent="1" style="text;html=1;align=center;fontSize=8;fontColor=#82b366;fontStyle=2;" value="stage_a_budget_controller.py" vertex="1">
+          <mxGeometry height="15" width="150" x="265" y="285" as="geometry" />
+        </mxCell>
+        <mxCell id="stageB" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=12;fontStyle=0;verticalAlign=top;spacingTop=5;" value="&lt;b&gt;STAGE B&lt;/b&gt;&#xa;Context-Level Filter" vertex="1">
+          <mxGeometry height="160" width="200" x="240" y="350" as="geometry" />
+        </mxCell>
+        <mxCell id="stageB-detail" parent="1" style="text;html=1;align=left;fontSize=9;verticalAlign=top;" value="• Rank contexts by PPL (small LM)&#xa;• Higher PPL = more informative&#xa;• Select top-K within budget&#xa;• Ranking methods:&#xa;  - llmlingua (PPL-based)&#xa;  - longllmlingua (question-aware)&#xa;  - bm25 / embedding&#xa;• Reorder: original / sort / two_stage" vertex="1">
+          <mxGeometry height="100" width="180" x="250" y="398" as="geometry" />
+        </mxCell>
+        <mxCell id="stageB-file" parent="1" style="text;html=1;align=center;fontSize=8;fontColor=#6c8ebf;fontStyle=2;" value="stage_b_context_filter.py" vertex="1">
+          <mxGeometry height="15" width="150" x="265" y="490" as="geometry" />
+        </mxCell>
+        <mxCell id="stageC" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=12;fontStyle=0;verticalAlign=top;spacingTop=5;" value="&lt;b&gt;STAGE C&lt;/b&gt;&#xa;Sentence-Level Filter" vertex="1">
+          <mxGeometry height="150" width="200" x="240" y="550" as="geometry" />
+        </mxCell>
+        <mxCell id="stageC-detail" parent="1" style="text;html=1;align=left;fontSize=9;verticalAlign=top;" value="• Split contexts into sentences&#xa;• Score sentences by PPL&#xa;• Priority bonus: first/last sents&#xa;• Budget-aware selection&#xa;• keep_first_sentence&#xa;• keep_last_sentence&#xa;• token_budget_ratio=1.4" vertex="1">
+          <mxGeometry height="90" width="180" x="250" y="598" as="geometry" />
+        </mxCell>
+        <mxCell id="stageC-file" parent="1" style="text;html=1;align=center;fontSize=8;fontColor=#9673a6;fontStyle=2;" value="stage_c_sentence_filter.py" vertex="1">
+          <mxGeometry height="15" width="150" x="265" y="680" as="geometry" />
+        </mxCell>
+        <mxCell id="stageD" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=12;fontStyle=0;verticalAlign=top;spacingTop=5;" value="&lt;b&gt;STAGE D&lt;/b&gt;&#xa;Iterative Token-Level Compression" vertex="1">
+          <mxGeometry height="220" width="260" x="530" y="300" as="geometry" />
+        </mxCell>
+        <mxCell id="stageD-detail" parent="1" style="text;html=1;align=left;fontSize=9;verticalAlign=top;" value="• Segment into windows (iterative_size=200)&#xa;• For each window:&#xa;  1. Compute per-token NLL loss&#xa;  2. Estimate threshold from distribution&#xa;     (percentile-based)&#xa;  3. Remove tokens with loss &lt; threshold&#xa;• Force-preserve:&#xa;  - Digits (force_reserve_digit)&#xa;  - Newlines (keep_split)&#xa;  - User tokens (force_tokens)&#xa;• Dynamic compression ratio per segment&#xa;• KV-Cache for efficiency" vertex="1">
+          <mxGeometry height="155" width="240" x="540" y="350" as="geometry" />
+        </mxCell>
+        <mxCell id="stageD-file" parent="1" style="text;html=1;align=center;fontSize=8;fontColor=#b85450;fontStyle=2;" value="stage_d_token_compress.py" vertex="1">
+          <mxGeometry height="15" width="150" x="585" y="495" as="geometry" />
+        </mxCell>
+        <mxCell id="token-detail" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff5f5;strokeColor=#d4a0a0;dashed=1;" value="" vertex="1">
+          <mxGeometry height="130" width="260" x="530" y="550" as="geometry" />
+        </mxCell>
+        <mxCell id="token-detail-title" parent="1" style="text;html=1;align=left;fontSize=9;fontColor=#b85450;" value="&lt;b&gt;Iterative Window Example:&lt;/b&gt;" vertex="1">
+          <mxGeometry height="15" width="200" x="540" y="555" as="geometry" />
+        </mxCell>
+        <mxCell id="token-detail-content" parent="1" style="text;html=1;align=left;fontSize=9;fontFamily=Courier New;verticalAlign=top;" value="Input:  [Sam] [bought] [a] [dozen] [boxes]...&#xa;Loss:   [2.1] [0.3]   [0.1] [3.5]  [1.8]...&#xa;Thresh: 1.0 (at 50th percentile)&#xa;Keep:   [Sam] [      ] [   ] [dozen] [boxes]...&#xa;&#xa;Output: &quot;Sam dozen boxes...&quot;  (50% compressed)" vertex="1">
+          <mxGeometry height="95" width="240" x="540" y="575" as="geometry" />
+        </mxCell>
+        <mxCell id="stageE" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=12;fontStyle=0;verticalAlign=top;spacingTop=5;" value="&lt;b&gt;STAGE E&lt;/b&gt;&#xa;Response Recovery &amp; Assembly" vertex="1">
+          <mxGeometry height="170" width="220" x="880" y="300" as="geometry" />
+        </mxCell>
+        <mxCell id="stageE-detail" parent="1" style="text;html=1;align=left;fontSize=9;verticalAlign=top;" value="• Assemble: instruction + compressed&#xa;  contexts + question&#xa;• Compute statistics (ratio, rate, $)&#xa;• Parse &lt;llmlingua&gt; structured tags&#xa;• Response recovery:&#xa;  Map LLM output → original text&#xa;  via token subsequence matching" vertex="1">
+          <mxGeometry height="100" width="200" x="890" y="350" as="geometry" />
+        </mxCell>
+        <mxCell id="stageE-file" parent="1" style="text;html=1;align=center;fontSize=8;fontColor=#82b366;fontStyle=2;" value="stage_e_recovery.py" vertex="1">
+          <mxGeometry height="15" width="130" x="925" y="443" as="geometry" />
+        </mxCell>
+        <mxCell id="output" parent="1" style="shape=document;whiteSpace=wrap;html=1;fillColor=#e6ffe6;strokeColor=#82b366;fontSize=11;fontStyle=0;" value="&lt;b&gt;Compressed Prompt&lt;/b&gt;&#xa;(e.g. 211 tokens)&#xa;&#xa;ratio: 11.2x&#xa;rate: 8.9%" vertex="1">
+          <mxGeometry height="100" width="160" x="1170" y="340" as="geometry" />
+        </mxCell>
+        <mxCell id="llm-target" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=10;verticalAlign=middle;" value="&lt;b&gt;Target LLM&lt;/b&gt;&#xa;(GPT-4 / GPT-3.5)&#xa;&#xa;Receives compressed&#xa;prompt for inference" vertex="1">
+          <mxGeometry height="90" width="160" x="1170" y="500" as="geometry" />
+        </mxCell>
+        <mxCell id="pipeline" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f0f0f0;strokeColor=#333333;fontSize=10;fontStyle=0;dashed=1;dashPattern=8 4;" value="&lt;b&gt;LLMLinguaPipeline&lt;/b&gt; (pipeline.py)&#xa;End-to-end orchestrator chaining A→B→C→D→E" vertex="1">
+          <mxGeometry height="30" width="860" x="240" y="100" as="geometry" />
+        </mxCell>
+        <mxCell id="arr-in-a" edge="1" parent="1" source="input" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#333333;strokeWidth=2;exitX=1;exitY=0.5;entryX=0;entryY=0.3;" target="stageA">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="arr-in-a-label" parent="1" style="text;html=1;align=center;fontSize=8;fontColor=#333333;" value="instruction,&#xa;contexts[],&#xa;question" vertex="1">
+          <mxGeometry height="40" width="70" x="160" y="280" as="geometry" />
+        </mxCell>
+        <mxCell id="arr-a-b" edge="1" parent="1" source="stageA" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#333333;strokeWidth=2;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" target="stageB">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="arr-a-b-label" parent="1" style="text;html=1;align=left;fontSize=8;fontColor=#333333;" value="BudgetAllocation&#xa;(per-context budgets)" vertex="1">
+          <mxGeometry height="25" width="120" x="345" y="320" as="geometry" />
+        </mxCell>
+        <mxCell id="arr-b-c" edge="1" parent="1" source="stageB" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#333333;strokeWidth=2;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" target="stageC">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="arr-b-c-label" parent="1" style="text;html=1;align=left;fontSize=8;fontColor=#333333;" value="RankedContext[]&#xa;(selected contexts)" vertex="1">
+          <mxGeometry height="25" width="110" x="345" y="520" as="geometry" />
+        </mxCell>
+        <mxCell id="arr-c-d" edge="1" parent="1" source="stageC" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#333333;strokeWidth=2;exitX=1;exitY=0.5;entryX=0;entryY=0.7;" target="stageD">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="arr-c-d-label" parent="1" style="text;html=1;align=center;fontSize=8;fontColor=#333333;" value="filtered&#xa;sentences" vertex="1">
+          <mxGeometry height="25" width="70" x="450" y="590" as="geometry" />
+        </mxCell>
+        <mxCell id="arr-d-e" edge="1" parent="1" source="stageD" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#333333;strokeWidth=2;exitX=1;exitY=0.3;entryX=0;entryY=0.4;" target="stageE">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="arr-d-e-label" parent="1" style="text;html=1;align=center;fontSize=8;fontColor=#333333;" value="compressed&#xa;token sequences" vertex="1">
+          <mxGeometry height="25" width="90" x="790" y="325" as="geometry" />
+        </mxCell>
+        <mxCell id="arr-e-out" edge="1" parent="1" source="stageE" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#82b366;strokeWidth=2;exitX=1;exitY=0.4;entryX=0;entryY=0.5;" target="output">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="arr-out-llm" edge="1" parent="1" source="output" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#d79b00;strokeWidth=2;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" target="llm-target">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="arr-lm-b" edge="1" parent="1" source="small-lm" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#d6b656;strokeWidth=1;dashed=1;exitX=0;exitY=0.3;entryX=0.3;entryY=1;" target="stageC">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="560" y="795" />
+              <mxPoint x="300" y="795" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="arr-lm-d" edge="1" parent="1" source="small-lm" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#d6b656;strokeWidth=1;dashed=1;exitX=0.5;exitY=0;entryX=0.5;entryY=1;" target="stageD">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="lm-label" parent="1" style="text;html=1;align=center;fontSize=8;fontColor=#d6b656;fontStyle=2;" value="PPL computation" vertex="1">
+          <mxGeometry height="15" width="100" x="620" y="720" as="geometry" />
+        </mxCell>
+        <mxCell id="legend-box" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fafafa;strokeColor=#cccccc;" value="" vertex="1">
+          <mxGeometry height="160" width="220" x="880" y="530" as="geometry" />
+        </mxCell>
+        <mxCell id="legend-title" parent="1" style="text;html=1;align=center;fontSize=10;fontColor=#333333;" value="&lt;b&gt;Compression Granularity&lt;/b&gt;" vertex="1">
+          <mxGeometry height="20" width="180" x="900" y="535" as="geometry" />
+        </mxCell>
+        <mxCell id="legend-1" parent="1" style="text;html=1;align=left;fontSize=9;fontColor=#6c8ebf;" value="▓▓▓ Context-Level (Stage B)&#xa;      Select/remove entire documents" vertex="1">
+          <mxGeometry height="30" width="195" x="895" y="560" as="geometry" />
+        </mxCell>
+        <mxCell id="legend-2" parent="1" style="text;html=1;align=left;fontSize=9;fontColor=#9673a6;" value="▓▓▓ Sentence-Level (Stage C)&#xa;      Filter sentences within docs" vertex="1">
+          <mxGeometry height="30" width="195" x="895" y="595" as="geometry" />
+        </mxCell>
+        <mxCell id="legend-3" parent="1" style="text;html=1;align=left;fontSize=9;fontColor=#b85450;" value="▓▓▓ Token-Level (Stage D)&#xa;      Prune individual tokens by NLL" vertex="1">
+          <mxGeometry height="30" width="195" x="895" y="630" as="geometry" />
+        </mxCell>
+        <mxCell id="legend-4" parent="1" style="text;html=1;align=center;fontSize=9;fontStyle=3;fontColor=#333333;" value="Coarse ──────────────→ Fine" vertex="1">
+          <mxGeometry height="20" width="170" x="910" y="665" as="geometry" />
+        </mxCell>
+        <mxCell id="insight-box" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fffde6;strokeColor=#d6b656;dashed=1;" value="" vertex="1">
+          <mxGeometry height="110" width="220" x="880" y="145" as="geometry" />
+        </mxCell>
+        <mxCell id="insight-title" parent="1" style="text;html=1;align=center;fontSize=10;fontColor=#333333;" value="&lt;b&gt;Key Insight&lt;/b&gt;" vertex="1">
+          <mxGeometry height="18" width="100" x="940" y="150" as="geometry" />
+        </mxCell>
+        <mxCell id="insight-content" parent="1" style="text;html=1;align=left;fontSize=9;verticalAlign=top;" value="Higher perplexity = less predictable&#xa;= carries more unique information&#xa;= should be PRESERVED&#xa;&#xa;Low perplexity = redundant/obvious&#xa;= safe to REMOVE" vertex="1">
+          <mxGeometry height="80" width="190" x="895" y="170" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

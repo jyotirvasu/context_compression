@@ -1,0 +1,16 @@
+__pycache__/
+*.pyc
+*.pyo
+.git/
+.gitignore
+.env
+*.egg-info/
+dist/
+build/
+venv/
+.venv/
+node_modules/
+*.drawio
+history/
+diagrams/
+.pytest_cache/

@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pipeline Showcase — Compression Comparison</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f0f2f5;
+            color: #1a1a2e;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 30px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 12px;
+            color: white;
+        }
+        .header h1 { font-size: 2em; margin-bottom: 8px; }
+        .header p { opacity: 0.9; font-size: 1.1em; }
+        .timestamp { font-size: 0.85em; opacity: 0.7; margin-top: 8px; }
+
+        .original-section {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 25px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+        .original-section h2 { color: #333; margin-bottom: 10px; }
+        .original-text {
+            background: #f8f9fa;
+            border-left: 4px solid #667eea;
+            padding: 15px;
+            font-family: 'Consolas', monospace;
+            font-size: 0.9em;
+            white-space: pre-wrap;
+            max-height: 200px;
+            overflow-y: auto;
+            border-radius: 4px;
+        }
+        .meta { color: #666; font-size: 0.9em; margin-top: 8px; }
+
+        .comparison {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 25px;
+        }
+        @media (max-width: 900px) {
+            .comparison { grid-template-columns: 1fr; }
+        }
+
+        .pipeline-card {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            border-top: 4px solid #ccc;
+        }
+        .pipeline-card.ccpa { border-top-color: #4CAF50; }
+        .pipeline-card.llmlingua { border-top-color: #2196F3; }
+
+        .pipeline-card h2 {
+            font-size: 1.3em;
+            margin-bottom: 4px;
+        }
+        .pipeline-card .subtitle {
+            color: #666;
+            font-size: 0.85em;
+            margin-bottom: 15px;
+        }
+        .pipeline-card .method {
+            background: #f0f7ff;
+            border-radius: 6px;
+            padding: 8px 12px;
+            font-size: 0.85em;
+            color: #1565C0;
+            margin-bottom: 15px;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+        .stat-box {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 12px;
+            text-align: center;
+        }
+        .stat-box .value {
+            font-size: 1.5em;
+            font-weight: 700;
+            color: #1a1a2e;
+        }
+        .stat-box .label {
+            font-size: 0.8em;
+            color: #666;
+            margin-top: 4px;
+        }
+        .stat-box.highlight { background: #e8f5e9; }
+        .stat-box.highlight .value { color: #2e7d32; }
+
+        .stages-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 15px;
+            font-size: 0.85em;
+        }
+        .stages-table th {
+            text-align: left;
+            background: #f5f5f5;
+            padding: 8px;
+            border-bottom: 2px solid #ddd;
+        }
+        .stages-table td {
+            padding: 6px 8px;
+            border-bottom: 1px solid #eee;
+        }
+        .stage-name {
+            font-weight: 600;
+            white-space: nowrap;
+            color: #444;
+        }
+
+        .compressed-output {
+            background: #f8f9fa;
+            border-radius: 6px;
+            padding: 12px;
+            font-family: 'Consolas', monospace;
+            font-size: 0.85em;
+            white-space: pre-wrap;
+            max-height: 250px;
+            overflow-y: auto;
+            border: 1px solid #e0e0e0;
+        }
+        .compressed-output-label {
+            font-weight: 600;
+            margin-bottom: 6px;
+            color: #444;
+        }
+
+        .comparison-summary {
+            background: white;
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            border-top: 4px solid #FF9800;
+        }
+        .comparison-summary h2 { margin-bottom: 15px; }
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.95em;
+        }
+        .comparison-table th {
+            text-align: left;
+            background: #fff3e0;
+            padding: 10px;
+            border-bottom: 2px solid #FF9800;
+        }
+        .comparison-table td {
+            padding: 10px;
+            border-bottom: 1px solid #eee;
+        }
+        .comparison-table tr:hover { background: #fafafa; }
+        .winner { color: #2e7d32; font-weight: 700; }
+        .badge {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 0.8em;
+            font-weight: 600;
+        }
+        .badge-green { background: #e8f5e9; color: #2e7d32; }
+        .badge-blue { background: #e3f2fd; color: #1565c0; }
+
+        .footer {
+            text-align: center;
+            color: #999;
+            font-size: 0.85em;
+            margin-top: 30px;
+            padding: 15px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Pipeline Showcase</h1>
+        <p>Context Compression — Side-by-Side Comparison</p>
+        <div class="timestamp">Generated: 2026-06-01 13:39:03</div>
+    </div>
+
+    <!-- Original Input -->
+    <div class="original-section">
+        <h2>Original Input</h2>
+        <div class="original-text">Sam bought a dozen boxes, each with 30 highlighter pens inside, for 10 dollars each box.
+He rearranged five of the boxes into packages of six highlighters each and sold them for
+3 dollars per package. He sold the rest of the highlighters separately at the rate of
+three pens for 2 dollars. How much profit did he make in total, in dollars?
+
+Lets think step by step. Sam bought 12 boxes x 10 dollars = 120 dollars worth of
+highlighters. He bought 12 x 30 = 360 highlighters in total. Sam then took 5 boxes
+x 30 = 150 highlighters. He sold these as packages of 6, so 150 / 6 = 25 packages.
+He sold them for 25 x 3 = 75 dollars.
+
+After selling these 5 boxes, there were 360 - 150 = 210 highlighters remaining.
+These form 210 / 3 = 70 groups of three pens. He sold each of these groups for 2
+dollars each, so he made 70 x 2 = 140 dollars from them. In total, then, he earned
+140 + 75 = 215 dollars. Since his original cost was 120, he earned 215 - 120 = 95
+dollars in profit. The answer is 95.
+
+Additional context: Highlighter pens are commonly used office supplies. They come in
+various colors including yellow, green, pink, orange, and blue. The most popular
+color for highlighting is yellow, as it does not obscure the underlying text when
+photocopied. Modern highlighters use water-based ink and have chisel-shaped tips
+for both broad and fine marking capabilities.</div>
+        <div class="meta">
+            Tokens: <strong>358</strong> |
+            Query: <em>"How much profit did Sam make?"</em>
+        </div>
+    </div>
+
+    <!-- Side-by-Side Results -->
+    <div class="comparison">
+        <!-- Phase_1_CC_PA -->
+        <div class="pipeline-card ccpa">
+            <h2>Phase_1_CC_PA</h2>
+            <div class="subtitle">Selective Context + Position-Aware Packing</div>
+            <div class="method">Self-information based compression (Li et al. 2023) + Lost-in-the-Middle packing</div>
+
+            <div class="stats-grid">
+                <div class="stat-box">
+                    <div class="value">358</div>
+                    <div class="label">Original Tokens</div>
+                </div>
+                <div class="stat-box highlight">
+                    <div class="value">24</div>
+                    <div class="label">Compressed Tokens</div>
+                </div>
+                <div class="stat-box highlight">
+                    <div class="value">14.9x</div>
+                    <div class="label">Compression Ratio</div>
+                </div>
+                <div class="stat-box">
+                    <div class="value">6.7%</div>
+                    <div class="label">Retention Rate</div>
+                </div>
+            </div>
+
+            <table class="stages-table">
+                <tr><th>Stage</th><th>Result</th></tr>
+                <tr><td class="stage-name">A - Chunking</td><td>2 chunks created</td></tr>
+<tr><td class="stage-name">B - Cleanup</td><td>2 chunks after cleanup</td></tr>
+<tr><td class="stage-name">C - Retrieval</td><td>2 chunks retrieved (BM25)</td></tr>
+<tr><td class="stage-name">D - Compression</td><td>2 chunks compressed (Selective Context)</td></tr>
+<tr><td class="stage-name">E - Packing</td><td>Position-aware packing (round_robin)</td></tr>
+
+            </table>
+
+            <div class="compressed-output-label">Compressed Output:</div>
+            <div class="compressed-output">he earned 215 green pink
+
+Sam bought a dozen boxes each with 30 highlighter pens inside there were 360</div>
+        </div>
+
+        <!-- Phase_1_LLMLingua -->
+        <div class="pipeline-card llmlingua">
+            <h2>Phase_1_LLMLingua</h2>
+            <div class="subtitle">LLMLingua Coarse-to-Fine Compression</div>
+            <div class="method">Perplexity-based iterative token pruning (Jiang et al. 2023)</div>
+
+            <div class="stats-grid">
+                <div class="stat-box">
+                    <div class="value">377</div>
+                    <div class="label">Original Tokens</div>
+                </div>
+                <div class="stat-box highlight">
+                    <div class="value">249</div>
+                    <div class="label">Compressed Tokens</div>
+                </div>
+                <div class="stat-box highlight">
+                    <div class="value">1.5x</div>
+                    <div class="label">Compression Ratio</div>
+                </div>
+                <div class="stat-box">
+                    <div class="value">66.0%</div>
+                    <div class="label">Retention Rate</div>
+                </div>
+            </div>
+
+            <table class="stages-table">
+                <tr><th>Stage</th><th>Result</th></tr>
+                <tr><td class="stage-name">A - Budget Controller</td><td>Target 150 tokens (rate=0.4)</td></tr>
+<tr><td class="stage-name">B - Context Filter</td><td>4/4 contexts selected (PPL ranking)</td></tr>
+<tr><td class="stage-name">C - Sentence Filter</td><td>Disabled</td></tr>
+<tr><td class="stage-name">D - Token Compression</td><td>Ctx 1: 112-&gt;78 tokens; Ctx 2: 90-&gt;48 tokens; Ctx 3: 79-&gt;42 tokens; Ctx 4: 77-&gt;61 tokens</td></tr>
+<tr><td class="stage-name">E - Assembly</td><td>Final: 249 tokens</td></tr>
+
+            </table>
+
+            <div class="compressed-output-label">Compressed Output:</div>
+            <div class="compressed-output">Answer the following math word problem step by step.
+
+After selling 5 boxes, there were 360 150 210 highlighters remaining. form 210 / 3 70 three pens. sold for 2 so made 70 x 2 140 from them. total, then, 140 + 75 215 Since his original cost was 120, 215 120 95 profit. The answer is 95.
+
+Lets think by 12 10 120 worth 12 30 360 in total. then took 5 30 150 these as 6, so 150 / 6 25 them for 25 3 75
+
+Sam bought a dozen with 30 highlighter inside, 10 box. rearranged five into packages six and them 3 per package. rest separately at rate three 2 How much profit did make total,
+
+Additional context: Highlighter pens are commonly used office supplies. They come in various colors including green, pink, orange, blue. most popular color highlighting is as it does not obscure underlying text when photocopied. Modern highlighters use water-based ink have chisel-shaped tips both broad fine marking capabilities.
+
+How much profit did Sam make in total?</div>
+        </div>
+    </div>
+
+    <!-- Comparison Summary -->
+    <div class="comparison-summary">
+        <h2>Comparison Summary</h2>
+        <table class="comparison-table">
+            <tr>
+                <th>Metric</th>
+                <th>Phase_1_CC_PA</th>
+                <th>Phase_1_LLMLingua</th>
+                <th>Winner</th>
+            </tr>
+            <tr>
+                <td>Compression Ratio</td>
+                <td>14.9x</td>
+                <td>1.5x</td>
+                <td><span class="winner">CC_PA</span></td>
+            </tr>
+            <tr>
+                <td>Tokens Retained</td>
+                <td>24</td>
+                <td>249</td>
+                <td><span class="winner">CC_PA</span></td>
+            </tr>
+            <tr>
+                <td>Approach</td>
+                <td>Chunk → Retrieve → Compress → Pack</td>
+                <td>Budget → Filter → Prune tokens</td>
+                <td>—</td>
+            </tr>
+            <tr>
+                <td>Granularity</td>
+                <td>Phrase/sentence level</td>
+                <td>Token level (fine-grained)</td>
+                <td>—</td>
+            </tr>
+            <tr>
+                <td>Position Awareness</td>
+                <td><span class="badge badge-green">Yes (edges_first)</span></td>
+                <td><span class="badge badge-blue">No (preserves order)</span></td>
+                <td>—</td>
+            </tr>
+            <tr>
+                <td>Digit Preservation</td>
+                <td>No explicit guarantee</td>
+                <td><span class="badge badge-blue">Yes (force_reserve_digit)</span></td>
+                <td>—</td>
+            </tr>
+            <tr>
+                <td>Model Requirement</td>
+                <td>GPT-2 (for self-information)</td>
+                <td>GPT-2 / LLaMA-7B (for PPL)</td>
+                <td>—</td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="footer">
+        Context Compression Research — Phase 1 Pipeline Showcase<br>
+        CC_PA: Li et al. (EMNLP 2023) | LLMLingua: Jiang et al. (EMNLP 2023)
+    </div>
+</body>
+</html>
