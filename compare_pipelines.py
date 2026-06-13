@@ -59,6 +59,20 @@ import os
 import time
 from typing import Dict, List, Optional
 
+# Native-stability guards (must run BEFORE torch / transformers import).
+# Prevents the macOS/Apple-Silicon "zsh: bus error" (SIGBUS) caused by the
+# HuggingFace tokenizers parallel worker pool and thread contention during
+# long multi-sample runs.
+os.environ.setdefault("TOKENIZERS_PARALLELISM", "false")
+os.environ.setdefault("OMP_NUM_THREADS", "1")
+os.environ.setdefault("PYTORCH_ENABLE_MPS_FALLBACK", "1")
+try:
+    import torch
+
+    torch.set_num_threads(1)
+except ImportError:
+    pass
+
 from utils.helpers import count_tokens, load_config
 
 # Reuse helpers/metrics from the single-pipeline evaluator
