@@ -2,18 +2,26 @@
 Plot Evaluation Results
 =======================
 
-Reads the aggregate summary produced by evaluate_hf.py (eval_results.csv)
-and renders TWO separate PNG charts suitable for a report:
+Reads the aggregate summary produced by evaluate_hf.py and renders TWO
+separate PNG charts into the same versioned run folder:
 
     1. compression_achieved.png   - Compression achieved (%) vs reduce_ratio
     2. information_preserved.png   - Answer recall (%) & keyword retention (%)
                                      vs reduce_ratio
 
+By default it auto-discovers the LATEST run for a project under
+results/<project>/ (via results/<project>/latest.txt) and reads
+    results/<project>/<run>/eval/eval_results.csv
+then writes the plots to
+    results/<project>/<run>/plot/
+
 USAGE
 -----
     pip install matplotlib
-    python plot_results.py                          # reads eval_results.csv
-    python plot_results.py --input eval_results.csv --output-prefix myrun
+    python plot_results.py                                  # latest Phase_1_CC_PA run
+    python plot_results.py --project Phase_1_CC_PA
+    python plot_results.py --run run_20260613_101500        # a specific run
+    python plot_results.py --input path/to/eval_results.csv # explicit CSV
 
 The plots need a sweep, so generate the CSV first with:
     python evaluate_hf.py --reduce-ratios 0.3 0.5 0.7
@@ -21,6 +29,35 @@ The plots need a sweep, so generate the CSV first with:
 
 import argparse
 import csv
+import os
+
+
+def resolve_run_dir(results_dir: str, project: str, run: str = None) -> str:
+    """Return the run directory to use for a project.
+
+    If `run` is given, use it. Otherwise read results/<project>/latest.txt,
+    falling back to the most recently modified run_* folder.
+    """
+    project_dir = os.path.join(results_dir, project)
+    if run:
+        return os.path.join(project_dir, run)
+
+    latest_file = os.path.join(project_dir, "latest.txt")
+    if os.path.isfile(latest_file):
+        with open(latest_file, "r", encoding="utf-8") as f:
+            name = f.read().strip()
+        candidate = os.path.join(project_dir, name)
+        if os.path.isdir(candidate):
+            return candidate
+
+    # Fallback: newest run_* directory by modification time
+    if os.path.isdir(project_dir):
+        runs = [d for d in os.listdir(project_dir)
+                if d.startswith("run_") and os.path.isdir(os.path.join(project_dir, d))]
+        if runs:
+            runs.sort(key=lambda d: os.path.getmtime(os.path.join(project_dir, d)))
+            return os.path.join(project_dir, runs[-1])
+    return None
 
 
 def load_csv(path):
@@ -33,9 +70,15 @@ def load_csv(path):
 
 
 def main():
-    parser = argparse.ArgumentParser(description="Plot evaluation results from eval_results.csv")
-    parser.add_argument("--input", default="eval_results.csv", help="CSV produced by evaluate_hf.py")
-    parser.add_argument("--output-prefix", default="", help="Optional prefix for output PNG names")
+    parser = argparse.ArgumentParser(description="Plot evaluation results into a versioned run folder")
+    parser.add_argument("--project", default="Phase_1_CC_PA",
+                        help="Project name under results/ (default: Phase_1_CC_PA)")
+    parser.add_argument("--results-dir", default="results",
+                        help="Root directory for all results (default: results)")
+    parser.add_argument("--run", default=None,
+                        help="Specific run folder name (default: latest run for the project)")
+    parser.add_argument("--input", default=None,
+                        help="Explicit CSV path (overrides project/run auto-discovery)")
     args = parser.parse_args()
 
     try:
@@ -46,9 +89,27 @@ def main():
         print("matplotlib not installed. Run: pip install matplotlib")
         return
 
-    rows = load_csv(args.input)
+    # Resolve the input CSV and the output plot directory
+    if args.input:
+        csv_path = args.input
+        plot_dir = os.path.dirname(os.path.abspath(csv_path)) or "."
+    else:
+        run_dir = resolve_run_dir(args.results_dir, args.project, args.run)
+        if not run_dir or not os.path.isdir(run_dir):
+            print(f"No run found under {os.path.join(args.results_dir, args.project)}. "
+                  f"Run evaluate_hf.py first.")
+            return
+        csv_path = os.path.join(run_dir, "eval", "eval_results.csv")
+        plot_dir = os.path.join(run_dir, "plot")
+        os.makedirs(plot_dir, exist_ok=True)
+
+    if not os.path.isfile(csv_path):
+        print(f"CSV not found: {csv_path}")
+        return
+
+    rows = load_csv(csv_path)
     if not rows:
-        print(f"No data found in {args.input}")
+        print(f"No data found in {csv_path}")
         return
 
     reduce_ratios = [r["reduce_ratio"] for r in rows]
@@ -57,7 +118,6 @@ def main():
     keyword_ret = [r["avg_keyword_retention"] for r in rows]
 
     note = "  (single point — run a --reduce-ratios sweep for a curve)" if len(rows) == 1 else ""
-    prefix = args.output_prefix
 
     # ------------------------------------------------------------------
     # Plot 1: Compression achieved vs reduce_ratio
@@ -74,7 +134,7 @@ def main():
         ax1.annotate(f"{y:.1f}%", (x, y), textcoords="offset points",
                      xytext=(0, 8), ha="center", fontsize=8)
     fig1.tight_layout()
-    out1 = f"{prefix}compression_achieved.png"
+    out1 = os.path.join(plot_dir, "compression_achieved.png")
     fig1.savefig(out1, dpi=150)
     print(f"Saved plot -> {out1}")
 
@@ -93,7 +153,7 @@ def main():
     ax2.grid(True, alpha=0.3)
     ax2.legend(loc="best", fontsize=9)
     fig2.tight_layout()
-    out2 = f"{prefix}information_preserved.png"
+    out2 = os.path.join(plot_dir, "information_preserved.png")
     fig2.savefig(out2, dpi=150)
     print(f"Saved plot -> {out2}")
 

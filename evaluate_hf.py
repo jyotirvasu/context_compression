@@ -31,12 +31,33 @@ OUTPUTS
 import argparse
 import csv
 import json
+import os
 import re
 import time
+from datetime import datetime
 from typing import Dict, List, Optional, Tuple
 
 from pipeline import ContextCompressionPipeline
 from utils.helpers import count_tokens, load_config
+
+
+def make_run_dir(results_dir: str, project: str) -> str:
+    """Create results/<project>/run_<timestamp>/ with eval/ and plot/ subfolders.
+
+    Also records the run name in results/<project>/latest.txt so that
+    plot_results.py can auto-discover the most recent run.
+    """
+    timestamp = datetime.now().strftime("run_%Y%m%d_%H%M%S")
+    run_dir = os.path.join(results_dir, project, timestamp)
+    os.makedirs(os.path.join(run_dir, "eval"), exist_ok=True)
+    os.makedirs(os.path.join(run_dir, "plot"), exist_ok=True)
+
+    # Pointer to the latest run for this project
+    with open(os.path.join(results_dir, project, "latest.txt"), "w", encoding="utf-8") as f:
+        f.write(timestamp)
+
+    return run_dir
+
 
 
 # ----------------------------------------------------------------------
@@ -303,7 +324,10 @@ def main():
                         help="Optional sweep of compression reduce_ratio values, e.g. 0.3 0.5 0.7")
     parser.add_argument("--offline", action="store_true", help="Use the built-in synthetic sample")
     parser.add_argument("--config-path", default="config.yaml", help="Pipeline config.yaml path")
-    parser.add_argument("--output-prefix", default="eval_results", help="Output file prefix")
+    parser.add_argument("--project", default="Phase_1_CC_PA",
+                        help="Project name; results are grouped under results/<project>/")
+    parser.add_argument("--results-dir", default="results",
+                        help="Root directory for all results (default: results)")
     args = parser.parse_args()
 
     # Report which compression backend is active
@@ -339,18 +363,25 @@ def main():
 
     print_table(aggregate_rows)
 
+    # Create a versioned, project-scoped run directory:
+    #   results/<project>/run_<timestamp>/eval/
+    run_dir = make_run_dir(args.results_dir, args.project)
+    eval_dir = os.path.join(run_dir, "eval")
+
     # Save JSON (full detail) and CSV (aggregate summary)
-    json_path = f"{args.output_prefix}.json"
+    json_path = os.path.join(eval_dir, "eval_results.json")
     with open(json_path, "w", encoding="utf-8") as f:
         json.dump({"runs": all_runs}, f, indent=2)
-    csv_path = f"{args.output_prefix}.csv"
+    csv_path = os.path.join(eval_dir, "eval_results.csv")
     with open(csv_path, "w", newline="", encoding="utf-8") as f:
         writer = csv.DictWriter(f, fieldnames=list(aggregate_rows[0].keys()))
         writer.writeheader()
         writer.writerows(aggregate_rows)
 
-    print(f"\n[eval] Saved detailed results -> {json_path}")
+    print(f"\n[eval] Run directory         -> {run_dir}")
+    print(f"[eval] Saved detailed results -> {json_path}")
     print(f"[eval] Saved summary table   -> {csv_path}")
+    print(f"[eval] Next: python plot_results.py --project {args.project}")
 
 
 if __name__ == "__main__":
