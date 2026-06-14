@@ -197,7 +197,8 @@ def split_train_val(samples: List[Dict[str, str]], train_size: int,
 # LLM execution function (real mode)
 # ----------------------------------------------------------------------
 def build_execute_fn(model: str, max_input_chars: int = 6000,
-                     num_ctx: int = 8192, max_retries: int = 1):
+                     num_ctx: int = 8192, max_retries: int = 1,
+                     total_budget: int = 0):
     """Return execute_fn(item, candidate) -> (output, trace) backed by a real LLM.
 
     Tries litellm first (multi-provider), then the openai SDK. Raises a helpful
@@ -210,6 +211,11 @@ def build_execute_fn(model: str, max_input_chars: int = 6000,
       * Each call is retried up to `max_retries` times; if it still fails the
         error is swallowed and an empty answer (score 0) is returned, so a single
         bad rollout never aborts the whole optimization run.
+
+    Progress:
+      * Every LLM call prints a single-line progress indicator showing the
+        rollout count, elapsed time, avg latency, and ETA against `total_budget`
+        (the metric-call budget). `total_budget=0` disables the ETA estimate.
     """
     completion = None
     backend = None
@@ -242,6 +248,35 @@ def build_execute_fn(model: str, max_input_chars: int = 6000,
 
     print(f"[llm] Using backend: {backend}  (model={model})")
     is_ollama = model.startswith("ollama/") or model.startswith("ollama_chat/")
+
+    # Mutable progress state shared across calls
+    progress = {"calls": 0, "errors": 0, "start": None}
+
+    def _show_progress(failed: bool = False):
+        progress["calls"] += 1
+        if failed:
+            progress["errors"] += 1
+        if progress["start"] is None:
+            progress["start"] = time.perf_counter()
+        done = progress["calls"]
+        elapsed = time.perf_counter() - progress["start"]
+        avg = elapsed / done if done else 0.0
+        if total_budget > 0:
+            remaining = max(0, total_budget - done)
+            eta = avg * remaining
+            bar_len = 24
+            filled = min(bar_len, int(bar_len * done / total_budget))
+            bar = "#" * filled + "-" * (bar_len - filled)
+            tail = f"[{bar}] {done}/{total_budget} (budget)"
+        else:
+            eta = 0.0
+            tail = f"call {done}"
+        err = f" | err {progress['errors']}" if progress["errors"] else ""
+        print(
+            f"\r  [llm] {tail} | {avg:4.1f}s/call "
+            f"| elapsed {elapsed:5.1f}s | ETA {eta:5.1f}s{err}",
+            end="", flush=True,
+        )
 
     def _truncate(text: str) -> str:
         """Keep the question (tail) and as much context as fits in the budget."""
@@ -276,6 +311,7 @@ def build_execute_fn(model: str, max_input_chars: int = 6000,
             try:
                 response = completion(model=model, messages=messages, **kwargs)
                 output = response.choices[0].message.content.strip()
+                _show_progress()
                 trace = (
                     f"=== Execution Trace ===\n"
                     f"System prompt: {system_content[:200]}\n"
@@ -288,6 +324,7 @@ def build_execute_fn(model: str, max_input_chars: int = 6000,
                 last_err = e
 
         # All attempts failed: return an empty answer (scores 0) + diagnostic trace.
+        _show_progress(failed=True)
         print(f"\n  [llm] call failed ({type(last_err).__name__}): "
               f"{str(last_err)[:160]} -- scoring 0 and continuing.")
         trace = (
@@ -387,6 +424,7 @@ def main():
             max_input_chars=args.max_input_chars,
             num_ctx=args.num_ctx,
             max_retries=args.max_retries,
+            total_budget=args.max_metric_calls,
         )
         adapter = DefaultAdapter(execute_fn=execute_fn, score_fn=score_answer)
 
