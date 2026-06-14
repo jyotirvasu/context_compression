@@ -196,11 +196,20 @@ def split_train_val(samples: List[Dict[str, str]], train_size: int,
 # ----------------------------------------------------------------------
 # LLM execution function (real mode)
 # ----------------------------------------------------------------------
-def build_execute_fn(model: str):
+def build_execute_fn(model: str, max_input_chars: int = 6000,
+                     num_ctx: int = 8192, max_retries: int = 1):
     """Return execute_fn(item, candidate) -> (output, trace) backed by a real LLM.
 
     Tries litellm first (multi-provider), then the openai SDK. Raises a helpful
     error if neither is available so the user knows to install one or use --mock.
+
+    Robustness:
+      * Long contexts are truncated to `max_input_chars` so that local models
+        (e.g. Ollama llama3.1) do not crash with "unexpected EOF" / OOM.
+      * For Ollama models a `num_ctx` option is passed to widen the context window.
+      * Each call is retried up to `max_retries` times; if it still fails the
+        error is swallowed and an empty answer (score 0) is returned, so a single
+        bad rollout never aborts the whole optimization run.
     """
     completion = None
     backend = None
@@ -214,7 +223,7 @@ def build_execute_fn(model: str):
 
             client = OpenAI()
 
-            def completion(model, messages, temperature=0.0):  # noqa: A001
+            def completion(model, messages, temperature=0.0, **kwargs):  # noqa: A001
                 return client.chat.completions.create(
                     model=model, messages=messages, temperature=temperature
                 )
@@ -232,27 +241,63 @@ def build_execute_fn(model: str):
         )
 
     print(f"[llm] Using backend: {backend}  (model={model})")
+    is_ollama = model.startswith("ollama/") or model.startswith("ollama_chat/")
+
+    def _truncate(text: str) -> str:
+        """Keep the question (tail) and as much context as fits in the budget."""
+        if len(text) <= max_input_chars:
+            return text
+        # The input is "Context:\n...\n\nQuestion: ...". Preserve the question.
+        marker = "\n\nQuestion:"
+        idx = text.rfind(marker)
+        if idx == -1:
+            return text[:max_input_chars]
+        question_part = text[idx:]
+        context_budget = max(0, max_input_chars - len(question_part))
+        return text[:context_budget].rstrip() + "\n...[context truncated]..." + question_part
 
     def execute_fn(item: Dict[str, str], candidate: Dict[str, str]) -> Tuple[str, str]:
         system_prompt = candidate.get("system_prompt", "")
         output_format = candidate.get("output_format", "")
         system_content = (system_prompt + "\n" + output_format).strip()
+        user_content = _truncate(item["input"])
 
         messages = [
             {"role": "system", "content": system_content},
-            {"role": "user", "content": item["input"]},
+            {"role": "user", "content": user_content},
         ]
-        response = completion(model=model, messages=messages, temperature=0.0)
-        output = response.choices[0].message.content.strip()
+        kwargs: Dict[str, Any] = {"temperature": 0.0}
+        if is_ollama:
+            # Widen Ollama's context window to reduce "unexpected EOF" crashes.
+            kwargs["num_ctx"] = num_ctx
 
+        last_err = None
+        for attempt in range(max_retries + 1):
+            try:
+                response = completion(model=model, messages=messages, **kwargs)
+                output = response.choices[0].message.content.strip()
+                trace = (
+                    f"=== Execution Trace ===\n"
+                    f"System prompt: {system_content[:200]}\n"
+                    f"Question: {item.get('question', '')[:200]}\n"
+                    f"Model output: {output[:200]}\n"
+                    f"Gold answer: {item.get('expected', '')[:120]}\n"
+                )
+                return output, trace
+            except Exception as e:  # noqa: BLE001 - keep the run alive on any LLM failure
+                last_err = e
+
+        # All attempts failed: return an empty answer (scores 0) + diagnostic trace.
+        print(f"\n  [llm] call failed ({type(last_err).__name__}): "
+              f"{str(last_err)[:160]} -- scoring 0 and continuing.")
         trace = (
-            f"=== Execution Trace ===\n"
+            f"=== Execution Trace (FAILED) ===\n"
             f"System prompt: {system_content[:200]}\n"
             f"Question: {item.get('question', '')[:200]}\n"
-            f"Model output: {output[:200]}\n"
+            f"Error: {str(last_err)[:300]}\n"
             f"Gold answer: {item.get('expected', '')[:120]}\n"
         )
-        return output, trace
+        return "", trace
 
     return execute_fn
 
@@ -292,6 +337,13 @@ def main():
                         help="LLM used for answering + reflection (real mode)")
     parser.add_argument("--mock", action="store_true",
                         help="No-LLM plumbing test (GEPA built-in mock evaluator)")
+    parser.add_argument("--max-input-chars", type=int, default=6000,
+                        help="Truncate each context+question to this many chars "
+                             "(prevents local-model 'unexpected EOF' / OOM crashes)")
+    parser.add_argument("--num-ctx", type=int, default=8192,
+                        help="Context window passed to Ollama models (default: 8192)")
+    parser.add_argument("--max-retries", type=int, default=1,
+                        help="Retries per failed LLM call before scoring it 0 (default: 1)")
     # Output
     parser.add_argument("--results-dir", default="results",
                         help="Root directory for results (default: results)")
@@ -330,14 +382,23 @@ def main():
         adapter = DefaultAdapter(mock_mode=True)
         reflector = Reflector(mock_mode=True)
     else:
-        execute_fn = build_execute_fn(args.model)
+        execute_fn = build_execute_fn(
+            args.model,
+            max_input_chars=args.max_input_chars,
+            num_ctx=args.num_ctx,
+            max_retries=args.max_retries,
+        )
         adapter = DefaultAdapter(execute_fn=execute_fn, score_fn=score_answer)
 
         # Reflection uses the same LLM. Reuse the execute backend via a thin wrapper.
+        is_ollama = args.model.startswith("ollama/") or args.model.startswith("ollama_chat/")
+
         def reflection_lm(messages):
+            extra = {"num_ctx": args.num_ctx} if is_ollama else {}
             try:
                 import litellm
-                return litellm.completion(model=args.model, messages=messages, temperature=0.7)
+                return litellm.completion(model=args.model, messages=messages,
+                                          temperature=0.7, **extra)
             except ImportError:
                 from openai import OpenAI
                 client = OpenAI()
