@@ -5,14 +5,15 @@ __pycache__/
 dist/
 build/
 .env
+.venv/
 venv/
 history/
+
+# Generated evaluation artifacts and LLM response cache
+.llm_cache/
 
 # Reports (generated/reference artifacts)
 MID_SEM_REPORT.md
 MID_SEM_REPORT.pdf
 MID_SEM_REPORT.html
 MID SEM REPORT - Sample copy - 29.07.2021.pdf
-
-# Evaluation outputs (generated, versioned per project)
-results/
