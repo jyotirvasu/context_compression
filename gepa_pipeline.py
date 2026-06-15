@@ -239,34 +239,58 @@ def resolve_backend():
     )
 
 
-def make_cached_completion(raw_completion, cache_dir: str, enabled: bool = True):
-    """Wrap a completion callable with an on-disk cache.
+def make_cached_completion(raw_completion, cache_dir: str, enabled: bool = True,
+                           max_retries: int = 2, retry_backoff: float = 3.0):
+    """Wrap a completion callable with an on-disk cache + resilient retries.
 
     The cache key is a hash of (model, messages, kwargs). Because GEPA is
     deterministic for a fixed seed, a re-run replays cached calls instantly and
     only the NEW work (e.g. after a crash) actually hits the LLM. This gives a
     practical 'resume from where it left off' without changing the engine.
+
+    Resilience (covers ALL callers: answering, reflection AND merge):
+      * Each live call is retried up to `max_retries` times with a short backoff,
+        which recovers from transient Ollama "unexpected EOF" / 500 errors
+        (the model often needs a moment to reload after a crash).
+      * If every attempt fails, an EMPTY response is returned instead of raising,
+        so a single bad call can never abort the whole optimization run. The
+        empty result is NOT written to the cache, so a later resume will retry it.
     """
     if enabled:
         os.makedirs(cache_dir, exist_ok=True)
 
     def cached(model, messages, **kwargs):
-        if not enabled:
-            return raw_completion(model=model, messages=messages, **kwargs)
-        key_src = json.dumps(
-            {"model": model, "messages": messages, "kwargs": kwargs},
-            sort_keys=True, default=str,
-        )
-        key = hashlib.sha256(key_src.encode("utf-8")).hexdigest()
-        path = os.path.join(cache_dir, key + ".json")
-        if os.path.exists(path):
-            with open(path, "r", encoding="utf-8") as f:
-                return _CachedResponse(json.load(f)["content"])
-        resp = raw_completion(model=model, messages=messages, **kwargs)
-        content = resp.choices[0].message.content
-        with open(path, "w", encoding="utf-8") as f:
-            json.dump({"content": content}, f)
-        return resp
+        path = None
+        if enabled:
+            key_src = json.dumps(
+                {"model": model, "messages": messages, "kwargs": kwargs},
+                sort_keys=True, default=str,
+            )
+            key = hashlib.sha256(key_src.encode("utf-8")).hexdigest()
+            path = os.path.join(cache_dir, key + ".json")
+            if os.path.exists(path):
+                with open(path, "r", encoding="utf-8") as f:
+                    return _CachedResponse(json.load(f)["content"])
+
+        last_err = None
+        for attempt in range(max_retries + 1):
+            try:
+                resp = raw_completion(model=model, messages=messages, **kwargs)
+                content = resp.choices[0].message.content
+                if enabled and path is not None:
+                    with open(path, "w", encoding="utf-8") as f:
+                        json.dump({"content": content}, f)
+                return resp
+            except Exception as e:  # noqa: BLE001 - resilience over correctness here
+                last_err = e
+                if attempt < max_retries:
+                    time.sleep(retry_backoff)
+
+        # All attempts failed: degrade gracefully (empty response, not cached).
+        print(f"\n  [llm] call failed after {max_retries + 1} attempts "
+              f"({type(last_err).__name__}: {str(last_err)[:120]}) "
+              f"-- returning empty result and continuing.")
+        return _CachedResponse("")
 
     return cached
 
@@ -427,8 +451,9 @@ def main():
                              "(prevents local-model 'unexpected EOF' / OOM crashes)")
     parser.add_argument("--num-ctx", type=int, default=8192,
                         help="Context window passed to Ollama models (default: 8192)")
-    parser.add_argument("--max-retries", type=int, default=1,
-                        help="Retries per failed LLM call before scoring it 0 (default: 1)")
+    parser.add_argument("--max-retries", type=int, default=2,
+                        help="Retries per failed LLM call (with backoff) before "
+                             "returning an empty result and continuing (default: 2)")
     parser.add_argument("--cache-dir", default=".llm_cache",
                         help="Directory for the on-disk LLM response cache (default: .llm_cache)")
     parser.add_argument("--no-cache", action="store_true",
@@ -478,7 +503,8 @@ def main():
             print(f"[llm] Response cache: {args.cache_dir}  "
                   f"(re-run the SAME command to resume from where it left off)")
         completion = make_cached_completion(
-            raw_completion, args.cache_dir, enabled=not args.no_cache
+            raw_completion, args.cache_dir, enabled=not args.no_cache,
+            max_retries=args.max_retries,
         )
 
         execute_fn = build_execute_fn(
