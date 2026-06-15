@@ -57,6 +57,7 @@ USAGE
 
 import argparse
 import csv
+import hashlib
 import json
 import os
 import re
@@ -69,6 +70,7 @@ from evaluate_hf import OFFLINE_SAMPLE, adapt_row, make_run_dir
 from Phase_2_GEPA import GEPAEngine, GEPAConfig
 from Phase_2_GEPA.adapter import DefaultAdapter
 from Phase_2_GEPA.reflector import Reflector
+from Phase_2_GEPA.merge import MergeProposer
 
 
 DEFAULT_SEED_PROMPT = {
@@ -194,15 +196,91 @@ def split_train_val(samples: List[Dict[str, str]], train_size: int,
 
 
 # ----------------------------------------------------------------------
+# LLM backend + on-disk response cache (enables resume-by-replay)
+# ----------------------------------------------------------------------
+class _CachedResponse:
+    """Minimal response shim exposing .choices[0].message.content (for cache hits)."""
+
+    class _Msg:
+        def __init__(self, content):
+            self.content = content
+
+    class _Choice:
+        def __init__(self, content):
+            self.message = _CachedResponse._Msg(content)
+
+    def __init__(self, content):
+        self.choices = [_CachedResponse._Choice(content)]
+
+
+def resolve_backend():
+    """Return (raw_completion, backend_name). Prefers litellm, falls back to openai."""
+    try:
+        import litellm
+        return litellm.completion, "litellm"
+    except ImportError:
+        pass
+    try:
+        from openai import OpenAI
+        client = OpenAI()
+
+        def completion(model, messages, temperature=0.0, **kwargs):
+            return client.chat.completions.create(
+                model=model, messages=messages, temperature=temperature
+            )
+        return completion, "openai"
+    except ImportError:
+        pass
+    raise RuntimeError(
+        "No LLM backend found. Install one of:\n"
+        "    pip install litellm        (multi-provider)\n"
+        "    pip install openai         (OpenAI only)\n"
+        "...or run with --mock for a no-LLM plumbing test."
+    )
+
+
+def make_cached_completion(raw_completion, cache_dir: str, enabled: bool = True):
+    """Wrap a completion callable with an on-disk cache.
+
+    The cache key is a hash of (model, messages, kwargs). Because GEPA is
+    deterministic for a fixed seed, a re-run replays cached calls instantly and
+    only the NEW work (e.g. after a crash) actually hits the LLM. This gives a
+    practical 'resume from where it left off' without changing the engine.
+    """
+    if enabled:
+        os.makedirs(cache_dir, exist_ok=True)
+
+    def cached(model, messages, **kwargs):
+        if not enabled:
+            return raw_completion(model=model, messages=messages, **kwargs)
+        key_src = json.dumps(
+            {"model": model, "messages": messages, "kwargs": kwargs},
+            sort_keys=True, default=str,
+        )
+        key = hashlib.sha256(key_src.encode("utf-8")).hexdigest()
+        path = os.path.join(cache_dir, key + ".json")
+        if os.path.exists(path):
+            with open(path, "r", encoding="utf-8") as f:
+                return _CachedResponse(json.load(f)["content"])
+        resp = raw_completion(model=model, messages=messages, **kwargs)
+        content = resp.choices[0].message.content
+        with open(path, "w", encoding="utf-8") as f:
+            json.dump({"content": content}, f)
+        return resp
+
+    return cached
+
+
+# ----------------------------------------------------------------------
 # LLM execution function (real mode)
 # ----------------------------------------------------------------------
-def build_execute_fn(model: str, max_input_chars: int = 6000,
+def build_execute_fn(completion, model: str, max_input_chars: int = 6000,
                      num_ctx: int = 8192, max_retries: int = 1,
                      total_budget: int = 0):
     """Return execute_fn(item, candidate) -> (output, trace) backed by a real LLM.
 
-    Tries litellm first (multi-provider), then the openai SDK. Raises a helpful
-    error if neither is available so the user knows to install one or use --mock.
+    `completion` is a callable(model, messages, **kwargs) -> response object
+    (typically the cached wrapper from make_cached_completion).
 
     Robustness:
       * Long contexts are truncated to `max_input_chars` so that local models
@@ -217,36 +295,6 @@ def build_execute_fn(model: str, max_input_chars: int = 6000,
         rollout count, elapsed time, avg latency, and ETA against `total_budget`
         (the metric-call budget). `total_budget=0` disables the ETA estimate.
     """
-    completion = None
-    backend = None
-    try:
-        import litellm
-        completion = litellm.completion
-        backend = "litellm"
-    except ImportError:
-        try:
-            from openai import OpenAI
-
-            client = OpenAI()
-
-            def completion(model, messages, temperature=0.0, **kwargs):  # noqa: A001
-                return client.chat.completions.create(
-                    model=model, messages=messages, temperature=temperature
-                )
-
-            backend = "openai"
-        except ImportError:
-            pass
-
-    if completion is None:
-        raise RuntimeError(
-            "No LLM backend found. Install one of:\n"
-            "    pip install litellm        (multi-provider)\n"
-            "    pip install openai         (OpenAI only)\n"
-            "...or run with --mock for a no-LLM plumbing test."
-        )
-
-    print(f"[llm] Using backend: {backend}  (model={model})")
     is_ollama = model.startswith("ollama/") or model.startswith("ollama_chat/")
 
     # Mutable progress state shared across calls
@@ -381,6 +429,10 @@ def main():
                         help="Context window passed to Ollama models (default: 8192)")
     parser.add_argument("--max-retries", type=int, default=1,
                         help="Retries per failed LLM call before scoring it 0 (default: 1)")
+    parser.add_argument("--cache-dir", default=".llm_cache",
+                        help="Directory for the on-disk LLM response cache (default: .llm_cache)")
+    parser.add_argument("--no-cache", action="store_true",
+                        help="Disable the LLM response cache (disables resume-by-replay)")
     # Output
     parser.add_argument("--results-dir", default="results",
                         help="Root directory for results (default: results)")
@@ -418,8 +470,19 @@ def main():
     if args.mock:
         adapter = DefaultAdapter(mock_mode=True)
         reflector = Reflector(mock_mode=True)
+        merge_proposer = None  # engine builds a mock merge proposer
     else:
+        raw_completion, backend = resolve_backend()
+        print(f"[llm] Using backend: {backend}  (model={args.model})")
+        if not args.no_cache:
+            print(f"[llm] Response cache: {args.cache_dir}  "
+                  f"(re-run the SAME command to resume from where it left off)")
+        completion = make_cached_completion(
+            raw_completion, args.cache_dir, enabled=not args.no_cache
+        )
+
         execute_fn = build_execute_fn(
+            completion,
             args.model,
             max_input_chars=args.max_input_chars,
             num_ctx=args.num_ctx,
@@ -428,25 +491,25 @@ def main():
         )
         adapter = DefaultAdapter(execute_fn=execute_fn, score_fn=score_answer)
 
-        # Reflection uses the same LLM. Reuse the execute backend via a thin wrapper.
+        # Reflection AND merge reuse the same cached LLM (so re-runs replay fast).
         is_ollama = args.model.startswith("ollama/") or args.model.startswith("ollama_chat/")
 
         def reflection_lm(messages):
             extra = {"num_ctx": args.num_ctx} if is_ollama else {}
-            try:
-                import litellm
-                return litellm.completion(model=args.model, messages=messages,
-                                          temperature=0.7, **extra)
-            except ImportError:
-                from openai import OpenAI
-                client = OpenAI()
-                return client.chat.completions.create(
-                    model=args.model, messages=messages, temperature=0.7
-                )
+            return completion(model=args.model, messages=messages,
+                              temperature=0.7, **extra)
 
         reflector = Reflector(lm=reflection_lm, mock_mode=False)
+        # IMPORTANT: give the merge proposer an LLM too, else it crashes when
+        # the system-aware merge step fires (TypeError: 'NoneType' not callable).
+        merge_proposer = MergeProposer(
+            lm=reflection_lm,
+            max_merge_attempts=config.max_merge_attempts,
+            mock_mode=False,
+        ) if config.use_merge else None
 
-    engine = GEPAEngine(config, adapter=adapter, reflector=reflector)
+    engine = GEPAEngine(config, adapter=adapter, reflector=reflector,
+                        merge_proposer=merge_proposer)
 
     # --- Run optimization ---
     start = time.perf_counter()
