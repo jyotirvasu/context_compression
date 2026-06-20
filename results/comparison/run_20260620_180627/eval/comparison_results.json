@@ -1,0 +1,4006 @@
+{
+  "runs": [
+    {
+      "aggregate": {
+        "method": "cc_pa",
+        "keep_ratio": 0.7,
+        "num_samples": 200,
+        "num_errors": 0,
+        "avg_input_tokens": 1318.725,
+        "avg_output_tokens": 1050.58,
+        "avg_compression_ratio": 0.19938494591803707,
+        "avg_keyword_retention": 93.72182541811326,
+        "answer_recall_pct": 89.0,
+        "avg_latency_ms": 3947.808111660488
+      },
+      "per_sample": [
+        {
+          "method": "cc_pa",
+          "keep_ratio": 0.7,
+          "input_tokens": 1114,
+          "output_tokens": 880,
+          "compression_ratio": 0.21005385996409331,
+          "keyword_retention": 92.4092409240924,
+          "answer_retained": true,
+          "latency_ms": 13100.975999986986
+        },
+        {
+          "method": "cc_pa",
+          "keep_ratio": 0.7,
+          "input_tokens": 1221,
+          "output_tokens": 977,
+          "compression_ratio": 0.19983619983619982,
+          "keyword_retention": 91.87279151943463,
+          "answer_retained": false,
+          "latency_ms": 3217.881958000362
+        },
+        {
+          "method": "cc_pa",
+          "keep_ratio": 0.7,
+          "input_tokens": 1473,
+          "output_tokens": 1173,
+          "compression_ratio": 0.20366598778004075,
+          "keyword_retention": 92.89473684210526,
+          "answer_retained": true,
+          "latency_ms": 4026.509375005844
+        },
+        {
+          "method": "cc_pa",
+          "keep_ratio": 0.7,
+          "input_tokens": 969,
+          "output_tokens": 809,
+          "compression_ratio": 0.16511867905056754,
+          "keyword_retention": 96.5909090909091,
+          "answer_retained": true,
+          "latency_ms": 2512.888541998109
+        },
+        {
+          "method": "cc_pa",
+          "keep_ratio": 0.7,
+          "input_tokens": 1249,
+          "output_tokens": 998,
+          "compression_ratio": 0.20096076861489187,
+          "keyword_retention": 94.47852760736197,
+          "answer_retained": false,
+          "latency_ms": 3749.0381249954225
+        },
+        {
+          "method": "cc_pa",
+          "keep_ratio": 0.7,
+          "input_tokens": 1288,
+          "output_tokens": 1041,
+          "compression_ratio": 0.19177018633540377,
+          "keyword_retention": 94.93087557603687,
+          "answer_retained": true,
+          "latency_ms": 3511.557666992303
+        },
+        {
+          "method": "cc_pa",
+          "keep_ratio": 0.7,
+          "input_tokens": 1782,
+          "output_tokens": 1434,
+          "compression_ratio": 0.19528619528619529,
+          "keyword_retention": 94.06952965235173,
+          "answer_retained": true,
+          "latency_ms": 4558.6857500020415
+        },
+        {
+          "method": "cc_pa",
+          "keep_ratio": 0.7,
+          "input_tokens": 2833,
+          "output_tokens": 1739,
+          "compression_ratio": 0.3861630780091776,
+          "keyword_retention": 76.25,
+          "answer_retained": true,
+          "latency_ms": 5697.239499990246
+        },
+        {
+          "method": "cc_pa",
+          "keep_ratio": 0.7,
+          "input_tokens": 1277,
+          "output_tokens": 1043,
+          "compression_ratio": 0.18324197337509784,
+          "keyword_retention": 95.02617801047121,
+          "answer_retained": true,
+          "latency_ms": 3393.499541998608
+        },
+        {
+          "method": "cc_pa",
+          "keep_ratio": 0.7,
+          "input_tokens": 1301,
+          "output_tokens": 1041,
+          "compression_ratio": 0.1998462720983859,
+          "keyword_retention": 93.99477806788512,
+          "answer_retained": true,
+          "latency_ms": 3922.74362500757
+        },
+        {
+          "method": "cc_pa",
+          "keep_ratio": 0.7,
+          "input_tokens": 1607,
+          "output_tokens": 1275,
+          "compression_ratio": 0.2065961418792781,
+          "keyword_retention": 95.3125,
+          "answer_retained": true,
+          "latency_ms": 4142.7164589986205
+        },
+        {
+          "method": "cc_pa",
+          "keep_ratio": 0.7,
+          "input_tokens": 1182,
+          "output_tokens": 963,
+          "compression_ratio": 0.18527918781725883,
+          "keyword_retention": 95.66666666666667,
+          "answer_retained": true,
+          "latency_ms": 3131.226625002455
+        },
+        {
+          "method": "cc_pa",
+          "keep_ratio": 0.7,
+          "input_tokens": 1430,
+          "output_tokens": 1143,
+          "compression_ratio": 0.20069930069930075,
+          "keyword_retention": 92.80205655526991,
+          "answer_retained": true,
+          "latency_ms": 3655.3619999904186
+        },
+        {
+          "method": "cc_pa",
+          "keep_ratio": 0.7,
+          "input_tokens": 2614,
+          "output_tokens": 1554,
+          "compression_ratio": 0.40550879877582247,
+          "keyword_retention": 75.27386541471049,
+          "answer_retained": true,
+          "latency_ms": 4945.142583004781
+        },
+        {
+          "method": "cc_pa",
+          "keep_ratio": 0.7,
+          "input_tokens": 912,
+          "output_tokens": 735,
+          "compression_ratio": 0.19407894736842102,
+          "keyword_retention": 92.5925925925926,
+          "answer_retained": false,
+          "latency_ms": 2330.7895829930203
+        },
+        {
+          "method": "cc_pa",
+          "keep_ratio": 0.7,
+          "input_tokens": 1486,
+          "output_tokens": 1178,
+          "compression_ratio": 0.20726783310901753,
+          "keyword_retention": 95.7957957957958,
+          "answer_retained": true,
+          "latency_ms": 4463.180915990961
+        },
+        {
+          "method": "cc_pa",
+          "keep_ratio": 0.7,
+          "input_tokens": 1233,
+          "output_tokens": 995,
+          "compression_ratio": 0.19302514193025144,
+          "keyword_retention": 96.96969696969697,
+          "answer_retained": true,
+          "latency_ms": 3465.6212080008117
+        },
+        {
+          "method": "cc_pa",
+          "keep_ratio": 0.7,
+          "input_tokens": 1327,
+          "output_tokens": 1093,
+          "compression_ratio": 0.17633760361718165,
+          "keyword_retention": 94.31438127090301,
+          "answer_retained": true,
+          "latency_ms": 3546.4732499967795
+        },
+        {
+          "method": "cc_pa",
+          "keep_ratio": 0.7,
+          "input_tokens": 1587,
+          "output_tokens": 1253,
+          "compression_ratio": 0.21045998739760552,
+          "keyword_retention": 92.35474006116208,
+          "answer_retained": true,
+          "latency_ms": 4397.151958997711
+        },
+        {
+          "method": "cc_pa",
+          "keep_ratio": 0.7,
+          "input_tokens": 910,
+          "output_tokens": 747,
+          "compression_ratio": 0.17912087912087915,
+          "keyword_retention": 94.5054945054945,
+          "answer_retained": true,
+          "latency_ms": 2590.548416992533
+        },
+        {
+          "method": "cc_pa",
+          "keep_ratio": 0.7,
+          "input_tokens": 1166,
+          "output_tokens": 950,
+          "compression_ratio": 0.18524871355060035,
+          "keyword_retention": 93.67088607594937,
+          "answer_retained": true,
+          "latency_ms": 3175.384208007017
+        },
+        {
+          "method": "cc_pa",
+          "keep_ratio": 0.7,
+          "input_tokens": 1495,
+          "output_tokens": 1187,
+          "compression_ratio": 0.20602006688963215,
+          "keyword_retention": 95.65217391304348,
+          "answer_retained": true,
+          "latency_ms": 3935.1087499962887
+        },
+        {
+          "method": "cc_pa",
+          "keep_ratio": 0.7,
+          "input_tokens": 1660,
+          "output_tokens": 1298,
+          "compression_ratio": 0.21807228915662646,
+          "keyword_retention": 95.05208333333334,
+          "answer_retained": true,
+          "latency_ms": 4506.9104169961065
+        },
+        {
+          "method": "cc_pa",
+          "keep_ratio": 0.7,
+          "input_tokens": 1003,
+          "output_tokens": 837,
+          "compression_ratio": 0.1655034895314058,
+          "keyword_retention": 93.16546762589928,
+          "answer_retained": true,
+          "latency_ms": 2678.268375006155
+        },
+        {
+          "method": "cc_pa",
+          "keep_ratio": 0.7,
+          "input_tokens": 1183,
+          "output_tokens": 944,
+          "compression_ratio": 0.20202874049027897,
+          "keyword_retention": 92.72030651340997,
+          "answer_retained": true,
+          "latency_ms": 3082.4949590023607
+        },
+        {
+          "method": "cc_pa",
+          "keep_ratio": 0.7,
+          "input_tokens": 1072,
+          "output_tokens": 855,
+          "compression_ratio": 0.2024253731343284,
+          "keyword_retention": 94.3820224719101,
+          "answer_retained": true,
+          "latency_ms": 11697.428957995726
+        },
+        {
+          "method": "cc_pa",
+          "keep_ratio": 0.7,
+          "input_tokens": 1685,
+          "output_tokens": 1371,
+          "compression_ratio": 0.1863501483679525,
+          "keyword_retention": 94.5,
+          "answer_retained": true,
+          "latency_ms": 4730.736666999292
+        },
+        {
+          "method": "cc_pa",
+          "keep_ratio": 0.7,
+          "input_tokens": 347,
+          "output_tokens": 283,
+          "compression_ratio": 0.18443804034582134,
+          "keyword_retention": 91.66666666666666,
+          "answer_retained": true,
+          "latency_ms": 940.3751250065397
+        },
+        {
+          "method": "cc_pa",
+          "keep_ratio": 0.7,
+          "input_tokens": 1172,
+          "output_tokens": 927,
+          "compression_ratio": 0.20904436860068254,
+          "keyword_retention": 95.78947368421052,
+          "answer_retained": true,
+          "latency_ms": 3319.502917001955
+        },
+        {
+          "method": "cc_pa",
+          "keep_ratio": 0.7,
+          "input_tokens": 1151,
+          "output_tokens": 912,
+          "compression_ratio": 0.20764552562988703,
+          "keyword_retention": 91.34948096885813,
+          "answer_retained": true,
+          "latency_ms": 3042.869000011706
+        },
+        {
+          "method": "cc_pa",
+          "keep_ratio": 0.7,
+          "input_tokens": 1359,
+          "output_tokens": 1074,
+          "compression_ratio": 0.20971302428256067,
+          "keyword_retention": 91.15646258503402,
+          "answer_retained": true,
+          "latency_ms": 3560.867665990372
+        },
+        {
+          "method": "cc_pa",
+          "keep_ratio": 0.7,
+          "input_tokens": 1107,
+          "output_tokens": 863,
+          "compression_ratio": 0.22041553748870824,
+          "keyword_retention": 93.1740614334471,
+          "answer_retained": true,
+          "latency_ms": 3139.2207919998327
+        },
+        {
+          "method": "cc_pa",
+          "keep_ratio": 0.7,
+          "input_tokens": 1223,
+          "output_tokens": 1001,
+          "compression_ratio": 0.18152085036794763,
+          "keyword_retention": 94.3820224719101,
+          "answer_retained": true,
+          "latency_ms": 3139.2705000034766
+        },
+        {
+          "method": "cc_pa",
+          "keep_ratio": 0.7,
+          "input_tokens": 1610,
+          "output_tokens": 1282,
+          "compression_ratio": 0.2037267080745342,
+          "keyword_retention": 94.33962264150944,
+          "answer_retained": true,
+          "latency_ms": 4438.670208997792
+        },
+        {
+          "method": "cc_pa",
+          "keep_ratio": 0.7,
+          "input_tokens": 1385,
+          "output_tokens": 1123,
+          "compression_ratio": 0.18916967509025273,
+          "keyword_retention": 93.0835734870317,
+          "answer_retained": false,
+          "latency_ms": 3506.627415990806
+        },
+        {
+          "method": "cc_pa",
+          "keep_ratio": 0.7,
+          "input_tokens": 1849,
+          "output_tokens": 1457,
+          "compression_ratio": 0.2120064899945917,
+          "keyword_retention": 95.41062801932367,
+          "answer_retained": true,
+          "latency_ms": 4688.352583005326
+        },
+        {
+          "method": "cc_pa",
+          "keep_ratio": 0.7,
+          "input_tokens": 1240,
+          "output_tokens": 980,
+          "compression_ratio": 0.20967741935483875,
+          "keyword_retention": 91.9732441471572,
+          "answer_retained": true,
+          "latency_ms": 3216.420875003678
+        },
+        {
+          "method": "cc_pa",
+          "keep_ratio": 0.7,
+          "input_tokens": 960,
+          "output_tokens": 765,
+          "compression_ratio": 0.203125,
+          "keyword_retention": 94.14414414414415,
+          "answer_retained": true,
+          "latency_ms": 2730.2929159923224
+        },
+        {
+          "method": "cc_pa",
+          "keep_ratio": 0.7,
+          "input_tokens": 1394,
+          "output_tokens": 1128,
+          "compression_ratio": 0.19081779053084647,
+          "keyword_retention": 94.03508771929825,
+          "answer_retained": true,
+          "latency_ms": 3702.7697500016075
+        },
+        {
+          "method": "cc_pa",
+          "keep_ratio": 0.7,
+          "input_tokens": 1287,
+          "output_tokens": 1008,
+          "compression_ratio": 0.21678321678321677,
+          "keyword_retention": 95.32967032967034,
+          "answer_retained": false,
+          "latency_ms": 3544.017749998602
+        },
+        {
+          "method": "cc_pa",
+          "keep_ratio": 0.7,
+          "input_tokens": 1642,
+          "output_tokens": 1313,
+          "compression_ratio": 0.20036540803897684,
+          "keyword_retention": 94.2643391521197,
+          "answer_retained": true,
+          "latency_ms": 5222.854624997126
+        },
+        {
+          "method": "cc_pa",
+          "keep_ratio": 0.7,
+          "input_tokens": 1158,
+          "output_tokens": 958,
+          "compression_ratio": 0.17271157167530227,
+          "keyword_retention": 97.03947368421053,
+          "answer_retained": true,
+          "latency_ms": 3568.956958988565
+        },
+        {
+          "method": "cc_pa",
+          "keep_ratio": 0.7,
+          "input_tokens": 1729,
+          "output_tokens": 1374,
+          "compression_ratio": 0.20532099479467902,
+          "keyword_retention": 92.63959390862944,
+          "answer_retained": true,
+          "latency_ms": 4590.787834007642
+        },
+        {
+          "method": "cc_pa",
+          "keep_ratio": 0.7,
+          "input_tokens": 1900,
+          "output_tokens": 1514,
+          "compression_ratio": 0.2031578947368421,
+          "keyword_retention": 93.76299376299376,
+          "answer_retained": true,
+          "latency_ms": 4906.5778750082245
+        },
+        {
+          "method": "cc_pa",
+          "keep_ratio": 0.7,
+          "input_tokens": 2519,
+          "output_tokens": 1782,
+          "compression_ratio": 0.2925764192139738,
+          "keyword_retention": 88.79456706281834,
+          "answer_retained": true,
+          "latency_ms": 6087.351249996573
+        },
+        {
+          "method": "cc_pa",
+          "keep_ratio": 0.7,
+          "input_tokens": 1054,
+          "output_tokens": 841,
+          "compression_ratio": 0.20208728652751418,
+          "keyword_retention": 96.3302752293578,
+          "answer_retained": true,
+          "latency_ms": 2675.210458008223
+        },
+        {
+          "method": "cc_pa",
+          "keep_ratio": 0.7,
+          "input_tokens": 2336,
+          "output_tokens": 1883,
+          "compression_ratio": 0.19392123287671237,
+          "keyword_retention": 96.07390300230946,
+          "answer_retained": true,
+          "latency_ms": 5415.987750006025
+        },
+        {
+          "method": "cc_pa",
+          "keep_ratio": 0.7,
+          "input_tokens": 2038,
+          "output_tokens": 1626,
+          "compression_ratio": 0.20215897939156036,
+          "keyword_retention": 94.62102689486552,
+          "answer_retained": false,
+          "latency_ms": 4709.103291010251
+        },
+        {
+          "method": "cc_pa",
+          "keep_ratio": 0.7,
+          "input_tokens": 1304,
+          "output_tokens": 1055,
+          "compression_ratio": 0.19095092024539873,
+          "keyword_retention": 93.70860927152319,
+          "answer_retained": true,
+          "latency_ms": 3895.4467919975286
+        },
+        {
+          "method": "cc_pa",
+          "keep_ratio": 0.7,
+          "input_tokens": 1506,
+          "output_tokens": 1213,
+          "compression_ratio": 0.19455511288180616,
+          "keyword_retention": 95.44072948328267,
+          "answer_retained": true,
+          "latency_ms": 4017.877208010759
+        },
+        {
+          "method": "cc_pa",
+          "keep_ratio": 0.7,
+          "input_tokens": 1199,
+          "output_tokens": 996,
+          "compression_ratio": 0.16930775646371976,
+          "keyword_retention": 92.17391304347827,
+          "answer_retained": true,
+          "latency_ms": 11479.65574999398
+        },
+        {
+          "method": "cc_pa",
+          "keep_ratio": 0.7,
+          "input_tokens": 1250,
+          "output_tokens": 995,
+          "compression_ratio": 0.20399999999999996,
+          "keyword_retention": 92.3913043478261,
+          "answer_retained": true,
+          "latency_ms": 3712.358332995791
+        },
+        {
+          "method": "cc_pa",
+          "keep_ratio": 0.7,
+          "input_tokens": 1222,
+          "output_tokens": 990,
+          "compression_ratio": 0.18985270049099834,
+          "keyword_retention": 92.96875,
+          "answer_retained": true,
+          "latency_ms": 3170.345749997068
+        },
+        {
+          "method": "cc_pa",
+          "keep_ratio": 0.7,
+          "input_tokens": 1345,
+          "output_tokens": 1122,
+          "compression_ratio": 0.16579925650557625,
+          "keyword_retention": 95.51282051282051,
+          "answer_retained": true,
+          "latency_ms": 3338.196666998556
+        },
+        {
+          "method": "cc_pa",
+          "keep_ratio": 0.7,
+          "input_tokens": 1298,
+          "output_tokens": 1049,
+          "compression_ratio": 0.19183359013867485,
+          "keyword_retention": 94.67213114754098,
+          "answer_retained": false,
+          "latency_ms": 3432.9297920048703
+        },
+        {
+          "method": "cc_pa",
+          "keep_ratio": 0.7,
+          "input_tokens": 1655,
+          "output_tokens": 1306,
+          "compression_ratio": 0.21087613293051355,
+          "keyword_retention": 90.51282051282051,
+          "answer_retained": true,
+          "latency_ms": 4182.569124997826
+        },
+        {
+          "method": "cc_pa",
+          "keep_ratio": 0.7,
+          "input_tokens": 1261,
+          "output_tokens": 1003,
+          "compression_ratio": 0.2045995241871531,
+          "keyword_retention": 92.93785310734464,
+          "answer_retained": true,
+          "latency_ms": 3375.6600830092793
+        },
+        {
+          "method": "cc_pa",
+          "keep_ratio": 0.7,
+          "input_tokens": 1382,
+          "output_tokens": 1096,
+          "compression_ratio": 0.20694645441389292,
+          "keyword_retention": 92.83387622149837,
+          "answer_retained": true,
+          "latency_ms": 3791.685292002512
+        },
+        {
+          "method": "cc_pa",
+          "keep_ratio": 0.7,
+          "input_tokens": 1279,
+          "output_tokens": 1006,
+          "compression_ratio": 0.21344800625488658,
+          "keyword_retention": 93.58490566037736,
+          "answer_retained": true,
+          "latency_ms": 3399.155375009286
+        },
+        {
+          "method": "cc_pa",
+          "keep_ratio": 0.7,
+          "input_tokens": 1015,
+          "output_tokens": 858,
+          "compression_ratio": 0.15467980295566508,
+          "keyword_retention": 96.41255605381166,
+          "answer_retained": true,
+          "latency_ms": 2750.9173750004265
+        },
+        {
+          "method": "cc_pa",
+          "keep_ratio": 0.7,
+          "input_tokens": 1683,
+          "output_tokens": 1316,
+          "compression_ratio": 0.21806298276886515,
+          "keyword_retention": 93.92857142857143,
+          "answer_retained": false,
+          "latency_ms": 4407.532958997763
+        },
+        {
+          "method": "cc_pa",
+          "keep_ratio": 0.7,
+          "input_tokens": 1285,
+          "output_tokens": 1039,
+          "compression_ratio": 0.1914396887159533,
+          "keyword_retention": 94.76584022038568,
+          "answer_retained": true,
+          "latency_ms": 3630.647541998769
+        },
+        {
+          "method": "cc_pa",
+          "keep_ratio": 0.7,
+          "input_tokens": 1075,
+          "output_tokens": 863,
+          "compression_ratio": 0.19720930232558143,
+          "keyword_retention": 94.55128205128204,
+          "answer_retained": true,
+          "latency_ms": 2937.552458010032
+        },
+        {
+          "method": "cc_pa",
+          "keep_ratio": 0.7,
+          "input_tokens": 766,
+          "output_tokens": 626,
+          "compression_ratio": 0.18276762402088775,
+          "keyword_retention": 92.39766081871345,
+          "answer_retained": true,
+          "latency_ms": 2461.64404200681
+        },
+        {
+          "method": "cc_pa",
+          "keep_ratio": 0.7,
+          "input_tokens": 1017,
+          "output_tokens": 794,
+          "compression_ratio": 0.21927236971484754,
+          "keyword_retention": 92.94478527607362,
+          "answer_retained": false,
+          "latency_ms": 2862.1477910055546
+        },
+        {
+          "method": "cc_pa",
+          "keep_ratio": 0.7,
+          "input_tokens": 1378,
+          "output_tokens": 1123,
+          "compression_ratio": 0.18505079825834547,
+          "keyword_retention": 94.5859872611465,
+          "answer_retained": true,
+          "latency_ms": 3473.4402910107747
+        },
+        {
+          "method": "cc_pa",
+          "keep_ratio": 0.7,
+          "input_tokens": 1902,
+          "output_tokens": 1474,
+          "compression_ratio": 0.2250262881177708,
+          "keyword_retention": 94.4954128440367,
+          "answer_retained": false,
+          "latency_ms": 3738.1710829940857
+        },
+        {
+          "method": "cc_pa",
+          "keep_ratio": 0.7,
+          "input_tokens": 1923,
+          "output_tokens": 1507,
+          "compression_ratio": 0.21632865314612582,
+          "keyword_retention": 94.87179487179486,
+          "answer_retained": true,
+          "latency_ms": 5076.612458011368
+        },
+        {
+          "method": "cc_pa",
+          "keep_ratio": 0.7,
+          "input_tokens": 1263,
+          "output_tokens": 1027,
+          "compression_ratio": 0.18685669041963582,
+          "keyword_retention": 95.22184300341297,
+          "answer_retained": true,
+          "latency_ms": 3515.914582996629
+        },
+        {
+          "method": "cc_pa",
+          "keep_ratio": 0.7,
+          "input_tokens": 1192,
+          "output_tokens": 967,
+          "compression_ratio": 0.18875838926174493,
+          "keyword_retention": 95.53571428571429,
+          "answer_retained": true,
+          "latency_ms": 2997.6957500039134
+        },
+        {
+          "method": "cc_pa",
+          "keep_ratio": 0.7,
+          "input_tokens": 1299,
+          "output_tokens": 1048,
+          "compression_ratio": 0.193225558121632,
+          "keyword_retention": 92.19330855018588,
+          "answer_retained": true,
+          "latency_ms": 3423.5981250094483
+        },
+        {
+          "method": "cc_pa",
+          "keep_ratio": 0.7,
+          "input_tokens": 967,
+          "output_tokens": 770,
+          "compression_ratio": 0.203722854188211,
+          "keyword_retention": 92.63803680981594,
+          "answer_retained": true,
+          "latency_ms": 2738.7226249993546
+        },
+        {
+          "method": "cc_pa",
+          "keep_ratio": 0.7,
+          "input_tokens": 1346,
+          "output_tokens": 1065,
+          "compression_ratio": 0.20876671619613674,
+          "keyword_retention": 93.60000000000001,
+          "answer_retained": true,
+          "latency_ms": 3586.8632500059903
+        },
+        {
+          "method": "cc_pa",
+          "keep_ratio": 0.7,
+          "input_tokens": 1501,
+          "output_tokens": 1202,
+          "compression_ratio": 0.19920053297801465,
+          "keyword_retention": 93.6231884057971,
+          "answer_retained": true,
+          "latency_ms": 3830.1097500079777
+        },
+        {
+          "method": "cc_pa",
+          "keep_ratio": 0.7,
+          "input_tokens": 968,
+          "output_tokens": 758,
+          "compression_ratio": 0.21694214876033058,
+          "keyword_retention": 92.62672811059907,
+          "answer_retained": true,
+          "latency_ms": 2676.7359580117045
+        },
+        {
+          "method": "cc_pa",
+          "keep_ratio": 0.7,
+          "input_tokens": 799,
+          "output_tokens": 667,
+          "compression_ratio": 0.1652065081351689,
+          "keyword_retention": 94.11764705882352,
+          "answer_retained": true,
+          "latency_ms": 10466.301958003896
+        },
+        {
+          "method": "cc_pa",
+          "keep_ratio": 0.7,
+          "input_tokens": 1012,
+          "output_tokens": 790,
+          "compression_ratio": 0.21936758893280628,
+          "keyword_retention": 92.11356466876973,
+          "answer_retained": true,
+          "latency_ms": 2816.8760830012616
+        },
+        {
+          "method": "cc_pa",
+          "keep_ratio": 0.7,
+          "input_tokens": 1453,
+          "output_tokens": 1132,
+          "compression_ratio": 0.22092222986923604,
+          "keyword_retention": 94.9438202247191,
+          "answer_retained": true,
+          "latency_ms": 3960.0894159957534
+        },
+        {
+          "method": "cc_pa",
+          "keep_ratio": 0.7,
+          "input_tokens": 1325,
+          "output_tokens": 1073,
+          "compression_ratio": 0.19018867924528304,
+          "keyword_retention": 94.20289855072464,
+          "answer_retained": true,
+          "latency_ms": 3549.612832997809
+        },
+        {
+          "method": "cc_pa",
+          "keep_ratio": 0.7,
+          "input_tokens": 1021,
+          "output_tokens": 816,
+          "compression_ratio": 0.20078354554358468,
+          "keyword_retention": 95.0,
+          "answer_retained": true,
+          "latency_ms": 3498.3415410097223
+        },
+        {
+          "method": "cc_pa",
+          "keep_ratio": 0.7,
+          "input_tokens": 1180,
+          "output_tokens": 943,
+          "compression_ratio": 0.20084745762711864,
+          "keyword_retention": 91.46341463414635,
+          "answer_retained": true,
+          "latency_ms": 3626.895291992696
+        },
+        {
+          "method": "cc_pa",
+          "keep_ratio": 0.7,
+          "input_tokens": 1333,
+          "output_tokens": 1081,
+          "compression_ratio": 0.18904726181545384,
+          "keyword_retention": 94.35215946843853,
+          "answer_retained": true,
+          "latency_ms": 3635.1517919974867
+        },
+        {
+          "method": "cc_pa",
+          "keep_ratio": 0.7,
+          "input_tokens": 1867,
+          "output_tokens": 1450,
+          "compression_ratio": 0.22335297268344934,
+          "keyword_retention": 94.33962264150944,
+          "answer_retained": true,
+          "latency_ms": 4873.383000012836
+        },
+        {
+          "method": "cc_pa",
+          "keep_ratio": 0.7,
+          "input_tokens": 1126,
+          "output_tokens": 915,
+          "compression_ratio": 0.1873889875666075,
+          "keyword_retention": 92.69102990033223,
+          "answer_retained": true,
+          "latency_ms": 3213.518250006018
+        },
+        {
+          "method": "cc_pa",
+          "keep_ratio": 0.7,
+          "input_tokens": 1576,
+          "output_tokens": 1215,
+          "compression_ratio": 0.2290609137055838,
+          "keyword_retention": 90.47619047619048,
+          "answer_retained": true,
+          "latency_ms": 4351.462083010119
+        },
+        {
+          "method": "cc_pa",
+          "keep_ratio": 0.7,
+          "input_tokens": 1526,
+          "output_tokens": 1168,
+          "compression_ratio": 0.23460026212319796,
+          "keyword_retention": 91.2621359223301,
+          "answer_retained": true,
+          "latency_ms": 4040.016833008849
+        },
+        {
+          "method": "cc_pa",
+          "keep_ratio": 0.7,
+          "input_tokens": 1032,
+          "output_tokens": 841,
+          "compression_ratio": 0.18507751937984496,
+          "keyword_retention": 94.05204460966543,
+          "answer_retained": true,
+          "latency_ms": 2771.8376249977155
+        },
+        {
+          "method": "cc_pa",
+          "keep_ratio": 0.7,
+          "input_tokens": 1098,
+          "output_tokens": 909,
+          "compression_ratio": 0.17213114754098358,
+          "keyword_retention": 97.42647058823529,
+          "answer_retained": true,
+          "latency_ms": 2928.8494159991387
+        },
+        {
+          "method": "cc_pa",
+          "keep_ratio": 0.7,
+          "input_tokens": 820,
+          "output_tokens": 655,
+          "compression_ratio": 0.2012195121951219,
+          "keyword_retention": 91.3265306122449,
+          "answer_retained": false,
+          "latency_ms": 2359.9330840079347
+        },
+        {
+          "method": "cc_pa",
+          "keep_ratio": 0.7,
+          "input_tokens": 776,
+          "output_tokens": 637,
+          "compression_ratio": 0.17912371134020622,
+          "keyword_retention": 94.89795918367348,
+          "answer_retained": true,
+          "latency_ms": 2353.6711250053486
+        },
+        {
+          "method": "cc_pa",
+          "keep_ratio": 0.7,
+          "input_tokens": 1049,
+          "output_tokens": 828,
+          "compression_ratio": 0.21067683508102952,
+          "keyword_retention": 93.54838709677419,
+          "answer_retained": true,
+          "latency_ms": 2875.6680420046905
+        },
+        {
+          "method": "cc_pa",
+          "keep_ratio": 0.7,
+          "input_tokens": 806,
+          "output_tokens": 653,
+          "compression_ratio": 0.1898263027295285,
+          "keyword_retention": 90.27027027027027,
+          "answer_retained": true,
+          "latency_ms": 2362.118000004557
+        },
+        {
+          "method": "cc_pa",
+          "keep_ratio": 0.7,
+          "input_tokens": 736,
+          "output_tokens": 592,
+          "compression_ratio": 0.19565217391304346,
+          "keyword_retention": 91.41104294478528,
+          "answer_retained": false,
+          "latency_ms": 2384.8880839941557
+        },
+        {
+          "method": "cc_pa",
+          "keep_ratio": 0.7,
+          "input_tokens": 1042,
+          "output_tokens": 836,
+          "compression_ratio": 0.19769673704414592,
+          "keyword_retention": 96.63299663299664,
+          "answer_retained": true,
+          "latency_ms": 3076.4540410018526
+        },
+        {
+          "method": "cc_pa",
+          "keep_ratio": 0.7,
+          "input_tokens": 967,
+          "output_tokens": 784,
+          "compression_ratio": 0.18924508790072392,
+          "keyword_retention": 92.66409266409266,
+          "answer_retained": false,
+          "latency_ms": 2667.2959999996237
+        },
+        {
+          "method": "cc_pa",
+          "keep_ratio": 0.7,
+          "input_tokens": 1176,
+          "output_tokens": 962,
+          "compression_ratio": 0.1819727891156463,
+          "keyword_retention": 94.73684210526315,
+          "answer_retained": true,
+          "latency_ms": 3502.014333003899
+        },
+        {
+          "method": "cc_pa",
+          "keep_ratio": 0.7,
+          "input_tokens": 1546,
+          "output_tokens": 1270,
+          "compression_ratio": 0.1785252263906857,
+          "keyword_retention": 94.08983451536643,
+          "answer_retained": false,
+          "latency_ms": 4222.102708998136
+        },
+        {
+          "method": "cc_pa",
+          "keep_ratio": 0.7,
+          "input_tokens": 1870,
+          "output_tokens": 1472,
+          "compression_ratio": 0.21283422459893053,
+          "keyword_retention": 92.54385964912281,
+          "answer_retained": true,
+          "latency_ms": 5506.505957993795
+        },
+        {
+          "method": "cc_pa",
+          "keep_ratio": 0.7,
+          "input_tokens": 1134,
+          "output_tokens": 877,
+          "compression_ratio": 0.22663139329805992,
+          "keyword_retention": 92.6086956521739,
+          "answer_retained": true,
+          "latency_ms": 2785.7012919994304
+        },
+        {
+          "method": "cc_pa",
+          "keep_ratio": 0.7,
+          "input_tokens": 652,
+          "output_tokens": 530,
+          "compression_ratio": 0.18711656441717794,
+          "keyword_retention": 95.32710280373831,
+          "answer_retained": true,
+          "latency_ms": 1752.1072080126032
+        },
+        {
+          "method": "cc_pa",
+          "keep_ratio": 0.7,
+          "input_tokens": 1243,
+          "output_tokens": 971,
+          "compression_ratio": 0.21882542236524538,
+          "keyword_retention": 92.38754325259517,
+          "answer_retained": false,
+          "latency_ms": 12223.095541994553
+        },
+        {
+          "method": "cc_pa",
+          "keep_ratio": 0.7,
+          "input_tokens": 1466,
+          "output_tokens": 1208,
+          "compression_ratio": 0.1759890859481582,
+          "keyword_retention": 95.18716577540107,
+          "answer_retained": true,
+          "latency_ms": 3746.3257080089534
+        },
+        {
+          "method": "cc_pa",
+          "keep_ratio": 0.7,
+          "input_tokens": 1979,
+          "output_tokens": 1486,
+          "compression_ratio": 0.24911571500757956,
+          "keyword_retention": 91.96428571428571,
+          "answer_retained": true,
+          "latency_ms": 5234.212457988178
+        },
+        {
+          "method": "cc_pa",
+          "keep_ratio": 0.7,
+          "input_tokens": 1317,
+          "output_tokens": 1075,
+          "compression_ratio": 0.18375094912680334,
+          "keyword_retention": 91.34615384615384,
+          "answer_retained": true,
+          "latency_ms": 3497.8824999998324
+        },
+        {
+          "method": "cc_pa",
+          "keep_ratio": 0.7,
+          "input_tokens": 1388,
+          "output_tokens": 1117,
+          "compression_ratio": 0.19524495677233433,
+          "keyword_retention": 96.3855421686747,
+          "answer_retained": true,
+          "latency_ms": 3145.958833003533
+        },
+        {
+          "method": "cc_pa",
+          "keep_ratio": 0.7,
+          "input_tokens": 1192,
+          "output_tokens": 961,
+          "compression_ratio": 0.19379194630872487,
+          "keyword_retention": 91.72413793103448,
+          "answer_retained": true,
+          "latency_ms": 3256.5802089957288
+        },
+        {
+          "method": "cc_pa",
+          "keep_ratio": 0.7,
+          "input_tokens": 1341,
+          "output_tokens": 1098,
+          "compression_ratio": 0.18120805369127513,
+          "keyword_retention": 94.87870619946092,
+          "answer_retained": true,
+          "latency_ms": 3545.3990420064656
+        },
+        {
+          "method": "cc_pa",
+          "keep_ratio": 0.7,
+          "input_tokens": 1096,
+          "output_tokens": 872,
+          "compression_ratio": 0.2043795620437956,
+          "keyword_retention": 95.13888888888889,
+          "answer_retained": true,
+          "latency_ms": 3066.556292003952
+        },
+        {
+          "method": "cc_pa",
+          "keep_ratio": 0.7,
+          "input_tokens": 1530,
+          "output_tokens": 1242,
+          "compression_ratio": 0.18823529411764706,
+          "keyword_retention": 93.30543933054393,
+          "answer_retained": true,
+          "latency_ms": 4117.827167006908
+        },
+        {
+          "method": "cc_pa",
+          "keep_ratio": 0.7,
+          "input_tokens": 911,
+          "output_tokens": 753,
+          "compression_ratio": 0.17343578485181121,
+          "keyword_retention": 91.06145251396647,
+          "answer_retained": true,
+          "latency_ms": 2388.668791987584
+        },
+        {
+          "method": "cc_pa",
+          "keep_ratio": 0.7,
+          "input_tokens": 1455,
+          "output_tokens": 1166,
+          "compression_ratio": 0.19862542955326457,
+          "keyword_retention": 92.69005847953217,
+          "answer_retained": true,
+          "latency_ms": 3854.582333995495
+        },
+        {
+          "method": "cc_pa",
+          "keep_ratio": 0.7,
+          "input_tokens": 1337,
+          "output_tokens": 1058,
+          "compression_ratio": 0.2086761406133134,
+          "keyword_retention": 93.91304347826087,
+          "answer_retained": true,
+          "latency_ms": 3387.4540840042755
+        },
+        {
+          "method": "cc_pa",
+          "keep_ratio": 0.7,
+          "input_tokens": 1125,
+          "output_tokens": 902,
+          "compression_ratio": 0.1982222222222222,
+          "keyword_retention": 88.63636363636364,
+          "answer_retained": true,
+          "latency_ms": 2914.2157919995952
+        },
+        {
+          "method": "cc_pa",
+          "keep_ratio": 0.7,
+          "input_tokens": 1024,
+          "output_tokens": 859,
+          "compression_ratio": 0.1611328125,
+          "keyword_retention": 93.54838709677419,
+          "answer_retained": true,
+          "latency_ms": 2744.1299579950282
+        },
+        {
+          "method": "cc_pa",
+          "keep_ratio": 0.7,
+          "input_tokens": 1144,
+          "output_tokens": 944,
+          "compression_ratio": 0.1748251748251748,
+          "keyword_retention": 95.81749049429658,
+          "answer_retained": true,
+          "latency_ms": 3211.1884170008125
+        },
+        {
+          "method": "cc_pa",
+          "keep_ratio": 0.7,
+          "input_tokens": 1204,
+          "output_tokens": 980,
+          "compression_ratio": 0.18604651162790697,
+          "keyword_retention": 91.0377358490566,
+          "answer_retained": true,
+          "latency_ms": 3270.6140840018634
+        },
+        {
+          "method": "cc_pa",
+          "keep_ratio": 0.7,
+          "input_tokens": 1113,
+          "output_tokens": 921,
+          "compression_ratio": 0.1725067385444744,
+          "keyword_retention": 94.6843853820598,
+          "answer_retained": true,
+          "latency_ms": 3031.002666000859
+        },
+        {
+          "method": "cc_pa",
+          "keep_ratio": 0.7,
+          "input_tokens": 1267,
+          "output_tokens": 982,
+          "compression_ratio": 0.22494080505130232,
+          "keyword_retention": 92.24137931034483,
+          "answer_retained": true,
+          "latency_ms": 3235.9116669977084
+        },
+        {
+          "method": "cc_pa",
+          "keep_ratio": 0.7,
+          "input_tokens": 1049,
+          "output_tokens": 849,
+          "compression_ratio": 0.19065776930409917,
+          "keyword_retention": 94.26229508196722,
+          "answer_retained": true,
+          "latency_ms": 2790.0358339975355
+        },
+        {
+          "method": "cc_pa",
+          "keep_ratio": 0.7,
+          "input_tokens": 1135,
+          "output_tokens": 880,
+          "compression_ratio": 0.22466960352422904,
+          "keyword_retention": 92.99610894941634,
+          "answer_retained": true,
+          "latency_ms": 3280.91499999573
+        },
+        {
+          "method": "cc_pa",
+          "keep_ratio": 0.7,
+          "input_tokens": 1215,
+          "output_tokens": 963,
+          "compression_ratio": 0.20740740740740737,
+          "keyword_retention": 93.57142857142857,
+          "answer_retained": true,
+          "latency_ms": 3434.2472919961438
+        },
+        {
+          "method": "cc_pa",
+          "keep_ratio": 0.7,
+          "input_tokens": 895,
+          "output_tokens": 723,
+          "compression_ratio": 0.1921787709497207,
+          "keyword_retention": 89.90825688073394,
+          "answer_retained": true,
+          "latency_ms": 2477.592041992466
+        },
+        {
+          "method": "cc_pa",
+          "keep_ratio": 0.7,
+          "input_tokens": 1039,
+          "output_tokens": 836,
+          "compression_ratio": 0.19538017324350332,
+          "keyword_retention": 94.03973509933775,
+          "answer_retained": true,
+          "latency_ms": 2906.81475000747
+        },
+        {
+          "method": "cc_pa",
+          "keep_ratio": 0.7,
+          "input_tokens": 1077,
+          "output_tokens": 882,
+          "compression_ratio": 0.18105849582172706,
+          "keyword_retention": 94.87179487179486,
+          "answer_retained": true,
+          "latency_ms": 3093.670916001429
+        },
+        {
+          "method": "cc_pa",
+          "keep_ratio": 0.7,
+          "input_tokens": 1180,
+          "output_tokens": 972,
+          "compression_ratio": 0.17627118644067796,
+          "keyword_retention": 94.86404833836858,
+          "answer_retained": true,
+          "latency_ms": 3100.412915999186
+        },
+        {
+          "method": "cc_pa",
+          "keep_ratio": 0.7,
+          "input_tokens": 920,
+          "output_tokens": 752,
+          "compression_ratio": 0.18260869565217386,
+          "keyword_retention": 95.38461538461539,
+          "answer_retained": true,
+          "latency_ms": 11255.381625000155
+        },
+        {
+          "method": "cc_pa",
+          "keep_ratio": 0.7,
+          "input_tokens": 1502,
+          "output_tokens": 1167,
+          "compression_ratio": 0.2230359520639148,
+          "keyword_retention": 93.34916864608076,
+          "answer_retained": true,
+          "latency_ms": 3874.4814160017995
+        },
+        {
+          "method": "cc_pa",
+          "keep_ratio": 0.7,
+          "input_tokens": 1148,
+          "output_tokens": 913,
+          "compression_ratio": 0.20470383275261328,
+          "keyword_retention": 96.44444444444444,
+          "answer_retained": true,
+          "latency_ms": 3086.6664159984794
+        },
+        {
+          "method": "cc_pa",
+          "keep_ratio": 0.7,
+          "input_tokens": 1203,
+          "output_tokens": 964,
+          "compression_ratio": 0.19866999168744803,
+          "keyword_retention": 94.76923076923077,
+          "answer_retained": true,
+          "latency_ms": 3258.5559169965563
+        },
+        {
+          "method": "cc_pa",
+          "keep_ratio": 0.7,
+          "input_tokens": 1473,
+          "output_tokens": 1170,
+          "compression_ratio": 0.2057026476578412,
+          "keyword_retention": 90.56603773584906,
+          "answer_retained": false,
+          "latency_ms": 4009.336749993963
+        },
+        {
+          "method": "cc_pa",
+          "keep_ratio": 0.7,
+          "input_tokens": 921,
+          "output_tokens": 757,
+          "compression_ratio": 0.17806731813246468,
+          "keyword_retention": 92.3076923076923,
+          "answer_retained": false,
+          "latency_ms": 2593.0151250067865
+        },
+        {
+          "method": "cc_pa",
+          "keep_ratio": 0.7,
+          "input_tokens": 1327,
+          "output_tokens": 1074,
+          "compression_ratio": 0.1906556141672946,
+          "keyword_retention": 95.65217391304348,
+          "answer_retained": true,
+          "latency_ms": 3462.575375000597
+        },
+        {
+          "method": "cc_pa",
+          "keep_ratio": 0.7,
+          "input_tokens": 1485,
+          "output_tokens": 1170,
+          "compression_ratio": 0.21212121212121215,
+          "keyword_retention": 95.84569732937686,
+          "answer_retained": true,
+          "latency_ms": 3849.8396659997525
+        },
+        {
+          "method": "cc_pa",
+          "keep_ratio": 0.7,
+          "input_tokens": 1822,
+          "output_tokens": 1471,
+          "compression_ratio": 0.19264544456641053,
+          "keyword_retention": 94.44444444444444,
+          "answer_retained": false,
+          "latency_ms": 4876.4744580112165
+        },
+        {
+          "method": "cc_pa",
+          "keep_ratio": 0.7,
+          "input_tokens": 1048,
+          "output_tokens": 866,
+          "compression_ratio": 0.17366412213740456,
+          "keyword_retention": 95.6,
+          "answer_retained": true,
+          "latency_ms": 2961.6760420030914
+        },
+        {
+          "method": "cc_pa",
+          "keep_ratio": 0.7,
+          "input_tokens": 1620,
+          "output_tokens": 1315,
+          "compression_ratio": 0.18827160493827155,
+          "keyword_retention": 93.01675977653632,
+          "answer_retained": true,
+          "latency_ms": 4078.516125009628
+        },
+        {
+          "method": "cc_pa",
+          "keep_ratio": 0.7,
+          "input_tokens": 1464,
+          "output_tokens": 1215,
+          "compression_ratio": 0.17008196721311475,
+          "keyword_retention": 94.0828402366864,
+          "answer_retained": true,
+          "latency_ms": 3905.8721250039525
+        },
+        {
+          "method": "cc_pa",
+          "keep_ratio": 0.7,
+          "input_tokens": 1397,
+          "output_tokens": 1125,
+          "compression_ratio": 0.19470293486041512,
+          "keyword_retention": 96.81978798586573,
+          "answer_retained": true,
+          "latency_ms": 3594.569249995402
+        },
+        {
+          "method": "cc_pa",
+          "keep_ratio": 0.7,
+          "input_tokens": 1867,
+          "output_tokens": 1495,
+          "compression_ratio": 0.19925013390465984,
+          "keyword_retention": 94.19354838709677,
+          "answer_retained": true,
+          "latency_ms": 5363.930084000458
+        },
+        {
+          "method": "cc_pa",
+          "keep_ratio": 0.7,
+          "input_tokens": 977,
+          "output_tokens": 765,
+          "compression_ratio": 0.2169907881269192,
+          "keyword_retention": 91.57894736842105,
+          "answer_retained": true,
+          "latency_ms": 3699.9614590022247
+        },
+        {
+          "method": "cc_pa",
+          "keep_ratio": 0.7,
+          "input_tokens": 1068,
+          "output_tokens": 867,
+          "compression_ratio": 0.1882022471910112,
+          "keyword_retention": 96.05263157894737,
+          "answer_retained": true,
+          "latency_ms": 4209.84529099951
+        },
+        {
+          "method": "cc_pa",
+          "keep_ratio": 0.7,
+          "input_tokens": 1282,
+          "output_tokens": 1054,
+          "compression_ratio": 0.17784711388455543,
+          "keyword_retention": 95.58823529411765,
+          "answer_retained": true,
+          "latency_ms": 4657.224000009592
+        },
+        {
+          "method": "cc_pa",
+          "keep_ratio": 0.7,
+          "input_tokens": 1622,
+          "output_tokens": 1301,
+          "compression_ratio": 0.19790382244143034,
+          "keyword_retention": 93.7625754527163,
+          "answer_retained": true,
+          "latency_ms": 5812.690958002349
+        },
+        {
+          "method": "cc_pa",
+          "keep_ratio": 0.7,
+          "input_tokens": 1004,
+          "output_tokens": 802,
+          "compression_ratio": 0.20119521912350602,
+          "keyword_retention": 92.27467811158799,
+          "answer_retained": false,
+          "latency_ms": 4630.965332995402
+        },
+        {
+          "method": "cc_pa",
+          "keep_ratio": 0.7,
+          "input_tokens": 924,
+          "output_tokens": 799,
+          "compression_ratio": 0.13528138528138534,
+          "keyword_retention": 96.71361502347418,
+          "answer_retained": true,
+          "latency_ms": 3395.9344169998076
+        },
+        {
+          "method": "cc_pa",
+          "keep_ratio": 0.7,
+          "input_tokens": 1466,
+          "output_tokens": 1191,
+          "compression_ratio": 0.1875852660300137,
+          "keyword_retention": 92.85714285714286,
+          "answer_retained": true,
+          "latency_ms": 3903.4550419892184
+        },
+        {
+          "method": "cc_pa",
+          "keep_ratio": 0.7,
+          "input_tokens": 1558,
+          "output_tokens": 1249,
+          "compression_ratio": 0.19833119383825415,
+          "keyword_retention": 95.62841530054644,
+          "answer_retained": true,
+          "latency_ms": 4278.608624998014
+        },
+        {
+          "method": "cc_pa",
+          "keep_ratio": 0.7,
+          "input_tokens": 1415,
+          "output_tokens": 1133,
+          "compression_ratio": 0.19929328621908127,
+          "keyword_retention": 96.01449275362319,
+          "answer_retained": true,
+          "latency_ms": 4025.0178330024937
+        },
+        {
+          "method": "cc_pa",
+          "keep_ratio": 0.7,
+          "input_tokens": 1134,
+          "output_tokens": 885,
+          "compression_ratio": 0.21957671957671954,
+          "keyword_retention": 91.53605015673982,
+          "answer_retained": true,
+          "latency_ms": 2961.930666002445
+        },
+        {
+          "method": "cc_pa",
+          "keep_ratio": 0.7,
+          "input_tokens": 1285,
+          "output_tokens": 1035,
+          "compression_ratio": 0.19455252918287935,
+          "keyword_retention": 95.58011049723757,
+          "answer_retained": true,
+          "latency_ms": 3583.489582990296
+        },
+        {
+          "method": "cc_pa",
+          "keep_ratio": 0.7,
+          "input_tokens": 865,
+          "output_tokens": 722,
+          "compression_ratio": 0.16531791907514448,
+          "keyword_retention": 91.54929577464789,
+          "answer_retained": true,
+          "latency_ms": 11201.710584005923
+        },
+        {
+          "method": "cc_pa",
+          "keep_ratio": 0.7,
+          "input_tokens": 1993,
+          "output_tokens": 1602,
+          "compression_ratio": 0.19618665328650275,
+          "keyword_retention": 94.83695652173914,
+          "answer_retained": true,
+          "latency_ms": 5238.316082992242
+        },
+        {
+          "method": "cc_pa",
+          "keep_ratio": 0.7,
+          "input_tokens": 1081,
+          "output_tokens": 852,
+          "compression_ratio": 0.21184088806660495,
+          "keyword_retention": 95.45454545454545,
+          "answer_retained": true,
+          "latency_ms": 2977.5118340039626
+        },
+        {
+          "method": "cc_pa",
+          "keep_ratio": 0.7,
+          "input_tokens": 1189,
+          "output_tokens": 960,
+          "compression_ratio": 0.19259882253994953,
+          "keyword_retention": 89.50819672131148,
+          "answer_retained": true,
+          "latency_ms": 3310.0356249924516
+        },
+        {
+          "method": "cc_pa",
+          "keep_ratio": 0.7,
+          "input_tokens": 1007,
+          "output_tokens": 840,
+          "compression_ratio": 0.16583912611717977,
+          "keyword_retention": 93.03482587064677,
+          "answer_retained": true,
+          "latency_ms": 2825.884458012297
+        },
+        {
+          "method": "cc_pa",
+          "keep_ratio": 0.7,
+          "input_tokens": 1511,
+          "output_tokens": 1175,
+          "compression_ratio": 0.22236929185969556,
+          "keyword_retention": 95.78947368421052,
+          "answer_retained": true,
+          "latency_ms": 3923.722749997978
+        },
+        {
+          "method": "cc_pa",
+          "keep_ratio": 0.7,
+          "input_tokens": 1535,
+          "output_tokens": 1204,
+          "compression_ratio": 0.2156351791530945,
+          "keyword_retention": 96.13095238095238,
+          "answer_retained": true,
+          "latency_ms": 4883.613208003226
+        },
+        {
+          "method": "cc_pa",
+          "keep_ratio": 0.7,
+          "input_tokens": 1450,
+          "output_tokens": 1164,
+          "compression_ratio": 0.1972413793103448,
+          "keyword_retention": 93.22033898305084,
+          "answer_retained": true,
+          "latency_ms": 3804.723458000808
+        },
+        {
+          "method": "cc_pa",
+          "keep_ratio": 0.7,
+          "input_tokens": 1653,
+          "output_tokens": 1321,
+          "compression_ratio": 0.20084694494857835,
+          "keyword_retention": 94.04145077720207,
+          "answer_retained": true,
+          "latency_ms": 4536.736709007528
+        },
+        {
+          "method": "cc_pa",
+          "keep_ratio": 0.7,
+          "input_tokens": 1606,
+          "output_tokens": 1282,
+          "compression_ratio": 0.20174346201743465,
+          "keyword_retention": 92.93193717277487,
+          "answer_retained": true,
+          "latency_ms": 4461.328332996345
+        },
+        {
+          "method": "cc_pa",
+          "keep_ratio": 0.7,
+          "input_tokens": 998,
+          "output_tokens": 817,
+          "compression_ratio": 0.18136272545090182,
+          "keyword_retention": 98.14814814814815,
+          "answer_retained": true,
+          "latency_ms": 2601.616166997701
+        },
+        {
+          "method": "cc_pa",
+          "keep_ratio": 0.7,
+          "input_tokens": 1435,
+          "output_tokens": 1128,
+          "compression_ratio": 0.2139372822299651,
+          "keyword_retention": 97.02602230483272,
+          "answer_retained": true,
+          "latency_ms": 3654.254374996526
+        },
+        {
+          "method": "cc_pa",
+          "keep_ratio": 0.7,
+          "input_tokens": 1301,
+          "output_tokens": 1060,
+          "compression_ratio": 0.18524212144504226,
+          "keyword_retention": 93.59430604982207,
+          "answer_retained": true,
+          "latency_ms": 3733.3136670058593
+        },
+        {
+          "method": "cc_pa",
+          "keep_ratio": 0.7,
+          "input_tokens": 1235,
+          "output_tokens": 991,
+          "compression_ratio": 0.19757085020242915,
+          "keyword_retention": 91.94630872483222,
+          "answer_retained": true,
+          "latency_ms": 3338.932707993081
+        },
+        {
+          "method": "cc_pa",
+          "keep_ratio": 0.7,
+          "input_tokens": 1646,
+          "output_tokens": 1333,
+          "compression_ratio": 0.19015795868772778,
+          "keyword_retention": 93.96751740139212,
+          "answer_retained": true,
+          "latency_ms": 4266.428167000413
+        },
+        {
+          "method": "cc_pa",
+          "keep_ratio": 0.7,
+          "input_tokens": 1808,
+          "output_tokens": 1459,
+          "compression_ratio": 0.19303097345132747,
+          "keyword_retention": 97.28506787330316,
+          "answer_retained": true,
+          "latency_ms": 4527.3978330078535
+        },
+        {
+          "method": "cc_pa",
+          "keep_ratio": 0.7,
+          "input_tokens": 1743,
+          "output_tokens": 1455,
+          "compression_ratio": 0.16523235800344238,
+          "keyword_retention": 97.63157894736842,
+          "answer_retained": true,
+          "latency_ms": 4631.0262499901
+        },
+        {
+          "method": "cc_pa",
+          "keep_ratio": 0.7,
+          "input_tokens": 1047,
+          "output_tokens": 866,
+          "compression_ratio": 0.17287488061127032,
+          "keyword_retention": 96.0,
+          "answer_retained": true,
+          "latency_ms": 3015.0037499988684
+        },
+        {
+          "method": "cc_pa",
+          "keep_ratio": 0.7,
+          "input_tokens": 1332,
+          "output_tokens": 1040,
+          "compression_ratio": 0.21921921921921927,
+          "keyword_retention": 91.02564102564102,
+          "answer_retained": false,
+          "latency_ms": 3463.5982920008246
+        },
+        {
+          "method": "cc_pa",
+          "keep_ratio": 0.7,
+          "input_tokens": 1353,
+          "output_tokens": 1060,
+          "compression_ratio": 0.21655580192165558,
+          "keyword_retention": 95.3560371517028,
+          "answer_retained": true,
+          "latency_ms": 3370.752500006347
+        },
+        {
+          "method": "cc_pa",
+          "keep_ratio": 0.7,
+          "input_tokens": 1164,
+          "output_tokens": 970,
+          "compression_ratio": 0.16666666666666663,
+          "keyword_retention": 94.51219512195121,
+          "answer_retained": true,
+          "latency_ms": 3311.467541003367
+        },
+        {
+          "method": "cc_pa",
+          "keep_ratio": 0.7,
+          "input_tokens": 1236,
+          "output_tokens": 980,
+          "compression_ratio": 0.2071197411003236,
+          "keyword_retention": 95.33898305084746,
+          "answer_retained": false,
+          "latency_ms": 3322.224000003189
+        },
+        {
+          "method": "cc_pa",
+          "keep_ratio": 0.7,
+          "input_tokens": 1185,
+          "output_tokens": 955,
+          "compression_ratio": 0.19409282700421937,
+          "keyword_retention": 94.39252336448598,
+          "answer_retained": true,
+          "latency_ms": 3449.301083004684
+        },
+        {
+          "method": "cc_pa",
+          "keep_ratio": 0.7,
+          "input_tokens": 1105,
+          "output_tokens": 899,
+          "compression_ratio": 0.18642533936651584,
+          "keyword_retention": 93.72384937238493,
+          "answer_retained": true,
+          "latency_ms": 2982.8058749990305
+        },
+        {
+          "method": "cc_pa",
+          "keep_ratio": 0.7,
+          "input_tokens": 1014,
+          "output_tokens": 808,
+          "compression_ratio": 0.20315581854043396,
+          "keyword_retention": 94.5945945945946,
+          "answer_retained": true,
+          "latency_ms": 2883.320499997353
+        },
+        {
+          "method": "cc_pa",
+          "keep_ratio": 0.7,
+          "input_tokens": 966,
+          "output_tokens": 775,
+          "compression_ratio": 0.1977225672877847,
+          "keyword_retention": 95.21531100478468,
+          "answer_retained": true,
+          "latency_ms": 12723.604291997617
+        },
+        {
+          "method": "cc_pa",
+          "keep_ratio": 0.7,
+          "input_tokens": 1037,
+          "output_tokens": 833,
+          "compression_ratio": 0.19672131147540983,
+          "keyword_retention": 91.5129151291513,
+          "answer_retained": true,
+          "latency_ms": 3008.076167010586
+        },
+        {
+          "method": "cc_pa",
+          "keep_ratio": 0.7,
+          "input_tokens": 1370,
+          "output_tokens": 1104,
+          "compression_ratio": 0.19416058394160585,
+          "keyword_retention": 93.07958477508652,
+          "answer_retained": false,
+          "latency_ms": 3802.294749999419
+        },
+        {
+          "method": "cc_pa",
+          "keep_ratio": 0.7,
+          "input_tokens": 568,
+          "output_tokens": 440,
+          "compression_ratio": 0.22535211267605637,
+          "keyword_retention": 90.71428571428571,
+          "answer_retained": true,
+          "latency_ms": 2097.4276670021936
+        },
+        {
+          "method": "cc_pa",
+          "keep_ratio": 0.7,
+          "input_tokens": 1200,
+          "output_tokens": 974,
+          "compression_ratio": 0.18833333333333335,
+          "keyword_retention": 95.81993569131832,
+          "answer_retained": true,
+          "latency_ms": 3717.779333994258
+        },
+        {
+          "method": "cc_pa",
+          "keep_ratio": 0.7,
+          "input_tokens": 1894,
+          "output_tokens": 1532,
+          "compression_ratio": 0.19112988384371699,
+          "keyword_retention": 95.6043956043956,
+          "answer_retained": true,
+          "latency_ms": 6174.170416008565
+        },
+        {
+          "method": "cc_pa",
+          "keep_ratio": 0.7,
+          "input_tokens": 1393,
+          "output_tokens": 1096,
+          "compression_ratio": 0.21320890165111273,
+          "keyword_retention": 95.48387096774194,
+          "answer_retained": true,
+          "latency_ms": 3951.565124996705
+        },
+        {
+          "method": "cc_pa",
+          "keep_ratio": 0.7,
+          "input_tokens": 1836,
+          "output_tokens": 1456,
+          "compression_ratio": 0.20697167755991286,
+          "keyword_retention": 95.0,
+          "answer_retained": true,
+          "latency_ms": 4975.442875002045
+        },
+        {
+          "method": "cc_pa",
+          "keep_ratio": 0.7,
+          "input_tokens": 1542,
+          "output_tokens": 1194,
+          "compression_ratio": 0.22568093385214005,
+          "keyword_retention": 92.13836477987421,
+          "answer_retained": true,
+          "latency_ms": 4012.6682499976596
+        },
+        {
+          "method": "cc_pa",
+          "keep_ratio": 0.7,
+          "input_tokens": 1286,
+          "output_tokens": 1032,
+          "compression_ratio": 0.19751166407465004,
+          "keyword_retention": 94.4954128440367,
+          "answer_retained": true,
+          "latency_ms": 3522.238624995225
+        },
+        {
+          "method": "cc_pa",
+          "keep_ratio": 0.7,
+          "input_tokens": 1379,
+          "output_tokens": 1067,
+          "compression_ratio": 0.22625090645395218,
+          "keyword_retention": 98.53658536585365,
+          "answer_retained": true,
+          "latency_ms": 3628.040333001991
+        },
+        {
+          "method": "cc_pa",
+          "keep_ratio": 0.7,
+          "input_tokens": 1350,
+          "output_tokens": 1070,
+          "compression_ratio": 0.20740740740740737,
+          "keyword_retention": 92.64705882352942,
+          "answer_retained": true,
+          "latency_ms": 3803.4455419983715
+        },
+        {
+          "method": "cc_pa",
+          "keep_ratio": 0.7,
+          "input_tokens": 1120,
+          "output_tokens": 916,
+          "compression_ratio": 0.18214285714285716,
+          "keyword_retention": 94.66192170818505,
+          "answer_retained": true,
+          "latency_ms": 3110.2890000038315
+        },
+        {
+          "method": "cc_pa",
+          "keep_ratio": 0.7,
+          "input_tokens": 911,
+          "output_tokens": 722,
+          "compression_ratio": 0.20746432491767286,
+          "keyword_retention": 94.140625,
+          "answer_retained": true,
+          "latency_ms": 2468.66924999631
+        },
+        {
+          "method": "cc_pa",
+          "keep_ratio": 0.7,
+          "input_tokens": 1520,
+          "output_tokens": 1208,
+          "compression_ratio": 0.20526315789473681,
+          "keyword_retention": 94.3952802359882,
+          "answer_retained": true,
+          "latency_ms": 3878.5115829959977
+        },
+        {
+          "method": "cc_pa",
+          "keep_ratio": 0.7,
+          "input_tokens": 1506,
+          "output_tokens": 1184,
+          "compression_ratio": 0.21381142098273576,
+          "keyword_retention": 90.9090909090909,
+          "answer_retained": true,
+          "latency_ms": 3973.174790997291
+        },
+        {
+          "method": "cc_pa",
+          "keep_ratio": 0.7,
+          "input_tokens": 1175,
+          "output_tokens": 941,
+          "compression_ratio": 0.1991489361702128,
+          "keyword_retention": 94.13919413919413,
+          "answer_retained": true,
+          "latency_ms": 3431.6907500033267
+        },
+        {
+          "method": "cc_pa",
+          "keep_ratio": 0.7,
+          "input_tokens": 1997,
+          "output_tokens": 1627,
+          "compression_ratio": 0.18527791687531292,
+          "keyword_retention": 96.99570815450643,
+          "answer_retained": true,
+          "latency_ms": 5004.476249989239
+        },
+        {
+          "method": "cc_pa",
+          "keep_ratio": 0.7,
+          "input_tokens": 1063,
+          "output_tokens": 840,
+          "compression_ratio": 0.2097836312323612,
+          "keyword_retention": 93.35664335664336,
+          "answer_retained": true,
+          "latency_ms": 3207.1452919917647
+        },
+        {
+          "method": "cc_pa",
+          "keep_ratio": 0.7,
+          "input_tokens": 1180,
+          "output_tokens": 962,
+          "compression_ratio": 0.18474576271186438,
+          "keyword_retention": 93.6241610738255,
+          "answer_retained": true,
+          "latency_ms": 3184.877666993998
+        },
+        {
+          "method": "cc_pa",
+          "keep_ratio": 0.7,
+          "input_tokens": 1396,
+          "output_tokens": 1140,
+          "compression_ratio": 0.18338108882521487,
+          "keyword_retention": 94.78260869565217,
+          "answer_retained": true,
+          "latency_ms": 3681.5400409977883
+        },
+        {
+          "method": "cc_pa",
+          "keep_ratio": 0.7,
+          "input_tokens": 1162,
+          "output_tokens": 961,
+          "compression_ratio": 0.17297762478485368,
+          "keyword_retention": 96.29629629629629,
+          "answer_retained": true,
+          "latency_ms": 3412.4367500044173
+        },
+        {
+          "method": "cc_pa",
+          "keep_ratio": 0.7,
+          "input_tokens": 911,
+          "output_tokens": 742,
+          "compression_ratio": 0.18551042810098795,
+          "keyword_retention": 95.0354609929078,
+          "answer_retained": true,
+          "latency_ms": 2788.5562499868684
+        },
+        {
+          "method": "cc_pa",
+          "keep_ratio": 0.7,
+          "input_tokens": 1567,
+          "output_tokens": 1239,
+          "compression_ratio": 0.2093171665603063,
+          "keyword_retention": 89.71553610503283,
+          "answer_retained": true,
+          "latency_ms": 4237.719249998918
+        },
+        {
+          "method": "cc_pa",
+          "keep_ratio": 0.7,
+          "input_tokens": 2548,
+          "output_tokens": 1912,
+          "compression_ratio": 0.249607535321821,
+          "keyword_retention": 90.26128266033254,
+          "answer_retained": true,
+          "latency_ms": 5968.813291998231
+        }
+      ]
+    },
+    {
+      "aggregate": {
+        "method": "llmlingua",
+        "keep_ratio": 0.7,
+        "num_samples": 197,
+        "num_errors": 3,
+        "avg_input_tokens": 1320.6852791878173,
+        "avg_output_tokens": 775.5076142131979,
+        "avg_compression_ratio": 0.4048235089833432,
+        "avg_keyword_retention": 64.61996699089669,
+        "answer_recall_pct": 62.43654822335025,
+        "avg_latency_ms": 5348.549554761065
+      },
+      "per_sample": [
+        {
+          "method": "llmlingua",
+          "keep_ratio": 0.7,
+          "input_tokens": 1114,
+          "output_tokens": 694,
+          "compression_ratio": 0.37701974865350085,
+          "keyword_retention": 62.37623762376238,
+          "answer_retained": true,
+          "latency_ms": 6936.074165991158
+        },
+        {
+          "method": "llmlingua",
+          "keep_ratio": 0.7,
+          "input_tokens": 1221,
+          "output_tokens": 805,
+          "compression_ratio": 0.34070434070434075,
+          "keyword_retention": 68.55123674911661,
+          "answer_retained": true,
+          "latency_ms": 4322.501333997934
+        },
+        {
+          "method": "llmlingua",
+          "keep_ratio": 0.7,
+          "input_tokens": 1473,
+          "output_tokens": 809,
+          "compression_ratio": 0.45078071961982347,
+          "keyword_retention": 61.8421052631579,
+          "answer_retained": true,
+          "latency_ms": 4690.02900000487
+        },
+        {
+          "method": "llmlingua",
+          "keep_ratio": 0.7,
+          "input_tokens": 969,
+          "output_tokens": 623,
+          "compression_ratio": 0.3570691434468525,
+          "keyword_retention": 69.31818181818183,
+          "answer_retained": true,
+          "latency_ms": 3643.1252920010593
+        },
+        {
+          "method": "llmlingua",
+          "keep_ratio": 0.7,
+          "input_tokens": 1249,
+          "output_tokens": 730,
+          "compression_ratio": 0.41553242594075257,
+          "keyword_retention": 66.25766871165644,
+          "answer_retained": false,
+          "latency_ms": 4488.31387500104
+        },
+        {
+          "method": "llmlingua",
+          "keep_ratio": 0.7,
+          "input_tokens": 1288,
+          "output_tokens": 807,
+          "compression_ratio": 0.3734472049689441,
+          "keyword_retention": 72.81105990783409,
+          "answer_retained": false,
+          "latency_ms": 4581.917999996222
+        },
+        {
+          "method": "llmlingua",
+          "keep_ratio": 0.7,
+          "input_tokens": 1782,
+          "output_tokens": 980,
+          "compression_ratio": 0.45005611672278334,
+          "keyword_retention": 60.53169734151329,
+          "answer_retained": true,
+          "latency_ms": 5725.34249999444
+        },
+        {
+          "method": "llmlingua",
+          "keep_ratio": 0.7,
+          "input_tokens": 2833,
+          "output_tokens": 1066,
+          "compression_ratio": 0.6237204376985528,
+          "keyword_retention": 37.96875,
+          "answer_retained": false,
+          "latency_ms": 6777.716666998458
+        },
+        {
+          "method": "llmlingua",
+          "keep_ratio": 0.7,
+          "input_tokens": 1277,
+          "output_tokens": 797,
+          "compression_ratio": 0.37588097102584184,
+          "keyword_retention": 61.518324607329845,
+          "answer_retained": true,
+          "latency_ms": 4589.970417000586
+        },
+        {
+          "method": "llmlingua",
+          "keep_ratio": 0.7,
+          "input_tokens": 1301,
+          "output_tokens": 767,
+          "compression_ratio": 0.4104534973097618,
+          "keyword_retention": 66.31853785900783,
+          "answer_retained": true,
+          "latency_ms": 4554.014250010368
+        },
+        {
+          "method": "llmlingua",
+          "keep_ratio": 0.7,
+          "input_tokens": 1607,
+          "output_tokens": 872,
+          "compression_ratio": 0.45737398879900437,
+          "keyword_retention": 60.9375,
+          "answer_retained": false,
+          "latency_ms": 5086.230750006507
+        },
+        {
+          "method": "llmlingua",
+          "keep_ratio": 0.7,
+          "input_tokens": 1182,
+          "output_tokens": 692,
+          "compression_ratio": 0.4145516074450084,
+          "keyword_retention": 58.333333333333336,
+          "answer_retained": true,
+          "latency_ms": 3989.8509999911766
+        },
+        {
+          "method": "llmlingua",
+          "keep_ratio": 0.7,
+          "input_tokens": 1430,
+          "output_tokens": 895,
+          "compression_ratio": 0.37412587412587417,
+          "keyword_retention": 67.60925449871465,
+          "answer_retained": true,
+          "latency_ms": 5033.0065000016475
+        },
+        {
+          "method": "llmlingua",
+          "keep_ratio": 0.7,
+          "input_tokens": 2614,
+          "output_tokens": 877,
+          "compression_ratio": 0.6644988523335884,
+          "keyword_retention": 37.245696400625974,
+          "answer_retained": true,
+          "latency_ms": 5919.886125004268
+        },
+        {
+          "method": "llmlingua",
+          "keep_ratio": 0.7,
+          "input_tokens": 912,
+          "output_tokens": 605,
+          "compression_ratio": 0.3366228070175439,
+          "keyword_retention": 64.81481481481481,
+          "answer_retained": true,
+          "latency_ms": 3229.52270899259
+        },
+        {
+          "method": "llmlingua",
+          "keep_ratio": 0.7,
+          "input_tokens": 1486,
+          "output_tokens": 859,
+          "compression_ratio": 0.42193808882907136,
+          "keyword_retention": 63.66366366366366,
+          "answer_retained": true,
+          "latency_ms": 5512.588499987032
+        },
+        {
+          "method": "llmlingua",
+          "keep_ratio": 0.7,
+          "input_tokens": 1233,
+          "output_tokens": 713,
+          "compression_ratio": 0.421735604217356,
+          "keyword_retention": 78.78787878787878,
+          "answer_retained": false,
+          "latency_ms": 3994.2626660049427
+        },
+        {
+          "method": "llmlingua",
+          "keep_ratio": 0.7,
+          "input_tokens": 1327,
+          "output_tokens": 784,
+          "compression_ratio": 0.4091936699321779,
+          "keyword_retention": 63.54515050167224,
+          "answer_retained": true,
+          "latency_ms": 4792.012334000901
+        },
+        {
+          "method": "llmlingua",
+          "keep_ratio": 0.7,
+          "input_tokens": 1587,
+          "output_tokens": 990,
+          "compression_ratio": 0.37618147448015127,
+          "keyword_retention": 61.46788990825688,
+          "answer_retained": true,
+          "latency_ms": 5061.315625003772
+        },
+        {
+          "method": "llmlingua",
+          "keep_ratio": 0.7,
+          "input_tokens": 910,
+          "output_tokens": 580,
+          "compression_ratio": 0.3626373626373627,
+          "keyword_retention": 68.68131868131869,
+          "answer_retained": false,
+          "latency_ms": 3373.473957995884
+        },
+        {
+          "method": "llmlingua",
+          "keep_ratio": 0.7,
+          "input_tokens": 1166,
+          "output_tokens": 730,
+          "compression_ratio": 0.3739279588336192,
+          "keyword_retention": 61.18143459915611,
+          "answer_retained": false,
+          "latency_ms": 4009.9834589927923
+        },
+        {
+          "method": "llmlingua",
+          "keep_ratio": 0.7,
+          "input_tokens": 1495,
+          "output_tokens": 879,
+          "compression_ratio": 0.4120401337792642,
+          "keyword_retention": 72.90969899665552,
+          "answer_retained": true,
+          "latency_ms": 5036.2186249985825
+        },
+        {
+          "method": "llmlingua",
+          "keep_ratio": 0.7,
+          "input_tokens": 1660,
+          "output_tokens": 857,
+          "compression_ratio": 0.48373493975903614,
+          "keyword_retention": 59.635416666666664,
+          "answer_retained": true,
+          "latency_ms": 5306.1926669906825
+        },
+        {
+          "method": "llmlingua",
+          "keep_ratio": 0.7,
+          "input_tokens": 1003,
+          "output_tokens": 572,
+          "compression_ratio": 0.4297108673978066,
+          "keyword_retention": 64.38848920863309,
+          "answer_retained": true,
+          "latency_ms": 3412.055374996271
+        },
+        {
+          "method": "llmlingua",
+          "keep_ratio": 0.7,
+          "input_tokens": 1183,
+          "output_tokens": 603,
+          "compression_ratio": 0.4902789518174133,
+          "keyword_retention": 48.65900383141762,
+          "answer_retained": true,
+          "latency_ms": 3580.6950419937493
+        },
+        {
+          "method": "llmlingua",
+          "keep_ratio": 0.7,
+          "input_tokens": 1072,
+          "output_tokens": 686,
+          "compression_ratio": 0.3600746268656716,
+          "keyword_retention": 76.02996254681648,
+          "answer_retained": false,
+          "latency_ms": 7045.982916999492
+        },
+        {
+          "method": "llmlingua",
+          "keep_ratio": 0.7,
+          "input_tokens": 1685,
+          "output_tokens": 999,
+          "compression_ratio": 0.40712166172106823,
+          "keyword_retention": 65.5,
+          "answer_retained": false,
+          "latency_ms": 5498.714417000883
+        },
+        {
+          "method": "llmlingua",
+          "keep_ratio": 0.7,
+          "input_tokens": 347,
+          "output_tokens": 170,
+          "compression_ratio": 0.5100864553314122,
+          "keyword_retention": 45.83333333333333,
+          "answer_retained": true,
+          "latency_ms": 920.6447080068756
+        },
+        {
+          "method": "llmlingua",
+          "keep_ratio": 0.7,
+          "input_tokens": 1172,
+          "output_tokens": 681,
+          "compression_ratio": 0.41894197952218426,
+          "keyword_retention": 67.36842105263158,
+          "answer_retained": true,
+          "latency_ms": 3837.6556250004796
+        },
+        {
+          "method": "llmlingua",
+          "keep_ratio": 0.7,
+          "input_tokens": 1151,
+          "output_tokens": 529,
+          "compression_ratio": 0.5403996524761077,
+          "keyword_retention": 49.48096885813148,
+          "answer_retained": false,
+          "latency_ms": 3219.5357919990784
+        },
+        {
+          "method": "llmlingua",
+          "keep_ratio": 0.7,
+          "input_tokens": 1359,
+          "output_tokens": 819,
+          "compression_ratio": 0.3973509933774835,
+          "keyword_retention": 63.26530612244898,
+          "answer_retained": true,
+          "latency_ms": 4701.799667003797
+        },
+        {
+          "method": "llmlingua",
+          "keep_ratio": 0.7,
+          "input_tokens": 1107,
+          "output_tokens": 690,
+          "compression_ratio": 0.3766937669376694,
+          "keyword_retention": 64.16382252559727,
+          "answer_retained": false,
+          "latency_ms": 4215.320957999211
+        },
+        {
+          "method": "llmlingua",
+          "keep_ratio": 0.7,
+          "input_tokens": 1223,
+          "output_tokens": 722,
+          "compression_ratio": 0.4096484055600981,
+          "keyword_retention": 67.04119850187266,
+          "answer_retained": false,
+          "latency_ms": 3904.619167005876
+        },
+        {
+          "method": "llmlingua",
+          "keep_ratio": 0.7,
+          "input_tokens": 1610,
+          "output_tokens": 940,
+          "compression_ratio": 0.4161490683229814,
+          "keyword_retention": 63.941299790356396,
+          "answer_retained": true,
+          "latency_ms": 5205.15087498643
+        },
+        {
+          "method": "llmlingua",
+          "keep_ratio": 0.7,
+          "input_tokens": 1385,
+          "output_tokens": 806,
+          "compression_ratio": 0.41805054151624543,
+          "keyword_retention": 62.2478386167147,
+          "answer_retained": true,
+          "latency_ms": 4663.031165997381
+        },
+        {
+          "method": "llmlingua",
+          "keep_ratio": 0.7,
+          "input_tokens": 1849,
+          "output_tokens": 1066,
+          "compression_ratio": 0.42347214710654413,
+          "keyword_retention": 62.31884057971014,
+          "answer_retained": false,
+          "latency_ms": 6208.0059589934535
+        },
+        {
+          "method": "llmlingua",
+          "keep_ratio": 0.7,
+          "input_tokens": 1240,
+          "output_tokens": 782,
+          "compression_ratio": 0.36935483870967745,
+          "keyword_retention": 65.21739130434783,
+          "answer_retained": true,
+          "latency_ms": 4280.644415994175
+        },
+        {
+          "method": "llmlingua",
+          "keep_ratio": 0.7,
+          "input_tokens": 960,
+          "output_tokens": 567,
+          "compression_ratio": 0.40937500000000004,
+          "keyword_retention": 63.51351351351351,
+          "answer_retained": true,
+          "latency_ms": 3455.7411249988945
+        },
+        {
+          "method": "llmlingua",
+          "keep_ratio": 0.7,
+          "input_tokens": 1394,
+          "output_tokens": 651,
+          "compression_ratio": 0.5329985652797704,
+          "keyword_retention": 57.89473684210527,
+          "answer_retained": true,
+          "latency_ms": 4189.933540998027
+        },
+        {
+          "method": "llmlingua",
+          "keep_ratio": 0.7,
+          "input_tokens": 1287,
+          "output_tokens": 796,
+          "compression_ratio": 0.3815073815073815,
+          "keyword_retention": 73.07692307692307,
+          "answer_retained": false,
+          "latency_ms": 4470.406833002926
+        },
+        {
+          "method": "llmlingua",
+          "keep_ratio": 0.7,
+          "input_tokens": 1642,
+          "output_tokens": 844,
+          "compression_ratio": 0.48599269183922045,
+          "keyword_retention": 61.59600997506235,
+          "answer_retained": true,
+          "latency_ms": 5410.552417000872
+        },
+        {
+          "method": "llmlingua",
+          "keep_ratio": 0.7,
+          "input_tokens": 1158,
+          "output_tokens": 580,
+          "compression_ratio": 0.49913644214162345,
+          "keyword_retention": 55.92105263157895,
+          "answer_retained": true,
+          "latency_ms": 4030.7390829984797
+        },
+        {
+          "method": "llmlingua",
+          "keep_ratio": 0.7,
+          "input_tokens": 1900,
+          "output_tokens": 1010,
+          "compression_ratio": 0.46842105263157896,
+          "keyword_retention": 66.11226611226611,
+          "answer_retained": true,
+          "latency_ms": 12851.790583008551
+        },
+        {
+          "method": "llmlingua",
+          "keep_ratio": 0.7,
+          "input_tokens": 2519,
+          "output_tokens": 1422,
+          "compression_ratio": 0.4354902739182215,
+          "keyword_retention": 63.3276740237691,
+          "answer_retained": true,
+          "latency_ms": 16787.779624995892
+        },
+        {
+          "method": "llmlingua",
+          "keep_ratio": 0.7,
+          "input_tokens": 1054,
+          "output_tokens": 650,
+          "compression_ratio": 0.38330170777988615,
+          "keyword_retention": 71.10091743119266,
+          "answer_retained": true,
+          "latency_ms": 10517.396416995325
+        },
+        {
+          "method": "llmlingua",
+          "keep_ratio": 0.7,
+          "input_tokens": 2336,
+          "output_tokens": 1274,
+          "compression_ratio": 0.45462328767123283,
+          "keyword_retention": 61.662817551963045,
+          "answer_retained": false,
+          "latency_ms": 18401.15741599584
+        },
+        {
+          "method": "llmlingua",
+          "keep_ratio": 0.7,
+          "input_tokens": 2038,
+          "output_tokens": 1123,
+          "compression_ratio": 0.44896957801766435,
+          "keyword_retention": 57.94621026894865,
+          "answer_retained": false,
+          "latency_ms": 13900.030832999619
+        },
+        {
+          "method": "llmlingua",
+          "keep_ratio": 0.7,
+          "input_tokens": 1304,
+          "output_tokens": 786,
+          "compression_ratio": 0.397239263803681,
+          "keyword_retention": 68.21192052980133,
+          "answer_retained": true,
+          "latency_ms": 11862.379165992024
+        },
+        {
+          "method": "llmlingua",
+          "keep_ratio": 0.7,
+          "input_tokens": 1506,
+          "output_tokens": 849,
+          "compression_ratio": 0.4362549800796812,
+          "keyword_retention": 59.27051671732523,
+          "answer_retained": true,
+          "latency_ms": 11739.93154100026
+        },
+        {
+          "method": "llmlingua",
+          "keep_ratio": 0.7,
+          "input_tokens": 1199,
+          "output_tokens": 785,
+          "compression_ratio": 0.34528773978315264,
+          "keyword_retention": 62.60869565217392,
+          "answer_retained": false,
+          "latency_ms": 6946.792832997744
+        },
+        {
+          "method": "llmlingua",
+          "keep_ratio": 0.7,
+          "input_tokens": 1250,
+          "output_tokens": 777,
+          "compression_ratio": 0.37839999999999996,
+          "keyword_retention": 67.7536231884058,
+          "answer_retained": true,
+          "latency_ms": 4521.553041005973
+        },
+        {
+          "method": "llmlingua",
+          "keep_ratio": 0.7,
+          "input_tokens": 1222,
+          "output_tokens": 682,
+          "compression_ratio": 0.44189852700490995,
+          "keyword_retention": 61.328125,
+          "answer_retained": false,
+          "latency_ms": 3617.8390409913845
+        },
+        {
+          "method": "llmlingua",
+          "keep_ratio": 0.7,
+          "input_tokens": 1345,
+          "output_tokens": 801,
+          "compression_ratio": 0.4044609665427509,
+          "keyword_retention": 63.78205128205128,
+          "answer_retained": false,
+          "latency_ms": 4512.116542013246
+        },
+        {
+          "method": "llmlingua",
+          "keep_ratio": 0.7,
+          "input_tokens": 1298,
+          "output_tokens": 776,
+          "compression_ratio": 0.4021571648690293,
+          "keyword_retention": 62.704918032786885,
+          "answer_retained": false,
+          "latency_ms": 4548.000916998717
+        },
+        {
+          "method": "llmlingua",
+          "keep_ratio": 0.7,
+          "input_tokens": 1655,
+          "output_tokens": 992,
+          "compression_ratio": 0.40060422960725073,
+          "keyword_retention": 68.46153846153847,
+          "answer_retained": false,
+          "latency_ms": 5524.725791998208
+        },
+        {
+          "method": "llmlingua",
+          "keep_ratio": 0.7,
+          "input_tokens": 1261,
+          "output_tokens": 738,
+          "compression_ratio": 0.41475019825535286,
+          "keyword_retention": 61.016949152542374,
+          "answer_retained": true,
+          "latency_ms": 4344.021333003184
+        },
+        {
+          "method": "llmlingua",
+          "keep_ratio": 0.7,
+          "input_tokens": 1382,
+          "output_tokens": 811,
+          "compression_ratio": 0.41316931982633864,
+          "keyword_retention": 62.866449511400646,
+          "answer_retained": true,
+          "latency_ms": 4623.163416006719
+        },
+        {
+          "method": "llmlingua",
+          "keep_ratio": 0.7,
+          "input_tokens": 1279,
+          "output_tokens": 735,
+          "compression_ratio": 0.42533229085222835,
+          "keyword_retention": 68.67924528301886,
+          "answer_retained": false,
+          "latency_ms": 3988.8128750026226
+        },
+        {
+          "method": "llmlingua",
+          "keep_ratio": 0.7,
+          "input_tokens": 1015,
+          "output_tokens": 617,
+          "compression_ratio": 0.3921182266009853,
+          "keyword_retention": 60.53811659192825,
+          "answer_retained": true,
+          "latency_ms": 3865.3508749994216
+        },
+        {
+          "method": "llmlingua",
+          "keep_ratio": 0.7,
+          "input_tokens": 1683,
+          "output_tokens": 1026,
+          "compression_ratio": 0.39037433155080214,
+          "keyword_retention": 65.71428571428571,
+          "answer_retained": false,
+          "latency_ms": 5460.779750006623
+        },
+        {
+          "method": "llmlingua",
+          "keep_ratio": 0.7,
+          "input_tokens": 1285,
+          "output_tokens": 741,
+          "compression_ratio": 0.4233463035019456,
+          "keyword_retention": 63.63636363636363,
+          "answer_retained": true,
+          "latency_ms": 4496.383916004561
+        },
+        {
+          "method": "llmlingua",
+          "keep_ratio": 0.7,
+          "input_tokens": 1017,
+          "output_tokens": 616,
+          "compression_ratio": 0.39429695181907576,
+          "keyword_retention": 66.87116564417178,
+          "answer_retained": false,
+          "latency_ms": 10599.300958012464
+        },
+        {
+          "method": "llmlingua",
+          "keep_ratio": 0.7,
+          "input_tokens": 1378,
+          "output_tokens": 709,
+          "compression_ratio": 0.48548621190130625,
+          "keyword_retention": 61.46496815286624,
+          "answer_retained": true,
+          "latency_ms": 12044.79708299914
+        },
+        {
+          "method": "llmlingua",
+          "keep_ratio": 0.7,
+          "input_tokens": 1902,
+          "output_tokens": 1101,
+          "compression_ratio": 0.4211356466876972,
+          "keyword_retention": 65.59633027522935,
+          "answer_retained": false,
+          "latency_ms": 12858.987999992678
+        },
+        {
+          "method": "llmlingua",
+          "keep_ratio": 0.7,
+          "input_tokens": 1923,
+          "output_tokens": 1029,
+          "compression_ratio": 0.46489859594383776,
+          "keyword_retention": 57.54985754985755,
+          "answer_retained": false,
+          "latency_ms": 13151.007041989942
+        },
+        {
+          "method": "llmlingua",
+          "keep_ratio": 0.7,
+          "input_tokens": 1263,
+          "output_tokens": 665,
+          "compression_ratio": 0.4734758511480601,
+          "keyword_retention": 56.996587030716725,
+          "answer_retained": true,
+          "latency_ms": 11028.574500000104
+        },
+        {
+          "method": "llmlingua",
+          "keep_ratio": 0.7,
+          "input_tokens": 1192,
+          "output_tokens": 728,
+          "compression_ratio": 0.38926174496644295,
+          "keyword_retention": 73.66071428571429,
+          "answer_retained": false,
+          "latency_ms": 11188.603999995394
+        },
+        {
+          "method": "llmlingua",
+          "keep_ratio": 0.7,
+          "input_tokens": 1299,
+          "output_tokens": 718,
+          "compression_ratio": 0.44726712856043105,
+          "keyword_retention": 65.05576208178438,
+          "answer_retained": true,
+          "latency_ms": 10697.226750009577
+        },
+        {
+          "method": "llmlingua",
+          "keep_ratio": 0.7,
+          "input_tokens": 967,
+          "output_tokens": 593,
+          "compression_ratio": 0.3867631851085832,
+          "keyword_retention": 69.93865030674846,
+          "answer_retained": false,
+          "latency_ms": 10001.44462499884
+        },
+        {
+          "method": "llmlingua",
+          "keep_ratio": 0.7,
+          "input_tokens": 1346,
+          "output_tokens": 817,
+          "compression_ratio": 0.3930163447251115,
+          "keyword_retention": 64.53333333333333,
+          "answer_retained": true,
+          "latency_ms": 11519.719749994692
+        },
+        {
+          "method": "llmlingua",
+          "keep_ratio": 0.7,
+          "input_tokens": 1501,
+          "output_tokens": 903,
+          "compression_ratio": 0.3984010659560293,
+          "keyword_retention": 65.5072463768116,
+          "answer_retained": true,
+          "latency_ms": 12926.87058300362
+        },
+        {
+          "method": "llmlingua",
+          "keep_ratio": 0.7,
+          "input_tokens": 968,
+          "output_tokens": 602,
+          "compression_ratio": 0.378099173553719,
+          "keyword_retention": 73.27188940092167,
+          "answer_retained": true,
+          "latency_ms": 10313.159083001665
+        },
+        {
+          "method": "llmlingua",
+          "keep_ratio": 0.7,
+          "input_tokens": 799,
+          "output_tokens": 576,
+          "compression_ratio": 0.27909887359199004,
+          "keyword_retention": 84.55882352941177,
+          "answer_retained": true,
+          "latency_ms": 6209.123292006552
+        },
+        {
+          "method": "llmlingua",
+          "keep_ratio": 0.7,
+          "input_tokens": 1012,
+          "output_tokens": 654,
+          "compression_ratio": 0.3537549407114624,
+          "keyword_retention": 70.34700315457413,
+          "answer_retained": true,
+          "latency_ms": 3929.629707999993
+        },
+        {
+          "method": "llmlingua",
+          "keep_ratio": 0.7,
+          "input_tokens": 1453,
+          "output_tokens": 877,
+          "compression_ratio": 0.3964211975223675,
+          "keyword_retention": 68.53932584269663,
+          "answer_retained": true,
+          "latency_ms": 5147.598249997827
+        },
+        {
+          "method": "llmlingua",
+          "keep_ratio": 0.7,
+          "input_tokens": 1325,
+          "output_tokens": 729,
+          "compression_ratio": 0.44981132075471697,
+          "keyword_retention": 54.78260869565217,
+          "answer_retained": true,
+          "latency_ms": 4222.106875007739
+        },
+        {
+          "method": "llmlingua",
+          "keep_ratio": 0.7,
+          "input_tokens": 1021,
+          "output_tokens": 691,
+          "compression_ratio": 0.3232125367286973,
+          "keyword_retention": 51.0,
+          "answer_retained": false,
+          "latency_ms": 3546.4732499967795
+        },
+        {
+          "method": "llmlingua",
+          "keep_ratio": 0.7,
+          "input_tokens": 1180,
+          "output_tokens": 740,
+          "compression_ratio": 0.3728813559322034,
+          "keyword_retention": 62.601626016260155,
+          "answer_retained": true,
+          "latency_ms": 4306.582791003166
+        },
+        {
+          "method": "llmlingua",
+          "keep_ratio": 0.7,
+          "input_tokens": 1333,
+          "output_tokens": 837,
+          "compression_ratio": 0.37209302325581395,
+          "keyword_retention": 65.78073089700996,
+          "answer_retained": true,
+          "latency_ms": 4788.395291994675
+        },
+        {
+          "method": "llmlingua",
+          "keep_ratio": 0.7,
+          "input_tokens": 1867,
+          "output_tokens": 1012,
+          "compression_ratio": 0.4579539367970006,
+          "keyword_retention": 63.52201257861635,
+          "answer_retained": true,
+          "latency_ms": 5718.254042003537
+        },
+        {
+          "method": "llmlingua",
+          "keep_ratio": 0.7,
+          "input_tokens": 1126,
+          "output_tokens": 672,
+          "compression_ratio": 0.4031971580817052,
+          "keyword_retention": 62.45847176079734,
+          "answer_retained": false,
+          "latency_ms": 4035.0302919978276
+        },
+        {
+          "method": "llmlingua",
+          "keep_ratio": 0.7,
+          "input_tokens": 1576,
+          "output_tokens": 785,
+          "compression_ratio": 0.5019035532994924,
+          "keyword_retention": 52.83446712018141,
+          "answer_retained": true,
+          "latency_ms": 4654.8165419953875
+        },
+        {
+          "method": "llmlingua",
+          "keep_ratio": 0.7,
+          "input_tokens": 1526,
+          "output_tokens": 864,
+          "compression_ratio": 0.4338138925294889,
+          "keyword_retention": 60.19417475728155,
+          "answer_retained": true,
+          "latency_ms": 4791.885875005391
+        },
+        {
+          "method": "llmlingua",
+          "keep_ratio": 0.7,
+          "input_tokens": 1032,
+          "output_tokens": 585,
+          "compression_ratio": 0.4331395348837209,
+          "keyword_retention": 64.31226765799256,
+          "answer_retained": true,
+          "latency_ms": 3511.119792005047
+        },
+        {
+          "method": "llmlingua",
+          "keep_ratio": 0.7,
+          "input_tokens": 1098,
+          "output_tokens": 698,
+          "compression_ratio": 0.3642987249544627,
+          "keyword_retention": 63.970588235294116,
+          "answer_retained": false,
+          "latency_ms": 4096.6151249886025
+        },
+        {
+          "method": "llmlingua",
+          "keep_ratio": 0.7,
+          "input_tokens": 820,
+          "output_tokens": 510,
+          "compression_ratio": 0.3780487804878049,
+          "keyword_retention": 61.224489795918366,
+          "answer_retained": false,
+          "latency_ms": 3022.051833002479
+        },
+        {
+          "method": "llmlingua",
+          "keep_ratio": 0.7,
+          "input_tokens": 776,
+          "output_tokens": 445,
+          "compression_ratio": 0.42654639175257736,
+          "keyword_retention": 51.53061224489795,
+          "answer_retained": true,
+          "latency_ms": 2790.3762920032023
+        },
+        {
+          "method": "llmlingua",
+          "keep_ratio": 0.7,
+          "input_tokens": 1049,
+          "output_tokens": 636,
+          "compression_ratio": 0.3937082936129648,
+          "keyword_retention": 68.38709677419355,
+          "answer_retained": true,
+          "latency_ms": 3739.2195830034325
+        },
+        {
+          "method": "llmlingua",
+          "keep_ratio": 0.7,
+          "input_tokens": 806,
+          "output_tokens": 432,
+          "compression_ratio": 0.46401985111662536,
+          "keyword_retention": 47.02702702702703,
+          "answer_retained": true,
+          "latency_ms": 2788.7298749992624
+        },
+        {
+          "method": "llmlingua",
+          "keep_ratio": 0.7,
+          "input_tokens": 736,
+          "output_tokens": 532,
+          "compression_ratio": 0.27717391304347827,
+          "keyword_retention": 71.77914110429448,
+          "answer_retained": false,
+          "latency_ms": 3294.5814999984577
+        },
+        {
+          "method": "llmlingua",
+          "keep_ratio": 0.7,
+          "input_tokens": 1042,
+          "output_tokens": 625,
+          "compression_ratio": 0.4001919385796545,
+          "keyword_retention": 66.32996632996633,
+          "answer_retained": true,
+          "latency_ms": 4074.9435420002555
+        },
+        {
+          "method": "llmlingua",
+          "keep_ratio": 0.7,
+          "input_tokens": 967,
+          "output_tokens": 525,
+          "compression_ratio": 0.4570837642192348,
+          "keyword_retention": 57.52895752895753,
+          "answer_retained": false,
+          "latency_ms": 3206.15737499611
+        },
+        {
+          "method": "llmlingua",
+          "keep_ratio": 0.7,
+          "input_tokens": 1176,
+          "output_tokens": 696,
+          "compression_ratio": 0.40816326530612246,
+          "keyword_retention": 67.20647773279353,
+          "answer_retained": false,
+          "latency_ms": 4322.395416995278
+        },
+        {
+          "method": "llmlingua",
+          "keep_ratio": 0.7,
+          "input_tokens": 1546,
+          "output_tokens": 852,
+          "compression_ratio": 0.4489003880983182,
+          "keyword_retention": 61.22931442080378,
+          "answer_retained": false,
+          "latency_ms": 5023.54516700143
+        },
+        {
+          "method": "llmlingua",
+          "keep_ratio": 0.7,
+          "input_tokens": 1870,
+          "output_tokens": 1020,
+          "compression_ratio": 0.4545454545454546,
+          "keyword_retention": 62.06140350877193,
+          "answer_retained": false,
+          "latency_ms": 6526.591959001962
+        },
+        {
+          "method": "llmlingua",
+          "keep_ratio": 0.7,
+          "input_tokens": 1134,
+          "output_tokens": 719,
+          "compression_ratio": 0.36596119929453264,
+          "keyword_retention": 71.30434782608695,
+          "answer_retained": true,
+          "latency_ms": 4047.7513749938225
+        },
+        {
+          "method": "llmlingua",
+          "keep_ratio": 0.7,
+          "input_tokens": 652,
+          "output_tokens": 449,
+          "compression_ratio": 0.3113496932515337,
+          "keyword_retention": 67.28971962616822,
+          "answer_retained": true,
+          "latency_ms": 2764.220875003957
+        },
+        {
+          "method": "llmlingua",
+          "keep_ratio": 0.7,
+          "input_tokens": 1243,
+          "output_tokens": 661,
+          "compression_ratio": 0.46822204344328233,
+          "keyword_retention": 61.245674740484425,
+          "answer_retained": false,
+          "latency_ms": 7081.358041992644
+        },
+        {
+          "method": "llmlingua",
+          "keep_ratio": 0.7,
+          "input_tokens": 1466,
+          "output_tokens": 833,
+          "compression_ratio": 0.431787175989086,
+          "keyword_retention": 61.49732620320856,
+          "answer_retained": true,
+          "latency_ms": 4791.301332996227
+        },
+        {
+          "method": "llmlingua",
+          "keep_ratio": 0.7,
+          "input_tokens": 1979,
+          "output_tokens": 1100,
+          "compression_ratio": 0.4441637190500253,
+          "keyword_retention": 57.738095238095234,
+          "answer_retained": true,
+          "latency_ms": 6542.891083008726
+        },
+        {
+          "method": "llmlingua",
+          "keep_ratio": 0.7,
+          "input_tokens": 1317,
+          "output_tokens": 806,
+          "compression_ratio": 0.3880030372057707,
+          "keyword_retention": 78.36538461538461,
+          "answer_retained": true,
+          "latency_ms": 4595.956125005614
+        },
+        {
+          "method": "llmlingua",
+          "keep_ratio": 0.7,
+          "input_tokens": 1388,
+          "output_tokens": 1008,
+          "compression_ratio": 0.27377521613832856,
+          "keyword_retention": 71.6867469879518,
+          "answer_retained": false,
+          "latency_ms": 3994.480959008797
+        },
+        {
+          "method": "llmlingua",
+          "keep_ratio": 0.7,
+          "input_tokens": 1192,
+          "output_tokens": 779,
+          "compression_ratio": 0.3464765100671141,
+          "keyword_retention": 65.86206896551724,
+          "answer_retained": true,
+          "latency_ms": 4075.0422080018325
+        },
+        {
+          "method": "llmlingua",
+          "keep_ratio": 0.7,
+          "input_tokens": 1341,
+          "output_tokens": 544,
+          "compression_ratio": 0.5943325876211782,
+          "keyword_retention": 44.20485175202156,
+          "answer_retained": true,
+          "latency_ms": 3741.900375011028
+        },
+        {
+          "method": "llmlingua",
+          "keep_ratio": 0.7,
+          "input_tokens": 1096,
+          "output_tokens": 603,
+          "compression_ratio": 0.4498175182481752,
+          "keyword_retention": 63.541666666666664,
+          "answer_retained": true,
+          "latency_ms": 4485.570375007228
+        },
+        {
+          "method": "llmlingua",
+          "keep_ratio": 0.7,
+          "input_tokens": 1530,
+          "output_tokens": 987,
+          "compression_ratio": 0.3549019607843137,
+          "keyword_retention": 69.0376569037657,
+          "answer_retained": true,
+          "latency_ms": 5292.158540993114
+        },
+        {
+          "method": "llmlingua",
+          "keep_ratio": 0.7,
+          "input_tokens": 911,
+          "output_tokens": 599,
+          "compression_ratio": 0.34248079034028545,
+          "keyword_retention": 64.80446927374301,
+          "answer_retained": false,
+          "latency_ms": 3371.8699580058455
+        },
+        {
+          "method": "llmlingua",
+          "keep_ratio": 0.7,
+          "input_tokens": 1455,
+          "output_tokens": 924,
+          "compression_ratio": 0.36494845360824746,
+          "keyword_retention": 69.88304093567251,
+          "answer_retained": false,
+          "latency_ms": 4869.6007920079865
+        },
+        {
+          "method": "llmlingua",
+          "keep_ratio": 0.7,
+          "input_tokens": 1337,
+          "output_tokens": 684,
+          "compression_ratio": 0.4884068810770381,
+          "keyword_retention": 55.94202898550724,
+          "answer_retained": false,
+          "latency_ms": 4241.581374997622
+        },
+        {
+          "method": "llmlingua",
+          "keep_ratio": 0.7,
+          "input_tokens": 1125,
+          "output_tokens": 723,
+          "compression_ratio": 0.3573333333333333,
+          "keyword_retention": 67.8030303030303,
+          "answer_retained": true,
+          "latency_ms": 3979.851540992968
+        },
+        {
+          "method": "llmlingua",
+          "keep_ratio": 0.7,
+          "input_tokens": 1024,
+          "output_tokens": 668,
+          "compression_ratio": 0.34765625,
+          "keyword_retention": 63.44086021505376,
+          "answer_retained": true,
+          "latency_ms": 3550.8730829897104
+        },
+        {
+          "method": "llmlingua",
+          "keep_ratio": 0.7,
+          "input_tokens": 1144,
+          "output_tokens": 667,
+          "compression_ratio": 0.416958041958042,
+          "keyword_retention": 63.11787072243346,
+          "answer_retained": true,
+          "latency_ms": 4306.505542001105
+        },
+        {
+          "method": "llmlingua",
+          "keep_ratio": 0.7,
+          "input_tokens": 1204,
+          "output_tokens": 741,
+          "compression_ratio": 0.38455149501661134,
+          "keyword_retention": 73.11320754716981,
+          "answer_retained": true,
+          "latency_ms": 4334.681082997122
+        },
+        {
+          "method": "llmlingua",
+          "keep_ratio": 0.7,
+          "input_tokens": 1113,
+          "output_tokens": 680,
+          "compression_ratio": 0.3890386343216532,
+          "keyword_retention": 62.45847176079734,
+          "answer_retained": true,
+          "latency_ms": 3976.9111659988994
+        },
+        {
+          "method": "llmlingua",
+          "keep_ratio": 0.7,
+          "input_tokens": 1267,
+          "output_tokens": 775,
+          "compression_ratio": 0.38831886345698496,
+          "keyword_retention": 65.51724137931035,
+          "answer_retained": true,
+          "latency_ms": 4259.442249996937
+        },
+        {
+          "method": "llmlingua",
+          "keep_ratio": 0.7,
+          "input_tokens": 1049,
+          "output_tokens": 652,
+          "compression_ratio": 0.37845567206863684,
+          "keyword_retention": 66.80327868852459,
+          "answer_retained": true,
+          "latency_ms": 3736.7711669940036
+        },
+        {
+          "method": "llmlingua",
+          "keep_ratio": 0.7,
+          "input_tokens": 1135,
+          "output_tokens": 687,
+          "compression_ratio": 0.3947136563876652,
+          "keyword_retention": 70.42801556420234,
+          "answer_retained": true,
+          "latency_ms": 3897.9664590005996
+        },
+        {
+          "method": "llmlingua",
+          "keep_ratio": 0.7,
+          "input_tokens": 1215,
+          "output_tokens": 761,
+          "compression_ratio": 0.3736625514403292,
+          "keyword_retention": 71.07142857142857,
+          "answer_retained": true,
+          "latency_ms": 4446.247832995141
+        },
+        {
+          "method": "llmlingua",
+          "keep_ratio": 0.7,
+          "input_tokens": 895,
+          "output_tokens": 590,
+          "compression_ratio": 0.34078212290502796,
+          "keyword_retention": 68.34862385321101,
+          "answer_retained": true,
+          "latency_ms": 3320.177582994802
+        },
+        {
+          "method": "llmlingua",
+          "keep_ratio": 0.7,
+          "input_tokens": 1039,
+          "output_tokens": 685,
+          "compression_ratio": 0.34071222329162654,
+          "keyword_retention": 68.87417218543047,
+          "answer_retained": true,
+          "latency_ms": 3884.318666998297
+        },
+        {
+          "method": "llmlingua",
+          "keep_ratio": 0.7,
+          "input_tokens": 1077,
+          "output_tokens": 675,
+          "compression_ratio": 0.3732590529247911,
+          "keyword_retention": 65.2014652014652,
+          "answer_retained": true,
+          "latency_ms": 4087.8335000015795
+        },
+        {
+          "method": "llmlingua",
+          "keep_ratio": 0.7,
+          "input_tokens": 1180,
+          "output_tokens": 732,
+          "compression_ratio": 0.37966101694915255,
+          "keyword_retention": 59.818731117824775,
+          "answer_retained": false,
+          "latency_ms": 4177.273291992606
+        },
+        {
+          "method": "llmlingua",
+          "keep_ratio": 0.7,
+          "input_tokens": 920,
+          "output_tokens": 602,
+          "compression_ratio": 0.3456521739130435,
+          "keyword_retention": 66.92307692307692,
+          "answer_retained": true,
+          "latency_ms": 6750.334667012794
+        },
+        {
+          "method": "llmlingua",
+          "keep_ratio": 0.7,
+          "input_tokens": 1502,
+          "output_tokens": 886,
+          "compression_ratio": 0.41011984021304926,
+          "keyword_retention": 63.657957244655584,
+          "answer_retained": true,
+          "latency_ms": 4878.492999996524
+        },
+        {
+          "method": "llmlingua",
+          "keep_ratio": 0.7,
+          "input_tokens": 1148,
+          "output_tokens": 662,
+          "compression_ratio": 0.4233449477351916,
+          "keyword_retention": 58.22222222222222,
+          "answer_retained": false,
+          "latency_ms": 3859.3436669907533
+        },
+        {
+          "method": "llmlingua",
+          "keep_ratio": 0.7,
+          "input_tokens": 1203,
+          "output_tokens": 762,
+          "compression_ratio": 0.3665835411471322,
+          "keyword_retention": 69.53846153846153,
+          "answer_retained": false,
+          "latency_ms": 4319.8266249964945
+        },
+        {
+          "method": "llmlingua",
+          "keep_ratio": 0.7,
+          "input_tokens": 1473,
+          "output_tokens": 931,
+          "compression_ratio": 0.3679565512559403,
+          "keyword_retention": 67.61006289308176,
+          "answer_retained": false,
+          "latency_ms": 5197.558083003969
+        },
+        {
+          "method": "llmlingua",
+          "keep_ratio": 0.7,
+          "input_tokens": 921,
+          "output_tokens": 638,
+          "compression_ratio": 0.30727470141150925,
+          "keyword_retention": 73.68421052631578,
+          "answer_retained": true,
+          "latency_ms": 3630.4345419921447
+        },
+        {
+          "method": "llmlingua",
+          "keep_ratio": 0.7,
+          "input_tokens": 1327,
+          "output_tokens": 729,
+          "compression_ratio": 0.45064054257724195,
+          "keyword_retention": 60.43478260869565,
+          "answer_retained": true,
+          "latency_ms": 4441.440832990338
+        },
+        {
+          "method": "llmlingua",
+          "keep_ratio": 0.7,
+          "input_tokens": 1485,
+          "output_tokens": 902,
+          "compression_ratio": 0.3925925925925926,
+          "keyword_retention": 69.13946587537092,
+          "answer_retained": false,
+          "latency_ms": 5141.278666997096
+        },
+        {
+          "method": "llmlingua",
+          "keep_ratio": 0.7,
+          "input_tokens": 1822,
+          "output_tokens": 1086,
+          "compression_ratio": 0.4039517014270033,
+          "keyword_retention": 64.88888888888889,
+          "answer_retained": false,
+          "latency_ms": 6142.583167005796
+        },
+        {
+          "method": "llmlingua",
+          "keep_ratio": 0.7,
+          "input_tokens": 1048,
+          "output_tokens": 619,
+          "compression_ratio": 0.40935114503816794,
+          "keyword_retention": 60.0,
+          "answer_retained": true,
+          "latency_ms": 3614.3093340069754
+        },
+        {
+          "method": "llmlingua",
+          "keep_ratio": 0.7,
+          "input_tokens": 1620,
+          "output_tokens": 910,
+          "compression_ratio": 0.43827160493827155,
+          "keyword_retention": 56.14525139664804,
+          "answer_retained": false,
+          "latency_ms": 4968.570666998858
+        },
+        {
+          "method": "llmlingua",
+          "keep_ratio": 0.7,
+          "input_tokens": 1464,
+          "output_tokens": 907,
+          "compression_ratio": 0.38046448087431695,
+          "keyword_retention": 66.27218934911244,
+          "answer_retained": true,
+          "latency_ms": 4916.8097079964355
+        },
+        {
+          "method": "llmlingua",
+          "keep_ratio": 0.7,
+          "input_tokens": 1397,
+          "output_tokens": 873,
+          "compression_ratio": 0.3750894774516822,
+          "keyword_retention": 65.7243816254417,
+          "answer_retained": false,
+          "latency_ms": 4840.793958006543
+        },
+        {
+          "method": "llmlingua",
+          "keep_ratio": 0.7,
+          "input_tokens": 1867,
+          "output_tokens": 1104,
+          "compression_ratio": 0.40867702196036426,
+          "keyword_retention": 65.3763440860215,
+          "answer_retained": false,
+          "latency_ms": 6494.104750003316
+        },
+        {
+          "method": "llmlingua",
+          "keep_ratio": 0.7,
+          "input_tokens": 977,
+          "output_tokens": 633,
+          "compression_ratio": 0.35209825997952915,
+          "keyword_retention": 74.21052631578947,
+          "answer_retained": true,
+          "latency_ms": 3663.12504200323
+        },
+        {
+          "method": "llmlingua",
+          "keep_ratio": 0.7,
+          "input_tokens": 1068,
+          "output_tokens": 639,
+          "compression_ratio": 0.401685393258427,
+          "keyword_retention": 63.48684210526315,
+          "answer_retained": true,
+          "latency_ms": 3799.9920830043266
+        },
+        {
+          "method": "llmlingua",
+          "keep_ratio": 0.7,
+          "input_tokens": 1282,
+          "output_tokens": 788,
+          "compression_ratio": 0.38533541341653665,
+          "keyword_retention": 69.48529411764706,
+          "answer_retained": true,
+          "latency_ms": 4311.558874993352
+        },
+        {
+          "method": "llmlingua",
+          "keep_ratio": 0.7,
+          "input_tokens": 1622,
+          "output_tokens": 915,
+          "compression_ratio": 0.435881627620222,
+          "keyword_retention": 63.17907444668008,
+          "answer_retained": false,
+          "latency_ms": 5649.526125009288
+        },
+        {
+          "method": "llmlingua",
+          "keep_ratio": 0.7,
+          "input_tokens": 1004,
+          "output_tokens": 645,
+          "compression_ratio": 0.35756972111553786,
+          "keyword_retention": 68.6695278969957,
+          "answer_retained": false,
+          "latency_ms": 3684.895833997871
+        },
+        {
+          "method": "llmlingua",
+          "keep_ratio": 0.7,
+          "input_tokens": 924,
+          "output_tokens": 585,
+          "compression_ratio": 0.3668831168831169,
+          "keyword_retention": 69.95305164319248,
+          "answer_retained": true,
+          "latency_ms": 3686.5806249988964
+        },
+        {
+          "method": "llmlingua",
+          "keep_ratio": 0.7,
+          "input_tokens": 1466,
+          "output_tokens": 742,
+          "compression_ratio": 0.4938608458390177,
+          "keyword_retention": 55.654761904761905,
+          "answer_retained": true,
+          "latency_ms": 4372.405375004746
+        },
+        {
+          "method": "llmlingua",
+          "keep_ratio": 0.7,
+          "input_tokens": 1558,
+          "output_tokens": 859,
+          "compression_ratio": 0.4486521181001284,
+          "keyword_retention": 63.387978142076506,
+          "answer_retained": false,
+          "latency_ms": 5197.487915997044
+        },
+        {
+          "method": "llmlingua",
+          "keep_ratio": 0.7,
+          "input_tokens": 1415,
+          "output_tokens": 799,
+          "compression_ratio": 0.43533568904593645,
+          "keyword_retention": 59.78260869565217,
+          "answer_retained": true,
+          "latency_ms": 4777.772832996561
+        },
+        {
+          "method": "llmlingua",
+          "keep_ratio": 0.7,
+          "input_tokens": 1134,
+          "output_tokens": 737,
+          "compression_ratio": 0.3500881834215167,
+          "keyword_retention": 65.51724137931035,
+          "answer_retained": true,
+          "latency_ms": 3926.943416998256
+        },
+        {
+          "method": "llmlingua",
+          "keep_ratio": 0.7,
+          "input_tokens": 1285,
+          "output_tokens": 761,
+          "compression_ratio": 0.40778210116731517,
+          "keyword_retention": 70.1657458563536,
+          "answer_retained": false,
+          "latency_ms": 4316.4640000031795
+        },
+        {
+          "method": "llmlingua",
+          "keep_ratio": 0.7,
+          "input_tokens": 865,
+          "output_tokens": 575,
+          "compression_ratio": 0.33526011560693647,
+          "keyword_retention": 67.6056338028169,
+          "answer_retained": true,
+          "latency_ms": 6346.295208990341
+        },
+        {
+          "method": "llmlingua",
+          "keep_ratio": 0.7,
+          "input_tokens": 1993,
+          "output_tokens": 1194,
+          "compression_ratio": 0.40090316106372303,
+          "keyword_retention": 64.94565217391305,
+          "answer_retained": true,
+          "latency_ms": 6425.352167003439
+        },
+        {
+          "method": "llmlingua",
+          "keep_ratio": 0.7,
+          "input_tokens": 1081,
+          "output_tokens": 652,
+          "compression_ratio": 0.396854764107308,
+          "keyword_retention": 68.53146853146853,
+          "answer_retained": true,
+          "latency_ms": 3948.012500011828
+        },
+        {
+          "method": "llmlingua",
+          "keep_ratio": 0.7,
+          "input_tokens": 1189,
+          "output_tokens": 791,
+          "compression_ratio": 0.3347350714886459,
+          "keyword_retention": 67.54098360655738,
+          "answer_retained": true,
+          "latency_ms": 4249.831042005098
+        },
+        {
+          "method": "llmlingua",
+          "keep_ratio": 0.7,
+          "input_tokens": 1007,
+          "output_tokens": 641,
+          "compression_ratio": 0.3634558093346574,
+          "keyword_retention": 80.09950248756219,
+          "answer_retained": true,
+          "latency_ms": 3851.8796249991283
+        },
+        {
+          "method": "llmlingua",
+          "keep_ratio": 0.7,
+          "input_tokens": 1511,
+          "output_tokens": 965,
+          "compression_ratio": 0.36135009927200534,
+          "keyword_retention": 76.14035087719299,
+          "answer_retained": true,
+          "latency_ms": 5093.697249991237
+        },
+        {
+          "method": "llmlingua",
+          "keep_ratio": 0.7,
+          "input_tokens": 1535,
+          "output_tokens": 925,
+          "compression_ratio": 0.39739413680781754,
+          "keyword_retention": 71.42857142857143,
+          "answer_retained": true,
+          "latency_ms": 5139.333582992549
+        },
+        {
+          "method": "llmlingua",
+          "keep_ratio": 0.7,
+          "input_tokens": 1450,
+          "output_tokens": 791,
+          "compression_ratio": 0.45448275862068965,
+          "keyword_retention": 58.98305084745763,
+          "answer_retained": false,
+          "latency_ms": 4523.812083993107
+        },
+        {
+          "method": "llmlingua",
+          "keep_ratio": 0.7,
+          "input_tokens": 1653,
+          "output_tokens": 939,
+          "compression_ratio": 0.43194192377495466,
+          "keyword_retention": 68.9119170984456,
+          "answer_retained": true,
+          "latency_ms": 5490.615209011594
+        },
+        {
+          "method": "llmlingua",
+          "keep_ratio": 0.7,
+          "input_tokens": 1606,
+          "output_tokens": 871,
+          "compression_ratio": 0.45765877957658785,
+          "keyword_retention": 61.78010471204188,
+          "answer_retained": true,
+          "latency_ms": 5185.969500002102
+        },
+        {
+          "method": "llmlingua",
+          "keep_ratio": 0.7,
+          "input_tokens": 998,
+          "output_tokens": 695,
+          "compression_ratio": 0.30360721442885774,
+          "keyword_retention": 73.4567901234568,
+          "answer_retained": false,
+          "latency_ms": 3411.9842920044903
+        },
+        {
+          "method": "llmlingua",
+          "keep_ratio": 0.7,
+          "input_tokens": 1435,
+          "output_tokens": 810,
+          "compression_ratio": 0.4355400696864111,
+          "keyword_retention": 64.68401486988847,
+          "answer_retained": true,
+          "latency_ms": 4282.27254099329
+        },
+        {
+          "method": "llmlingua",
+          "keep_ratio": 0.7,
+          "input_tokens": 1301,
+          "output_tokens": 721,
+          "compression_ratio": 0.44581091468101464,
+          "keyword_retention": 64.76868327402136,
+          "answer_retained": false,
+          "latency_ms": 4507.265874999575
+        },
+        {
+          "method": "llmlingua",
+          "keep_ratio": 0.7,
+          "input_tokens": 1235,
+          "output_tokens": 808,
+          "compression_ratio": 0.345748987854251,
+          "keyword_retention": 64.42953020134227,
+          "answer_retained": false,
+          "latency_ms": 4622.787665997748
+        },
+        {
+          "method": "llmlingua",
+          "keep_ratio": 0.7,
+          "input_tokens": 1646,
+          "output_tokens": 913,
+          "compression_ratio": 0.44532199270959905,
+          "keyword_retention": 59.62877030162414,
+          "answer_retained": true,
+          "latency_ms": 5312.843458988937
+        },
+        {
+          "method": "llmlingua",
+          "keep_ratio": 0.7,
+          "input_tokens": 1808,
+          "output_tokens": 1024,
+          "compression_ratio": 0.4336283185840708,
+          "keyword_retention": 62.66968325791855,
+          "answer_retained": false,
+          "latency_ms": 5789.748542010784
+        },
+        {
+          "method": "llmlingua",
+          "keep_ratio": 0.7,
+          "input_tokens": 1743,
+          "output_tokens": 978,
+          "compression_ratio": 0.4388984509466437,
+          "keyword_retention": 63.421052631578945,
+          "answer_retained": true,
+          "latency_ms": 5601.228125000489
+        },
+        {
+          "method": "llmlingua",
+          "keep_ratio": 0.7,
+          "input_tokens": 1047,
+          "output_tokens": 638,
+          "compression_ratio": 0.390639923591213,
+          "keyword_retention": 65.5,
+          "answer_retained": true,
+          "latency_ms": 3976.690374998725
+        },
+        {
+          "method": "llmlingua",
+          "keep_ratio": 0.7,
+          "input_tokens": 1332,
+          "output_tokens": 849,
+          "compression_ratio": 0.3626126126126126,
+          "keyword_retention": 72.22222222222221,
+          "answer_retained": false,
+          "latency_ms": 4384.36762499623
+        },
+        {
+          "method": "llmlingua",
+          "keep_ratio": 0.7,
+          "input_tokens": 1353,
+          "output_tokens": 829,
+          "compression_ratio": 0.3872875092387288,
+          "keyword_retention": 71.8266253869969,
+          "answer_retained": true,
+          "latency_ms": 4573.026500002015
+        },
+        {
+          "method": "llmlingua",
+          "keep_ratio": 0.7,
+          "input_tokens": 1164,
+          "output_tokens": 685,
+          "compression_ratio": 0.4115120274914089,
+          "keyword_retention": 61.890243902439025,
+          "answer_retained": false,
+          "latency_ms": 4196.337832996505
+        },
+        {
+          "method": "llmlingua",
+          "keep_ratio": 0.7,
+          "input_tokens": 1236,
+          "output_tokens": 794,
+          "compression_ratio": 0.35760517799352753,
+          "keyword_retention": 73.72881355932203,
+          "answer_retained": false,
+          "latency_ms": 4399.496416008333
+        },
+        {
+          "method": "llmlingua",
+          "keep_ratio": 0.7,
+          "input_tokens": 1185,
+          "output_tokens": 623,
+          "compression_ratio": 0.4742616033755275,
+          "keyword_retention": 54.67289719626168,
+          "answer_retained": true,
+          "latency_ms": 4113.529750000453
+        },
+        {
+          "method": "llmlingua",
+          "keep_ratio": 0.7,
+          "input_tokens": 1105,
+          "output_tokens": 670,
+          "compression_ratio": 0.39366515837104077,
+          "keyword_retention": 62.34309623430963,
+          "answer_retained": false,
+          "latency_ms": 3855.447791007464
+        },
+        {
+          "method": "llmlingua",
+          "keep_ratio": 0.7,
+          "input_tokens": 1014,
+          "output_tokens": 669,
+          "compression_ratio": 0.3402366863905325,
+          "keyword_retention": 70.72072072072072,
+          "answer_retained": true,
+          "latency_ms": 3971.4812909951434
+        },
+        {
+          "method": "llmlingua",
+          "keep_ratio": 0.7,
+          "input_tokens": 966,
+          "output_tokens": 560,
+          "compression_ratio": 0.42028985507246375,
+          "keyword_retention": 64.11483253588517,
+          "answer_retained": true,
+          "latency_ms": 6330.524624994723
+        },
+        {
+          "method": "llmlingua",
+          "keep_ratio": 0.7,
+          "input_tokens": 1037,
+          "output_tokens": 701,
+          "compression_ratio": 0.3240115718418515,
+          "keyword_retention": 74.16974169741697,
+          "answer_retained": true,
+          "latency_ms": 3910.3304159943946
+        },
+        {
+          "method": "llmlingua",
+          "keep_ratio": 0.7,
+          "input_tokens": 1370,
+          "output_tokens": 711,
+          "compression_ratio": 0.481021897810219,
+          "keyword_retention": 59.515570934256054,
+          "answer_retained": false,
+          "latency_ms": 4443.616999997175
+        },
+        {
+          "method": "llmlingua",
+          "keep_ratio": 0.7,
+          "input_tokens": 568,
+          "output_tokens": 448,
+          "compression_ratio": 0.21126760563380287,
+          "keyword_retention": 75.0,
+          "answer_retained": true,
+          "latency_ms": 2647.1103329968173
+        },
+        {
+          "method": "llmlingua",
+          "keep_ratio": 0.7,
+          "input_tokens": 1200,
+          "output_tokens": 773,
+          "compression_ratio": 0.35583333333333333,
+          "keyword_retention": 75.2411575562701,
+          "answer_retained": true,
+          "latency_ms": 4515.5307079985505
+        },
+        {
+          "method": "llmlingua",
+          "keep_ratio": 0.7,
+          "input_tokens": 1894,
+          "output_tokens": 1156,
+          "compression_ratio": 0.38965153115100315,
+          "keyword_retention": 67.58241758241759,
+          "answer_retained": false,
+          "latency_ms": 6926.472958002705
+        },
+        {
+          "method": "llmlingua",
+          "keep_ratio": 0.7,
+          "input_tokens": 1393,
+          "output_tokens": 821,
+          "compression_ratio": 0.41062455132806897,
+          "keyword_retention": 62.903225806451616,
+          "answer_retained": true,
+          "latency_ms": 6466.871625001659
+        },
+        {
+          "method": "llmlingua",
+          "keep_ratio": 0.7,
+          "input_tokens": 1836,
+          "output_tokens": 1042,
+          "compression_ratio": 0.4324618736383442,
+          "keyword_retention": 68.125,
+          "answer_retained": true,
+          "latency_ms": 7897.991165998974
+        },
+        {
+          "method": "llmlingua",
+          "keep_ratio": 0.7,
+          "input_tokens": 1542,
+          "output_tokens": 953,
+          "compression_ratio": 0.38197146562905315,
+          "keyword_retention": 66.98113207547169,
+          "answer_retained": false,
+          "latency_ms": 5245.358249987476
+        },
+        {
+          "method": "llmlingua",
+          "keep_ratio": 0.7,
+          "input_tokens": 1286,
+          "output_tokens": 796,
+          "compression_ratio": 0.3810264385692068,
+          "keyword_retention": 64.22018348623854,
+          "answer_retained": true,
+          "latency_ms": 4571.974082995439
+        },
+        {
+          "method": "llmlingua",
+          "keep_ratio": 0.7,
+          "input_tokens": 1379,
+          "output_tokens": 865,
+          "compression_ratio": 0.3727338651196519,
+          "keyword_retention": 83.41463414634146,
+          "answer_retained": true,
+          "latency_ms": 4929.07329199079
+        },
+        {
+          "method": "llmlingua",
+          "keep_ratio": 0.7,
+          "input_tokens": 1350,
+          "output_tokens": 827,
+          "compression_ratio": 0.3874074074074074,
+          "keyword_retention": 62.64705882352941,
+          "answer_retained": false,
+          "latency_ms": 4624.615708991769
+        },
+        {
+          "method": "llmlingua",
+          "keep_ratio": 0.7,
+          "input_tokens": 1120,
+          "output_tokens": 703,
+          "compression_ratio": 0.3723214285714286,
+          "keyword_retention": 60.4982206405694,
+          "answer_retained": false,
+          "latency_ms": 3923.758999997517
+        },
+        {
+          "method": "llmlingua",
+          "keep_ratio": 0.7,
+          "input_tokens": 911,
+          "output_tokens": 603,
+          "compression_ratio": 0.33809001097694846,
+          "keyword_retention": 77.34375,
+          "answer_retained": true,
+          "latency_ms": 3493.2172499975422
+        },
+        {
+          "method": "llmlingua",
+          "keep_ratio": 0.7,
+          "input_tokens": 1520,
+          "output_tokens": 791,
+          "compression_ratio": 0.47960526315789476,
+          "keyword_retention": 55.16224188790561,
+          "answer_retained": false,
+          "latency_ms": 4429.613875006908
+        },
+        {
+          "method": "llmlingua",
+          "keep_ratio": 0.7,
+          "input_tokens": 1506,
+          "output_tokens": 754,
+          "compression_ratio": 0.49933598937583,
+          "keyword_retention": 58.92255892255892,
+          "answer_retained": true,
+          "latency_ms": 4510.552292005741
+        },
+        {
+          "method": "llmlingua",
+          "keep_ratio": 0.7,
+          "input_tokens": 1175,
+          "output_tokens": 773,
+          "compression_ratio": 0.3421276595744681,
+          "keyword_retention": 65.2014652014652,
+          "answer_retained": true,
+          "latency_ms": 4381.23391699628
+        },
+        {
+          "method": "llmlingua",
+          "keep_ratio": 0.7,
+          "input_tokens": 1997,
+          "output_tokens": 1148,
+          "compression_ratio": 0.42513770655983973,
+          "keyword_retention": 67.16738197424893,
+          "answer_retained": false,
+          "latency_ms": 8356.404624995776
+        },
+        {
+          "method": "llmlingua",
+          "keep_ratio": 0.7,
+          "input_tokens": 1063,
+          "output_tokens": 666,
+          "compression_ratio": 0.3734713076199435,
+          "keyword_retention": 65.38461538461539,
+          "answer_retained": true,
+          "latency_ms": 5657.595750002656
+        },
+        {
+          "method": "llmlingua",
+          "keep_ratio": 0.7,
+          "input_tokens": 1180,
+          "output_tokens": 742,
+          "compression_ratio": 0.37118644067796613,
+          "keyword_retention": 67.78523489932886,
+          "answer_retained": true,
+          "latency_ms": 5557.693082999322
+        },
+        {
+          "method": "llmlingua",
+          "keep_ratio": 0.7,
+          "input_tokens": 1396,
+          "output_tokens": 879,
+          "compression_ratio": 0.37034383954154726,
+          "keyword_retention": 62.89855072463768,
+          "answer_retained": true,
+          "latency_ms": 5919.512208012748
+        },
+        {
+          "method": "llmlingua",
+          "keep_ratio": 0.7,
+          "input_tokens": 1162,
+          "output_tokens": 719,
+          "compression_ratio": 0.38123924268502585,
+          "keyword_retention": 60.08230452674898,
+          "answer_retained": false,
+          "latency_ms": 5420.13583300286
+        },
+        {
+          "method": "llmlingua",
+          "keep_ratio": 0.7,
+          "input_tokens": 911,
+          "output_tokens": 581,
+          "compression_ratio": 0.3622392974753018,
+          "keyword_retention": 68.43971631205675,
+          "answer_retained": true,
+          "latency_ms": 4437.149000004865
+        },
+        {
+          "method": "llmlingua",
+          "keep_ratio": 0.7,
+          "input_tokens": 1567,
+          "output_tokens": 895,
+          "compression_ratio": 0.4288449266113593,
+          "keyword_retention": 59.95623632385121,
+          "answer_retained": false,
+          "latency_ms": 6591.023875007522
+        },
+        {
+          "method": "llmlingua",
+          "keep_ratio": 0.7,
+          "input_tokens": 2548,
+          "output_tokens": 1389,
+          "compression_ratio": 0.4548665620094191,
+          "keyword_retention": 65.7957244655582,
+          "answer_retained": false,
+          "latency_ms": 9295.723332994385
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,2 @@
+reduce_ratio,num_samples,avg_input_tokens,avg_output_tokens,avg_compression_ratio,avg_latency_ms,avg_keyword_retention,answer_recall_pct
+0.0,200,1318.725,1303.95,0.006304966536214076,3535.9601544047473,99.63626334131419,100.0
