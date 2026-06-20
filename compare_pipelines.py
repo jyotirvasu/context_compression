@@ -62,6 +62,7 @@ OUTPUTS  (versioned, like evaluate_hf.py)
 
 import argparse
 import csv
+import gc
 import hashlib
 import json
 import os
@@ -69,16 +70,36 @@ import time
 from typing import Dict, List, Optional
 
 # Native-stability guards (must run BEFORE torch / transformers import).
-# Prevents the macOS/Apple-Silicon "zsh: bus error" (SIGBUS) caused by the
-# HuggingFace tokenizers parallel worker pool and thread contention during
-# long multi-sample runs.
-os.environ.setdefault("TOKENIZERS_PARALLELISM", "false")
-os.environ.setdefault("OMP_NUM_THREADS", "1")
+# Prevents the macOS/Apple-Silicon "zsh: bus error" (SIGBUS) and the companion
+# "leaked semaphore" warning. Both stem from native thread-pool / allocator
+# contention (OpenMP, BLAS, HuggingFace tokenizers) building up over a long
+# multi-sample run; the leaked semaphore is just the resource-tracker reporting
+# the unclean shutdown after the SIGBUS. Pinning every native pool to a single
+# thread removes the contention that triggers the crash.
+for _var in (
+    "TOKENIZERS_PARALLELISM",  # disable the HF tokenizers Rust thread pool
+):
+    os.environ.setdefault(_var, "false")
+for _var in (
+    "OMP_NUM_THREADS",       # OpenMP
+    "MKL_NUM_THREADS",       # Intel MKL
+    "OPENBLAS_NUM_THREADS",  # OpenBLAS
+    "NUMEXPR_NUM_THREADS",   # numexpr
+    "VECLIB_MAXIMUM_THREADS",  # Apple Accelerate / vecLib
+):
+    os.environ.setdefault(_var, "1")
 os.environ.setdefault("PYTORCH_ENABLE_MPS_FALLBACK", "1")
+os.environ.setdefault("HF_HUB_DISABLE_TELEMETRY", "1")
 try:
     import torch
 
     torch.set_num_threads(1)
+    try:
+        # Inter-op parallelism must also be pinned; can only be set once, before
+        # any parallel work has started, so guard against a late RuntimeError.
+        torch.set_num_interop_threads(1)
+    except RuntimeError:
+        pass
 except ImportError:
     pass
 
@@ -305,6 +326,11 @@ def evaluate_method(method: str, pipe, samples: List[Dict], keep: float,
             if errors <= 2:
                 print(f"\n  [{method}] sample {i} failed: {e}")
             continue
+        # Periodically release intermediate tensors / fragmented memory to keep
+        # the native allocator from growing without bound over a long run (a
+        # common trigger for the Apple-Silicon SIGBUS / leaked-semaphore crash).
+        if i % 25 == 0:
+            gc.collect()
         elapsed = time.perf_counter() - loop_start
         eta = (elapsed / i) * (total - i)
         bar = "#" * int(24 * i / total) + "-" * (24 - int(24 * i / total))

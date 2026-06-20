@@ -38,6 +38,7 @@ OUTPUTS
 
 import argparse
 import csv
+import gc
 import hashlib
 import json
 import os
@@ -45,6 +46,29 @@ import re
 import time
 from datetime import datetime
 from typing import Dict, List, Optional, Tuple
+
+# Native-stability guards (must run BEFORE torch / transformers import via
+# `pipeline`). Pin every native thread pool to one thread to avoid the
+# macOS/Apple-Silicon "zsh: bus error" (SIGBUS) + "leaked semaphore" warning
+# that build up over long multi-sample runs. See compare_pipelines.py for the
+# full rationale.
+for _var in ("TOKENIZERS_PARALLELISM",):
+    os.environ.setdefault(_var, "false")
+for _var in ("OMP_NUM_THREADS", "MKL_NUM_THREADS", "OPENBLAS_NUM_THREADS",
+             "NUMEXPR_NUM_THREADS", "VECLIB_MAXIMUM_THREADS"):
+    os.environ.setdefault(_var, "1")
+os.environ.setdefault("PYTORCH_ENABLE_MPS_FALLBACK", "1")
+os.environ.setdefault("HF_HUB_DISABLE_TELEMETRY", "1")
+try:
+    import torch
+
+    torch.set_num_threads(1)
+    try:
+        torch.set_num_interop_threads(1)
+    except RuntimeError:
+        pass
+except ImportError:
+    pass
 
 from pipeline import ContextCompressionPipeline
 from utils.helpers import count_tokens, load_config
@@ -356,6 +380,11 @@ def evaluate_at_ratio(pipe: ContextCompressionPipeline, samples: List[Dict],
         )
 
         per_sample.append(metrics)
+
+        # Periodically release fragmented memory to keep the native allocator
+        # bounded over long runs (a common SIGBUS / leaked-semaphore trigger).
+        if i % 25 == 0:
+            gc.collect()
 
     print()  # finish the progress line
     if cache and cached:
