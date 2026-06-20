@@ -30,6 +30,12 @@ on disk under --cache-dir (default .eval_cache/), so simply re-running the
 SAME command replays finished samples instantly and only recomputes the work
 lost to the crash. Use --no-cache to force a full recompute.
 
+For a fully hands-off long run, add --chunk-size N: the harness then processes
+the samples in fresh subprocesses of N samples each, releasing all native
+memory between chunks so the SIGBUS does not recur. Crashed chunks are retried
+and any completed samples are preserved in the cache. Example:
+    python evaluate_hf.py --num-samples 200 --reduce-ratios 0.5 --chunk-size 25
+
 OUTPUTS
 -------
     eval_results.json   (full per-sample + aggregate metrics)
@@ -43,6 +49,8 @@ import hashlib
 import json
 import os
 import re
+import subprocess
+import sys
 import time
 from datetime import datetime
 from typing import Dict, List, Optional, Tuple
@@ -427,6 +435,72 @@ def print_table(rows: List[Dict]):
     print("=" * 92)
 
 
+def _run_chunked(args, total_samples: int) -> None:
+    """Process the run in fresh subprocesses, `chunk_size` samples at a time.
+
+    Each chunk is a self-contained subprocess that builds the pipeline, loads
+    the model, processes its slice, writes results to the shared cache, and then
+    exits -- releasing ALL native memory. This sidesteps the long-run
+    Apple-Silicon SIGBUS / leaked-semaphore crash, which is caused by native
+    allocator/thread state accumulating in a single long-lived process.
+
+    If a chunk subprocess still crashes (non-zero exit), its completed samples
+    are already in the cache, so it is retried a couple of times; any
+    persistently failing chunk is skipped and filled in by the parent's final
+    cache-served pass.
+    """
+    n_chunks = (total_samples + args.chunk_size - 1) // args.chunk_size
+    print(f"[eval] Chunked mode: {total_samples} samples in {n_chunks} "
+          f"subprocess chunk(s) of up to {args.chunk_size}.")
+
+    base_cmd = [sys.executable, os.path.abspath(__file__),
+                "--dataset", args.dataset,
+                "--config", args.config,
+                "--split", args.split,
+                "--num-samples", str(args.num_samples),
+                "--config-path", args.config_path,
+                "--project", args.project,
+                "--results-dir", args.results_dir,
+                "--cache-dir", args.cache_dir]
+    if args.reduce_ratios:
+        base_cmd += ["--reduce-ratios", *[str(r) for r in args.reduce_ratios]]
+    if args.offline:
+        base_cmd += ["--offline"]
+    # Forward per-stage overrides so every chunk runs the identical config.
+    for flag, value in (
+        ("--chunking-method", args.chunking_method),
+        ("--max-chunk-tokens", args.max_chunk_tokens),
+        ("--sentence-splitter", args.sentence_splitter),
+        ("--retrieval-method", args.retrieval_method),
+        ("--top-n", args.top_n),
+        ("--hybrid-alpha", args.hybrid_alpha),
+        ("--granularity", args.granularity),
+        ("--model-type", args.model_type),
+        ("--packing-strategy", args.packing_strategy),
+        ("--max-context-tokens", args.max_context_tokens),
+    ):
+        if value is not None:
+            base_cmd += [flag, str(value)]
+
+    for c in range(n_chunks):
+        lo = c * args.chunk_size
+        hi = min(total_samples, lo + args.chunk_size)
+        cmd = base_cmd + ["--_worker-start", str(lo), "--_worker-end", str(hi)]
+        for attempt in range(3):
+            tag = f"  (retry {attempt})" if attempt else ""
+            print(f"\n[eval] === Chunk {c + 1}/{n_chunks}  samples [{lo}:{hi}]{tag} ===")
+            proc = subprocess.run(cmd)
+            if proc.returncode == 0:
+                break
+            print(f"[eval] Chunk {c + 1} exited with code {proc.returncode} "
+                  f"(likely SIGBUS). Completed samples are cached; retrying remainder.")
+        else:
+            print(f"[eval] Chunk {c + 1} failed repeatedly; "
+                  f"remaining samples will be filled by the final pass.")
+
+    print("\n[eval] All chunks processed; aggregating from cache ...")
+
+
 def main():
     parser = argparse.ArgumentParser(description="HF dataset evaluation for the compression pipeline.")
     parser.add_argument("--dataset", default="hotpotqa/hotpot_qa", help="HF dataset id (default: hotpotqa/hotpot_qa)")
@@ -468,7 +542,20 @@ def main():
                        help="Stage E: packing.strategy")
     stage.add_argument("--max-context-tokens", type=int,
                        help="Stage E: packing.max_context_tokens")
+    parser.add_argument("--chunk-size", type=int, default=0,
+                        help="If > 0, process samples in fresh subprocesses of this many "
+                             "samples each. Fully releases native memory between chunks to "
+                             "avoid the Apple-Silicon SIGBUS / leaked-semaphore crash on long "
+                             "runs. Requires the cache (cannot combine with --no-cache).")
+    # Internal worker flags (set by the chunk orchestrator; not for direct use).
+    parser.add_argument("--_worker-start", type=int, default=-1, help=argparse.SUPPRESS)
+    parser.add_argument("--_worker-end", type=int, default=-1, help=argparse.SUPPRESS)
     args = parser.parse_args()
+
+    is_worker = args._worker_start >= 0
+    if args.chunk_size > 0 and args.no_cache:
+        print("[eval] --chunk-size requires the cache; ignoring --no-cache.")
+        args.no_cache = False
 
     # Assemble per-stage overrides from CLI flags (only those the user supplied).
     overrides = {
@@ -518,6 +605,24 @@ def main():
         print("[eval] No samples to evaluate. Exiting.")
         return
 
+    total_samples = len(samples)
+
+    # In a worker subprocess we only handle our assigned slice of samples.
+    if is_worker:
+        lo = max(0, args._worker_start)
+        hi = min(total_samples, args._worker_end)
+        samples = samples[lo:hi]
+        print(f"[worker] Processing samples [{lo}:{hi}] ({len(samples)} of {total_samples}).")
+        if not samples:
+            return
+
+    # Chunk orchestrator: spawn a fresh subprocess per chunk so native memory
+    # is fully released between chunks (robust against the long-run SIGBUS).
+    if args.chunk_size > 0 and not is_worker:
+        _run_chunked(args, total_samples)
+        # After chunks populate the cache, fall through to the (now instant)
+        # cache-served aggregation below to build the table / plots / files.
+
     pipe = ContextCompressionPipeline(args.config_path, config_overrides=overrides)
 
     # Fold the active config (incl. overrides) into the cache signature so that
@@ -540,6 +645,12 @@ def main():
         run = evaluate_at_ratio(pipe, samples, r, cache=cache)
         all_runs.append(run)
         aggregate_rows.append(run["aggregate"])
+
+    # A worker subprocess only fills the cache for its slice; the parent does
+    # the final aggregation and writes the result files.
+    if is_worker:
+        print(f"[worker] Done; cache writes={cache.writes}, hits={cache.hits}.")
+        return
 
     print_table(aggregate_rows)
 
