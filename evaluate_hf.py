@@ -342,7 +342,8 @@ class SampleCache:
 # ----------------------------------------------------------------------
 def evaluate_at_ratio(pipe: ContextCompressionPipeline, samples: List[Dict],
                       reduce_ratio: Optional[float],
-                      cache: Optional["SampleCache"] = None) -> Dict:
+                      cache: Optional["SampleCache"] = None,
+                      cache_only: bool = False) -> Dict:
     if reduce_ratio is not None:
         pipe.compressor.reduce_ratio = reduce_ratio
 
@@ -350,11 +351,17 @@ def evaluate_at_ratio(pipe: ContextCompressionPipeline, samples: List[Dict],
     loop_start = time.perf_counter()
     per_sample = []
     cached = 0
+    skipped = 0
     for i, s in enumerate(samples, 1):
         metrics = cache.get(reduce_ratio, s) if cache else None
         if metrics is not None:
             cached += 1
             latency_ms = metrics.get("latency_ms", 0.0)
+        elif cache_only:
+            # Aggregation pass: never run the model in this (long-lived)
+            # process; uncached samples are simply skipped.
+            skipped += 1
+            continue
         else:
             start = time.perf_counter()
             result = pipe.run(s["document"], s["question"])
@@ -636,13 +643,19 @@ def main():
         print(f"[eval] Resume cache: {os.path.abspath(args.cache_dir)} "
               f"(re-run to resume after a crash; use --no-cache to disable).")
 
+    # After chunked processing the parent only AGGREGATES from cache; it must
+    # never load the model itself (a single uncached sample would otherwise
+    # crash this long-lived process). Workers and non-chunked runs compute.
+    aggregation_only = args.chunk_size > 0 and not is_worker
+
     ratios = args.reduce_ratios if args.reduce_ratios else [None]
     all_runs = []
     aggregate_rows = []
     for r in ratios:
         label = f"reduce_ratio={r}" if r is not None else "config default"
         print(f"\n[eval] Running {len(samples)} samples @ {label} ...")
-        run = evaluate_at_ratio(pipe, samples, r, cache=cache)
+        run = evaluate_at_ratio(pipe, samples, r, cache=cache,
+                                cache_only=aggregation_only)
         all_runs.append(run)
         aggregate_rows.append(run["aggregate"])
 

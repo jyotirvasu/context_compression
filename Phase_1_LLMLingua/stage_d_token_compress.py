@@ -54,6 +54,7 @@ class TokenCompressor:
         self._device = config.get("device", "cpu")
         self._lm = None
         self._lm_tokenizer = None
+        self._max_positions = 1024
         self._tiktoken = tiktoken.get_encoding("cl100k_base")
 
     def _load_model(self):
@@ -72,6 +73,15 @@ class TokenCompressor:
                 **_dtype_kwarg(torch.float32),
             ).to(self._device)
             self._lm.eval()
+
+            # Cap the per-forward-pass length to the model's positional limit.
+            # GPT-2 only has 1024 positions; feeding more indexes past its
+            # position-embedding table, which on macOS CPU manifests as a
+            # native "bus error" (SIGBUS) rather than a clean exception.
+            max_pos = getattr(self._lm.config, "n_positions", None) \
+                or getattr(self._lm.config, "max_position_embeddings", None) \
+                or 1024
+            self._max_positions = int(max_pos)
 
     def compress(
         self,
@@ -158,28 +168,49 @@ class TokenCompressor:
         )
 
     def _compute_token_losses(self, input_ids) -> "torch.Tensor":
-        """Compute per-token negative log-likelihood losses."""
+        """Compute per-token negative log-likelihood losses.
+
+        The forward pass is run in non-overlapping blocks of at most
+        ``self._max_positions`` tokens (1024 for GPT-2). Feeding the whole
+        sequence at once would (a) exceed the model's positional-embedding
+        table for long contexts -- a native "bus error"/SIGBUS on macOS CPU --
+        and (b) allocate a single huge ``(1, seq_len, vocab)`` logits tensor.
+        Blocking keeps both bounded. The first token of every block has no
+        in-block predecessor, so it is assigned an infinite loss (always kept);
+        this matches the windowed spirit of LLMLingua and only preserves a
+        handful of extra boundary tokens.
+        """
         import torch
 
+        n_tokens = input_ids.shape[1]
+        block = max(2, int(self._max_positions))
+        losses = torch.empty(n_tokens, device=input_ids.device, dtype=torch.float32)
+
+        loss_fn = torch.nn.CrossEntropyLoss(reduction="none")
         with torch.no_grad():
-            outputs = self._lm(input_ids=input_ids, labels=input_ids)
-            # Get per-token logits
-            logits = outputs.logits  # (1, seq_len, vocab_size)
+            for start in range(0, n_tokens, block):
+                end = min(start + block, n_tokens)
+                block_ids = input_ids[:, start:end]
+                if block_ids.shape[1] < 2:
+                    # Single trailing token: nothing to predict, always keep.
+                    losses[start:end] = float("inf")
+                    continue
+                outputs = self._lm(input_ids=block_ids)
+                logits = outputs.logits  # (1, block_len, vocab_size)
+                shift_logits = logits[:, :-1, :]
+                shift_labels = block_ids[:, 1:]
+                block_losses = loss_fn(
+                    shift_logits.reshape(-1, shift_logits.shape[-1]),
+                    shift_labels.reshape(-1),
+                )
+                # First token of the block is always kept (no predecessor here).
+                losses[start] = float("inf")
+                losses[start + 1:end] = block_losses
 
-            # Shift for next-token prediction
-            shift_logits = logits[:, :-1, :]
-            shift_labels = input_ids[:, 1:]
-
-            # Compute per-token cross-entropy loss
-            loss_fn = torch.nn.CrossEntropyLoss(reduction="none")
-            token_losses = loss_fn(
-                shift_logits.reshape(-1, shift_logits.shape[-1]),
-                shift_labels.reshape(-1),
-            )
-
-        # Prepend a high loss for the first token (always keep)
-        first_token_loss = torch.tensor([float("inf")], device=token_losses.device)
-        return torch.cat([first_token_loss, token_losses])
+        # The very first token of the whole sequence is always kept too.
+        if n_tokens > 0:
+            losses[0] = float("inf")
+        return losses
 
     def _get_iterative_ratios(
         self,

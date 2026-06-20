@@ -312,7 +312,8 @@ def _metrics(method, keep, document, compressed, in_tok, out_tok, answer, latenc
 
 
 def evaluate_method(method: str, pipe, samples: List[Dict], keep: float,
-                    cache: Optional["SampleCache"] = None) -> Dict:
+                    cache: Optional["SampleCache"] = None,
+                    cache_only: bool = False) -> Dict:
     runner = run_cc_pa if method == "cc_pa" else run_llmlingua
     total = len(samples)
     loop_start = time.perf_counter()
@@ -324,6 +325,11 @@ def evaluate_method(method: str, pipe, samples: List[Dict], keep: float,
             metrics = cache.get(method, keep, s) if cache else None
             if metrics is not None:
                 cached += 1
+            elif cache_only:
+                # Aggregation pass: never run the model in this (long-lived)
+                # process; uncached samples are simply skipped.
+                errors += 1
+                continue
             else:
                 metrics = runner(pipe, s, keep)
                 if cache:
@@ -603,12 +609,18 @@ def main():
         print(f"[compare] Resume cache: {os.path.abspath(args.cache_dir)} "
               f"(re-run to resume after a crash; use --no-cache to disable).")
 
+    # After chunked processing the parent only AGGREGATES from cache; it must
+    # never load the model itself (a single uncached sample would otherwise
+    # crash this long-lived process). Workers and non-chunked runs compute.
+    aggregation_only = args.chunk_size > 0 and not is_worker
+
     all_runs = []
     aggregate_rows = []
     for keep in args.keep_ratios:
         for method, pipe in pipes.items():
             print(f"\n[compare] {method} @ keep={keep} on {len(samples)} samples ...")
-            run = evaluate_method(method, pipe, samples, keep, cache=cache)
+            run = evaluate_method(method, pipe, samples, keep, cache=cache,
+                                  cache_only=aggregation_only)
             all_runs.append(run)
             aggregate_rows.append(run["aggregate"])
 
