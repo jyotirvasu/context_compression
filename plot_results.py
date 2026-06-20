@@ -143,8 +143,8 @@ def plot_single(plt, rows, plot_dir):
 
 
 def plot_comparison(plt, rows, plot_dir):
-    styles = {"cc_pa": ("o-", "#1f4e79", "Selective-Context + PA"),
-              "llmlingua": ("s--", "#c0392b", "LLMLingua")}
+    styles = {"cc_pa": ("o-", "#1f4e79", "SC_PA"),
+              "llmlingua": ("s--", "#c0392b", "PB")}
 
     def series(method, key):
         pts = sorted([(r["keep_ratio"], r[key]) for r in rows if r.get("method") == method])
@@ -159,7 +159,7 @@ def plot_comparison(plt, rows, plot_dir):
                     markersize=8, label=label)
     ax.set_xlabel("Keep ratio (fraction of tokens retained)")
     ax.set_ylabel("Compression achieved (%)")
-    ax.set_title("Compression Achieved: CC+PA vs LLMLingua")
+    ax.set_title("Compression Achieved: SC_PA vs PB")
     ax.set_ylim(0, 100)
     ax.grid(True, alpha=0.3)
     ax.legend(loc="best", fontsize=9)
@@ -176,7 +176,7 @@ def plot_comparison(plt, rows, plot_dir):
             ax.plot(x, y, mk, color=color, linewidth=2, markersize=8, label=label)
     ax.set_xlabel("Keep ratio (fraction of tokens retained)")
     ax.set_ylabel("Answer recall (%)")
-    ax.set_title("Answer Recall: CC+PA vs LLMLingua")
+    ax.set_title("Answer Recall: SC_PA vs PB")
     ax.set_ylim(0, 105)
     ax.grid(True, alpha=0.3)
     ax.legend(loc="best", fontsize=9)

@@ -1,6 +1,6 @@
 <mxfile host="app.diagrams.net">
   <diagram name="Page-1" id="qn-Ic11hfT6Zc26TQWcl">
-    <mxGraphModel dx="2144" dy="2057" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+    <mxGraphModel dx="2263" dy="2110" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -10,25 +10,25 @@
         <mxCell id="3hrYoo9nBqdPl1noqFfT-1" parent="1" style="text;whiteSpace=wrap;html=1;" value="&#xa;  &#xa;    &#xa;      &#xa;        &#xa;        &#xa;&#xa;        &#xa;        &#xa;          &#xa;        &#xa;&#xa;        &#xa;          &#xa;        &#xa;&#xa;        &#xa;          &#xa;        &#xa;&#xa;        &#xa;          &#xa;        &#xa;&#xa;        &#xa;        &#xa;          &#xa;        &#xa;&#xa;        &#xa;          &#xa;        &#xa;&#xa;        &#xa;          &#xa;        &#xa;&#xa;        &#xa;        &#xa;          &#xa;        &#xa;&#xa;        &#xa;          &#xa;        &#xa;&#xa;        &#xa;          &#xa;        &#xa;&#xa;        &#xa;          &#xa;        &#xa;&#xa;        &#xa;          &#xa;        &#xa;&#xa;        &#xa;          &#xa;        &#xa;&#xa;      &#xa;    &#xa;  &#xa;" vertex="1">
           <mxGeometry height="960" width="30" x="150" y="-30" as="geometry" />
         </mxCell>
-        <mxCell id="3hrYoo9nBqdPl1noqFfT-2" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F2F6FF;strokeColor=#2F4B7C;" value="Raw Context&#xa;(Chat, Docs, Logs)" vertex="1">
+        <mxCell id="3hrYoo9nBqdPl1noqFfT-2" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F2F6FF;strokeColor=#2F4B7C;" value="&lt;font style=&quot;font-size: 14px;&quot;&gt;&lt;b&gt;Raw Context&lt;/b&gt;&lt;br&gt;&lt;/font&gt;(Chat, Docs, Logs)" vertex="1">
           <mxGeometry height="70" width="300" x="40" y="40" as="geometry" />
         </mxCell>
-        <mxCell id="3hrYoo9nBqdPl1noqFfT-3" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F2F6FF;strokeColor=#2F4B7C;" value="Chunking&#xa;(300-500 tokens)" vertex="1">
+        <mxCell id="3hrYoo9nBqdPl1noqFfT-3" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F2F6FF;strokeColor=#2F4B7C;" value="&lt;b&gt;&lt;font style=&quot;font-size: 14px;&quot;&gt;Chunking&lt;/font&gt;&lt;/b&gt;&lt;br&gt;(300-500 tokens)" vertex="1">
           <mxGeometry height="70" width="300" x="40" y="150" as="geometry" />
         </mxCell>
-        <mxCell id="3hrYoo9nBqdPl1noqFfT-4" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F2F6FF;strokeColor=#2F4B7C;" value="Scoring&#xa;(Relevance + Importance + Recency)" vertex="1">
+        <mxCell id="3hrYoo9nBqdPl1noqFfT-4" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F2F6FF;strokeColor=#2F4B7C;" value="&lt;b&gt;&lt;font style=&quot;font-size: 14px;&quot;&gt;Scoring&lt;br&gt;&lt;/font&gt;&lt;/b&gt;(Relevance + Importance + Recency)" vertex="1">
           <mxGeometry height="70" width="300" x="40" y="260" as="geometry" />
         </mxCell>
-        <mxCell id="3hrYoo9nBqdPl1noqFfT-5" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F2F6FF;strokeColor=#2F4B7C;" value="Selective Compression&#xa;&#xa;Keep verbatim&#xa;Extractive&#xa;Abstractive" vertex="1">
+        <mxCell id="3hrYoo9nBqdPl1noqFfT-5" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F2F6FF;strokeColor=#2F4B7C;" value="&lt;font style=&quot;font-size: 14px;&quot;&gt;&lt;b&gt;Selective Compression&lt;br&gt;&lt;/b&gt;&lt;/font&gt;&lt;br&gt;Keep verbatim&lt;br&gt;Extractive&lt;br&gt;Abstractive" vertex="1">
           <mxGeometry height="120" width="300" x="40" y="370" as="geometry" />
         </mxCell>
-        <mxCell id="3hrYoo9nBqdPl1noqFfT-6" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F2F6FF;strokeColor=#2F4B7C;" value="Position-Aware Packing&#xa;&#xa;System and Task Instructions&#xa;Memory Summary&#xa;High-Value Evidence&#xa;Background Summaries&#xa;User Question" vertex="1">
+        <mxCell id="3hrYoo9nBqdPl1noqFfT-6" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F2F6FF;strokeColor=#2F4B7C;" value="&lt;font style=&quot;font-size: 14px;&quot;&gt;&lt;b&gt;Position-Aware Packing&lt;br&gt;&lt;/b&gt;&lt;/font&gt;&lt;br&gt;System and Task Instructions&lt;br&gt;Memory Summary&lt;br&gt;High-Value Evidence&lt;br&gt;Background Summaries&lt;br&gt;User Question" vertex="1">
           <mxGeometry height="220" width="360" x="420" y="150" as="geometry" />
         </mxCell>
-        <mxCell id="3hrYoo9nBqdPl1noqFfT-7" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F2F6FF;strokeColor=#2F4B7C;" value="Final Prompt&#xa;(Within Token Budget)" vertex="1">
+        <mxCell id="3hrYoo9nBqdPl1noqFfT-7" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F2F6FF;strokeColor=#2F4B7C;" value="&lt;b&gt;&lt;font style=&quot;font-size: 14px;&quot;&gt;Final Prompt&lt;br&gt;&lt;/font&gt;&lt;/b&gt;(Within Token Budget)" vertex="1">
           <mxGeometry height="70" width="360" x="420" y="420" as="geometry" />
         </mxCell>
-        <mxCell id="3hrYoo9nBqdPl1noqFfT-8" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F2F6FF;strokeColor=#2F4B7C;" value="LLM Generation" vertex="1">
+        <mxCell id="3hrYoo9nBqdPl1noqFfT-8" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F2F6FF;strokeColor=#2F4B7C;" value="&lt;font style=&quot;font-size: 14px;&quot;&gt;&lt;b&gt;LLM Generation&lt;/b&gt;&lt;/font&gt;" vertex="1">
           <mxGeometry height="60" width="360" x="420" y="520" as="geometry" />
         </mxCell>
         <mxCell id="3hrYoo9nBqdPl1noqFfT-9" edge="1" parent="1" source="3hrYoo9nBqdPl1noqFfT-2" style="endArrow=classic;strokeColor=#2F4B7C;" target="3hrYoo9nBqdPl1noqFfT-3">

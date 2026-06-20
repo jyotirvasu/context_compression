@@ -9,6 +9,12 @@ build/
 venv/
 history/
 
+# VS Code Copilot customization folders
+.github/agents/
+.github/instructions/
+.github/prompts/
+AGENTS.md
+
 # Generated evaluation artifacts and LLM response cache
 .llm_cache/
 
