@@ -353,8 +353,17 @@ def evaluate_method(method: str, pipe, samples: List[Dict], keep: float,
               end="", flush=True)
     print()
     if cache and cached:
-        print(f"  [{method}] resumed {cached}/{total} samples from cache "
-              f"({total - cached} newly computed).")
+        if cache_only:
+            missing = total - cached
+            tail = (f"({missing} missing and OMITTED from the aggregate)"
+                    if missing else "(all present)")
+        else:
+            tail = f"({total - cached} newly computed)"
+        print(f"  [{method}] resumed {cached}/{total} samples from cache {tail}")
+    if cache_only and len(per_sample) < total:
+        print(f"  [{method}] WARNING: aggregate computed over {len(per_sample)}/"
+              f"{total} samples; {total - len(per_sample)} crashed on every "
+              f"attempt and are excluded.")
 
     n = len(per_sample) or 1
     agg = {
@@ -471,6 +480,26 @@ def build_llmlingua(cc_config: dict):
     return LLMLinguaPipeline(llm_config)
 
 
+def _run_slice(base_cmd: List[str], lo: int, hi: int, label: str,
+               retries: int) -> bool:
+    """Run samples [lo:hi] in a fresh subprocess, with `retries` extra attempts.
+
+    Returns True if the subprocess exited cleanly. Completed samples are written
+    to the shared cache as it goes, so a crash followed by a retry only repeats
+    the work lost to the crash.
+    """
+    cmd = base_cmd + ["--_worker-start", str(lo), "--_worker-end", str(hi)]
+    for attempt in range(retries + 1):
+        tag = f"  (retry {attempt})" if attempt else ""
+        print(f"\n[compare] === {label}  samples [{lo}:{hi}]{tag} ===")
+        proc = subprocess.run(cmd)
+        if proc.returncode == 0:
+            return True
+        print(f"[compare] {label} exited with code {proc.returncode} "
+              f"(likely SIGBUS). Completed samples are cached; retrying remainder.")
+    return False
+
+
 def _run_chunked(args, total_samples: int) -> None:
     """Process the run in fresh subprocesses, `chunk_size` samples at a time.
 
@@ -480,10 +509,14 @@ def _run_chunked(args, total_samples: int) -> None:
     Apple-Silicon SIGBUS / leaked-semaphore crash, which is caused by native
     allocator/thread state accumulating in a single long-lived process.
 
-    If a chunk subprocess still crashes (non-zero exit), its completed samples
-    are already in the cache, so it is simply retried a couple of times; any
-    persistently failing chunk is skipped and its samples are filled in by the
-    parent's final cache-served pass.
+    If a chunk subprocess crashes (non-zero exit), its completed samples are
+    already in the cache, so it is retried a couple of times. A chunk that keeps
+    crashing is almost always being taken down by a SINGLE toxic sample whose
+    GPT-2 forward pass triggers the native SIGBUS -- and that one sample drags
+    all the other (healthy) samples in the chunk down with it. So a persistently
+    failing chunk is re-run ONE sample per subprocess: every healthy sample then
+    still completes, and only the genuinely crashing sample(s) are isolated and
+    omitted from the final aggregate.
     """
     n_chunks = (total_samples + args.chunk_size - 1) // args.chunk_size
     print(f"[compare] Chunked mode: {total_samples} samples in {n_chunks} "
@@ -504,22 +537,27 @@ def _run_chunked(args, total_samples: int) -> None:
     if args.offline:
         base_cmd += ["--offline"]
 
+    toxic_total: List[int] = []
     for c in range(n_chunks):
         lo = c * args.chunk_size
         hi = min(total_samples, lo + args.chunk_size)
-        cmd = base_cmd + ["--_worker-start", str(lo), "--_worker-end", str(hi)]
-        for attempt in range(3):
-            tag = f"  (retry {attempt})" if attempt else ""
-            print(f"\n[compare] === Chunk {c + 1}/{n_chunks}  samples [{lo}:{hi}]{tag} ===")
-            proc = subprocess.run(cmd)
-            if proc.returncode == 0:
-                break
-            print(f"[compare] Chunk {c + 1} exited with code {proc.returncode} "
-                  f"(likely SIGBUS). Completed samples are cached; retrying remainder.")
-        else:
-            print(f"[compare] Chunk {c + 1} failed repeatedly; "
-                  f"remaining samples will be filled by the final pass.")
+        label = f"Chunk {c + 1}/{n_chunks}"
+        if _run_slice(base_cmd, lo, hi, label, retries=2):
+            continue
+        # The whole chunk keeps crashing -- isolate it one sample per subprocess
+        # so a single toxic sample no longer takes the healthy ones with it.
+        print(f"[compare] {label} failed repeatedly; isolating samples "
+              f"one-per-subprocess to salvage the healthy ones ...")
+        for i in range(lo, hi):
+            if not _run_slice(base_cmd, i, i + 1, f"{label} sample {i}", retries=1):
+                toxic_total.append(i)
+        if toxic_total:
+            print(f"[compare] {label}: sample(s) that could not be computed and "
+                  f"will be omitted: {[i for i in toxic_total if lo <= i < hi]}")
 
+    if toxic_total:
+        print(f"\n[compare] {len(toxic_total)} sample(s) crashed on every attempt "
+              f"and are omitted from the aggregate: {toxic_total}")
     print("\n[compare] All chunks processed; aggregating from cache ...")
 
 
