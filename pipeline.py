@@ -35,8 +35,19 @@ class PipelineResult:
 class ContextCompressionPipeline:
     """Main pipeline orchestrating all five stages."""
 
-    def __init__(self, config_path: str = "config.yaml"):
+    def __init__(self, config_path: str = "config.yaml",
+                 config_overrides: Optional[dict] = None):
         self.config = load_config(config_path)
+
+        # Apply per-stage overrides (e.g. from CLI sweep flags) before building
+        # the stages, so hyperparameters can be swept without editing config.yaml.
+        if config_overrides:
+            for section, params in config_overrides.items():
+                if not params:
+                    continue
+                section_cfg = dict(self.config.get(section, {}))
+                section_cfg.update(params)
+                self.config[section] = section_cfg
 
         # Initialize stages
         self.chunker = Chunker(self.config.get("chunking", {}))

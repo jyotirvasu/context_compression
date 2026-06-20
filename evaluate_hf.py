@@ -258,9 +258,10 @@ class SampleCache:
     pipeline.
     """
 
-    def __init__(self, cache_dir: str, enabled: bool = True):
+    def __init__(self, cache_dir: str, enabled: bool = True, signature: str = ""):
         self.enabled = enabled
         self.cache_dir = cache_dir
+        self.signature = signature
         self.hits = 0
         self.writes = 0
         if self.enabled:
@@ -269,6 +270,7 @@ class SampleCache:
     def _key(self, reduce_ratio: Optional[float], sample: Dict) -> str:
         key_src = json.dumps(
             {
+                "signature": self.signature,
                 "reduce_ratio": None if reduce_ratio is None else round(float(reduce_ratio), 6),
                 "document": sample.get("document", ""),
                 "question": sample.get("question", ""),
@@ -414,10 +416,60 @@ def main():
                         help="Directory for the per-sample resume cache")
     parser.add_argument("--no-cache", action="store_true",
                         help="Disable the resume cache (always recompute every sample)")
+
+    # --- Per-stage hyperparameter overrides (sweep without editing config.yaml) ---
+    stage = parser.add_argument_group(
+        "stage overrides",
+        "Override individual config.yaml hyperparameters from the command line.")
+    stage.add_argument("--chunking-method",
+                       choices=["sentence", "paragraph", "fixed_token", "sliding_window"],
+                       help="Stage A: chunking.method")
+    stage.add_argument("--max-chunk-tokens", type=int, help="Stage A: chunking.max_chunk_tokens")
+    stage.add_argument("--sentence-splitter", choices=["spacy", "nltk"],
+                       help="Stage A: chunking.sentence_splitter")
+    stage.add_argument("--retrieval-method", choices=["bm25", "embedding", "hybrid"],
+                       help="Stage C: retrieval.method")
+    stage.add_argument("--top-n", type=int, help="Stage C: retrieval.top_n")
+    stage.add_argument("--hybrid-alpha", type=float, help="Stage C: retrieval.hybrid_alpha")
+    stage.add_argument("--granularity", choices=["sentence", "phrase", "token"],
+                       help="Stage D: compression.granularity")
+    stage.add_argument("--model-type", help="Stage D: compression.model_type (e.g. gpt2)")
+    stage.add_argument("--packing-strategy",
+                       choices=["edges_first", "decreasing", "round_robin"],
+                       help="Stage E: packing.strategy")
+    stage.add_argument("--max-context-tokens", type=int,
+                       help="Stage E: packing.max_context_tokens")
     args = parser.parse_args()
 
-    # Report which compression backend is active
+    # Assemble per-stage overrides from CLI flags (only those the user supplied).
+    overrides = {
+        "chunking": {k: v for k, v in {
+            "method": args.chunking_method,
+            "max_chunk_tokens": args.max_chunk_tokens,
+            "sentence_splitter": args.sentence_splitter,
+        }.items() if v is not None},
+        "retrieval": {k: v for k, v in {
+            "method": args.retrieval_method,
+            "top_n": args.top_n,
+            "hybrid_alpha": args.hybrid_alpha,
+        }.items() if v is not None},
+        "compression": {k: v for k, v in {
+            "granularity": args.granularity,
+            "model_type": args.model_type,
+        }.items() if v is not None},
+        "packing": {k: v for k, v in {
+            "strategy": args.packing_strategy,
+            "max_context_tokens": args.max_context_tokens,
+        }.items() if v is not None},
+    }
+    overrides = {section: params for section, params in overrides.items() if params}
+
+    # Report which compression backend is active (reflecting overrides)
     cfg = load_config(args.config_path)
+    active_retrieval = overrides.get("retrieval", {}).get(
+        "method", cfg.get("retrieval", {}).get("method"))
+    active_packing = overrides.get("packing", {}).get(
+        "strategy", cfg.get("packing", {}).get("strategy"))
     try:
         import selective_context  # noqa: F401
         backend = "Selective Context (real library)"
@@ -426,8 +478,10 @@ def main():
     print("=" * 92)
     print("CONTEXT COMPRESSION PIPELINE - HF DATASET EVALUATION")
     print(f"  Compression backend : {backend}")
-    print(f"  Retrieval method    : {cfg.get('retrieval', {}).get('method')}")
-    print(f"  Packing strategy    : {cfg.get('packing', {}).get('strategy')}")
+    print(f"  Retrieval method    : {active_retrieval}")
+    print(f"  Packing strategy    : {active_packing}")
+    if overrides:
+        print(f"  Stage overrides     : {overrides}")
     print("=" * 92)
 
     samples = load_samples(args)
@@ -435,9 +489,15 @@ def main():
         print("[eval] No samples to evaluate. Exiting.")
         return
 
-    pipe = ContextCompressionPipeline(args.config_path)
+    pipe = ContextCompressionPipeline(args.config_path, config_overrides=overrides)
 
-    cache = SampleCache(args.cache_dir, enabled=not args.no_cache)
+    # Fold the active config (incl. overrides) into the cache signature so that
+    # different hyperparameter combos never collide on the same cache entry.
+    cache_signature = json.dumps(
+        {"config_path": args.config_path, "overrides": overrides},
+        sort_keys=True,
+    )
+    cache = SampleCache(args.cache_dir, enabled=not args.no_cache, signature=cache_signature)
     if cache.enabled:
         print(f"[eval] Resume cache: {os.path.abspath(args.cache_dir)} "
               f"(re-run to resume after a crash; use --no-cache to disable).")

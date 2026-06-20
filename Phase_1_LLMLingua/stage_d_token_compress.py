@@ -62,12 +62,14 @@ class TokenCompressor:
             from transformers import AutoModelForCausalLM, AutoTokenizer
             import torch
 
+            from ._compat import dtype_kwarg as _dtype_kwarg
+
             self._lm_tokenizer = AutoTokenizer.from_pretrained(self._model_name)
             if self._lm_tokenizer.pad_token is None:
                 self._lm_tokenizer.pad_token = self._lm_tokenizer.eos_token
             self._lm = AutoModelForCausalLM.from_pretrained(
                 self._model_name,
-                torch_dtype=torch.float32,
+                **_dtype_kwarg(torch.float32),
             ).to(self._device)
             self._lm.eval()
 
