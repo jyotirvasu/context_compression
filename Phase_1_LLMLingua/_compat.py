@@ -39,3 +39,38 @@ def dtype_kwarg(dtype) -> dict:
     """Return the dtype kwarg dict using the name the installed version expects."""
     key = "dtype" if _supports_dtype_kwarg() else "torch_dtype"
     return {key: dtype}
+
+
+# Process-level cache of loaded models, keyed by (model_name, device). The three
+# perplexity stages (context filter, sentence filter, token compressor) all use
+# the SAME small LM, so loading it once and sharing it cuts a worker's resident
+# memory and native-allocator churn to ~1/3 -- a major factor in the flaky
+# macOS/Apple-Silicon "bus error" (SIGBUS) seen on long runs.
+_MODEL_CACHE: dict = {}
+
+
+def load_causal_lm(model_name: str, device: str = "cpu"):
+    """Load (and cache) a causal LM + tokenizer, shared across stages in-process.
+
+    Returns (model, tokenizer). The model is put in eval mode with float32
+    weights. Subsequent calls with the same (model_name, device) return the
+    exact same objects instead of allocating another copy.
+    """
+    key = (model_name, device)
+    cached = _MODEL_CACHE.get(key)
+    if cached is not None:
+        return cached
+
+    from transformers import AutoModelForCausalLM, AutoTokenizer
+    import torch
+
+    tokenizer = AutoTokenizer.from_pretrained(model_name)
+    if tokenizer.pad_token is None:
+        tokenizer.pad_token = tokenizer.eos_token
+    model = AutoModelForCausalLM.from_pretrained(
+        model_name, **dtype_kwarg(torch.float32)
+    ).to(device)
+    model.eval()
+
+    _MODEL_CACHE[key] = (model, tokenizer)
+    return model, tokenizer

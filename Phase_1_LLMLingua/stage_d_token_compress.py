@@ -60,19 +60,11 @@ class TokenCompressor:
     def _load_model(self):
         """Lazy-load the small language model."""
         if self._lm is None:
-            from transformers import AutoModelForCausalLM, AutoTokenizer
-            import torch
+            from ._compat import load_causal_lm
 
-            from ._compat import dtype_kwarg as _dtype_kwarg
-
-            self._lm_tokenizer = AutoTokenizer.from_pretrained(self._model_name)
-            if self._lm_tokenizer.pad_token is None:
-                self._lm_tokenizer.pad_token = self._lm_tokenizer.eos_token
-            self._lm = AutoModelForCausalLM.from_pretrained(
-                self._model_name,
-                **_dtype_kwarg(torch.float32),
-            ).to(self._device)
-            self._lm.eval()
+            self._lm, self._lm_tokenizer = load_causal_lm(
+                self._model_name, self._device
+            )
 
             # Cap the per-forward-pass length to the model's positional limit.
             # GPT-2 only has 1024 positions; feeding more indexes past its
