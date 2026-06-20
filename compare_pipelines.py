@@ -426,13 +426,15 @@ def make_plots(plot_dir: str, rows: List[Dict]):
     for m, (mk, color, label) in styles.items():
         x, y = series(m, "avg_compression_ratio")
         if x:
-            ax.plot(x, [v * 100 for v in y], mk, color=color, linewidth=2,
-                    markersize=8, label=label)
+            yp = [v * 100 for v in y]
+            ax.plot(x, yp, mk, color=color, linewidth=2, markersize=8, label=label)
+            for xi, yi in zip(x, yp):
+                ax.annotate(f"{yi:.1f}%", (xi, yi), textcoords="offset points",
+                            xytext=(0, 8), ha="center", fontsize=8, color=color)
     ax.set_xlabel("Keep ratio (fraction of tokens retained)")
     ax.set_ylabel("Compression achieved (%)")
     ax.set_title("Compression Achieved: CC+PA vs LLMLingua")
     ax.set_ylim(0, 100)
-    ax.grid(True, alpha=0.3)
     ax.legend(loc="best", fontsize=9)
     fig.tight_layout()
     out1 = os.path.join(plot_dir, "compression_comparison.png")
@@ -445,11 +447,13 @@ def make_plots(plot_dir: str, rows: List[Dict]):
         x, y = series(m, "answer_recall_pct")
         if x:
             ax.plot(x, y, mk, color=color, linewidth=2, markersize=8, label=label)
+            for xi, yi in zip(x, y):
+                ax.annotate(f"{yi:.1f}%", (xi, yi), textcoords="offset points",
+                            xytext=(0, 8), ha="center", fontsize=8, color=color)
     ax.set_xlabel("Keep ratio (fraction of tokens retained)")
     ax.set_ylabel("Answer recall (%)")
     ax.set_title("Answer Recall: CC+PA vs LLMLingua")
     ax.set_ylim(0, 105)
-    ax.grid(True, alpha=0.3)
     ax.legend(loc="best", fontsize=9)
     fig.tight_layout()
     out2 = os.path.join(plot_dir, "answer_recall_comparison.png")

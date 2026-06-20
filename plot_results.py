@@ -116,7 +116,6 @@ def plot_single(plt, rows, plot_dir):
     ax1.set_ylabel("Compression achieved (%)")
     ax1.set_title("Compression Achieved vs reduce_ratio" + note)
     ax1.set_ylim(0, 100)
-    ax1.grid(True, alpha=0.3)
     for x, y in zip(reduce_ratios, compression):
         ax1.annotate(f"{y:.1f}%", (x, y), textcoords="offset points",
                      xytext=(0, 8), ha="center", fontsize=8)
@@ -134,7 +133,12 @@ def plot_single(plt, rows, plot_dir):
     ax2.set_ylabel("Information preserved (%)")
     ax2.set_title("Information Preserved vs reduce_ratio" + note)
     ax2.set_ylim(0, 105)
-    ax2.grid(True, alpha=0.3)
+    for x, y in zip(reduce_ratios, answer_recall):
+        ax2.annotate(f"{y:.1f}%", (x, y), textcoords="offset points",
+                     xytext=(0, 8), ha="center", fontsize=8, color="#c0392b")
+    for x, y in zip(reduce_ratios, keyword_ret):
+        ax2.annotate(f"{y:.1f}%", (x, y), textcoords="offset points",
+                     xytext=(0, -12), ha="center", fontsize=8, color="#27ae60")
     ax2.legend(loc="best", fontsize=9)
     fig2.tight_layout()
     out2 = os.path.join(plot_dir, "information_preserved.png")
@@ -155,13 +159,15 @@ def plot_comparison(plt, rows, plot_dir):
     for m, (mk, color, label) in styles.items():
         x, y = series(m, "avg_compression_ratio")
         if x:
-            ax.plot(x, [v * 100 for v in y], mk, color=color, linewidth=2,
-                    markersize=8, label=label)
+            yp = [v * 100 for v in y]
+            ax.plot(x, yp, mk, color=color, linewidth=2, markersize=8, label=label)
+            for xi, yi in zip(x, yp):
+                ax.annotate(f"{yi:.1f}%", (xi, yi), textcoords="offset points",
+                            xytext=(0, 8), ha="center", fontsize=8, color=color)
     ax.set_xlabel("Keep ratio (fraction of tokens retained)")
     ax.set_ylabel("Compression achieved (%)")
     ax.set_title("Compression Achieved: SC_PA vs PB")
     ax.set_ylim(0, 100)
-    ax.grid(True, alpha=0.3)
     ax.legend(loc="best", fontsize=9)
     fig.tight_layout()
     out1 = os.path.join(plot_dir, "compression_comparison.png")
@@ -174,11 +180,13 @@ def plot_comparison(plt, rows, plot_dir):
         x, y = series(m, "answer_recall_pct")
         if x:
             ax.plot(x, y, mk, color=color, linewidth=2, markersize=8, label=label)
+            for xi, yi in zip(x, y):
+                ax.annotate(f"{yi:.1f}%", (xi, yi), textcoords="offset points",
+                            xytext=(0, 8), ha="center", fontsize=8, color=color)
     ax.set_xlabel("Keep ratio (fraction of tokens retained)")
     ax.set_ylabel("Answer recall (%)")
     ax.set_title("Answer Recall: SC_PA vs PB")
     ax.set_ylim(0, 105)
-    ax.grid(True, alpha=0.3)
     ax.legend(loc="best", fontsize=9)
     fig.tight_layout()
     out2 = os.path.join(plot_dir, "answer_recall_comparison.png")
