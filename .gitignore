@@ -17,6 +17,8 @@ AGENTS.md
 
 # Generated evaluation artifacts and LLM response cache
 .llm_cache/
+.compare_cache/
+.eval_cache/
 
 # Reports (generated/reference artifacts)
 MID_SEM_REPORT.md

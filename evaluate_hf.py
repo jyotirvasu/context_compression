@@ -22,6 +22,14 @@ USAGE (on a machine with internet / HF access)
     python evaluate_hf.py --dataset hotpotqa/hotpot_qa --config distractor --split validation
     python evaluate_hf.py --offline                # use built-in sample (no internet)
 
+RESUME AFTER A CRASH
+--------------------
+Long runs of the compression model can be killed by the OS
+(macOS/Apple-Silicon "bus error" / SIGBUS). Every per-sample result is cached
+on disk under --cache-dir (default .eval_cache/), so simply re-running the
+SAME command replays finished samples instantly and only recomputes the work
+lost to the crash. Use --no-cache to force a full recompute.
+
 OUTPUTS
 -------
     eval_results.json   (full per-sample + aggregate metrics)
@@ -30,6 +38,7 @@ OUTPUTS
 
 import argparse
 import csv
+import hashlib
 import json
 import os
 import re
@@ -236,20 +245,98 @@ def load_samples(args) -> List[Dict]:
 
 
 # ----------------------------------------------------------------------
+# On-disk resume cache (enables "resume from where it left off")
+# ----------------------------------------------------------------------
+class SampleCache:
+    """Per-sample on-disk cache of evaluation metrics, keyed by content.
+
+    Each (reduce_ratio, sample) result is hashed and stored as a small JSON
+    file. Because the pipeline is deterministic for a fixed input, a re-run
+    replays cached samples instantly and only the NEW work (e.g. everything
+    after a `bus error` / SIGBUS crash) actually re-runs the compression model.
+    This gives a practical "resume from where it left off" without changing the
+    pipeline.
+    """
+
+    def __init__(self, cache_dir: str, enabled: bool = True):
+        self.enabled = enabled
+        self.cache_dir = cache_dir
+        self.hits = 0
+        self.writes = 0
+        if self.enabled:
+            os.makedirs(self.cache_dir, exist_ok=True)
+
+    def _key(self, reduce_ratio: Optional[float], sample: Dict) -> str:
+        key_src = json.dumps(
+            {
+                "reduce_ratio": None if reduce_ratio is None else round(float(reduce_ratio), 6),
+                "document": sample.get("document", ""),
+                "question": sample.get("question", ""),
+                "answer": sample.get("answer", ""),
+            },
+            sort_keys=True,
+        )
+        return hashlib.sha256(key_src.encode("utf-8")).hexdigest()
+
+    def get(self, reduce_ratio: Optional[float], sample: Dict) -> Optional[Dict]:
+        if not self.enabled:
+            return None
+        path = os.path.join(self.cache_dir, self._key(reduce_ratio, sample) + ".json")
+        if os.path.exists(path):
+            try:
+                with open(path, "r", encoding="utf-8") as f:
+                    self.hits += 1
+                    return json.load(f)
+            except (json.JSONDecodeError, OSError):
+                return None  # corrupt/partial file: recompute
+        return None
+
+    def put(self, reduce_ratio: Optional[float], sample: Dict, metrics: Dict) -> None:
+        if not self.enabled:
+            return
+        path = os.path.join(self.cache_dir, self._key(reduce_ratio, sample) + ".json")
+        tmp = path + ".tmp"
+        # Atomic write so a crash mid-write never leaves a corrupt cache entry.
+        with open(tmp, "w", encoding="utf-8") as f:
+            json.dump(metrics, f)
+        os.replace(tmp, path)
+        self.writes += 1
+
+
+# ----------------------------------------------------------------------
 # Evaluation
 # ----------------------------------------------------------------------
 def evaluate_at_ratio(pipe: ContextCompressionPipeline, samples: List[Dict],
-                      reduce_ratio: Optional[float]) -> Dict:
+                      reduce_ratio: Optional[float],
+                      cache: Optional["SampleCache"] = None) -> Dict:
     if reduce_ratio is not None:
         pipe.compressor.reduce_ratio = reduce_ratio
 
     total = len(samples)
     loop_start = time.perf_counter()
     per_sample = []
+    cached = 0
     for i, s in enumerate(samples, 1):
-        start = time.perf_counter()
-        result = pipe.run(s["document"], s["question"])
-        latency_ms = (time.perf_counter() - start) * 1000
+        metrics = cache.get(reduce_ratio, s) if cache else None
+        if metrics is not None:
+            cached += 1
+            latency_ms = metrics.get("latency_ms", 0.0)
+        else:
+            start = time.perf_counter()
+            result = pipe.run(s["document"], s["question"])
+            latency_ms = (time.perf_counter() - start) * 1000
+            metrics = {
+                "question": s["question"][:120],
+                "answer": s["answer"][:120],
+                "input_tokens": result.original_token_count,
+                "output_tokens": result.compressed_token_count,
+                "compression_ratio": result.compression_ratio,
+                "latency_ms": latency_ms,
+                "keyword_retention": keyword_retention(s["document"], result.compressed_context),
+                "answer_retained": answer_retained(result.compressed_context, s["answer"]),
+            }
+            if cache:
+                cache.put(reduce_ratio, s, metrics)
 
         # Lightweight single-line progress indicator with elapsed time and ETA
         elapsed = time.perf_counter() - loop_start
@@ -261,22 +348,17 @@ def evaluate_at_ratio(pipe: ContextCompressionPipeline, samples: List[Dict],
         print(
             f"\r  [{bar}] {i}/{total} "
             f"| {latency_ms/1000:5.1f}s/sample "
+            f"| cached {cached} "
             f"| elapsed {elapsed:5.1f}s | ETA {eta:5.1f}s",
             end="", flush=True,
         )
 
-        per_sample.append({
-            "question": s["question"][:120],
-            "answer": s["answer"][:120],
-            "input_tokens": result.original_token_count,
-            "output_tokens": result.compressed_token_count,
-            "compression_ratio": result.compression_ratio,
-            "latency_ms": latency_ms,
-            "keyword_retention": keyword_retention(s["document"], result.compressed_context),
-            "answer_retained": answer_retained(result.compressed_context, s["answer"]),
-        })
+        per_sample.append(metrics)
 
     print()  # finish the progress line
+    if cache and cached:
+        print(f"  [eval] resumed {cached}/{total} samples from cache "
+              f"({total - cached} newly computed).")
 
     n = len(per_sample) or 1
     agg = {
@@ -328,6 +410,10 @@ def main():
                         help="Project name; results are grouped under results/<project>/")
     parser.add_argument("--results-dir", default="results",
                         help="Root directory for all results (default: results)")
+    parser.add_argument("--cache-dir", default=".eval_cache",
+                        help="Directory for the per-sample resume cache")
+    parser.add_argument("--no-cache", action="store_true",
+                        help="Disable the resume cache (always recompute every sample)")
     args = parser.parse_args()
 
     # Report which compression backend is active
@@ -351,13 +437,18 @@ def main():
 
     pipe = ContextCompressionPipeline(args.config_path)
 
+    cache = SampleCache(args.cache_dir, enabled=not args.no_cache)
+    if cache.enabled:
+        print(f"[eval] Resume cache: {os.path.abspath(args.cache_dir)} "
+              f"(re-run to resume after a crash; use --no-cache to disable).")
+
     ratios = args.reduce_ratios if args.reduce_ratios else [None]
     all_runs = []
     aggregate_rows = []
     for r in ratios:
         label = f"reduce_ratio={r}" if r is not None else "config default"
         print(f"\n[eval] Running {len(samples)} samples @ {label} ...")
-        run = evaluate_at_ratio(pipe, samples, r)
+        run = evaluate_at_ratio(pipe, samples, r, cache=cache)
         all_runs.append(run)
         aggregate_rows.append(run["aggregate"])
 

@@ -44,6 +44,14 @@ USAGE  (on a machine with the models available)
     python compare_pipelines.py --num-samples 50
     python compare_pipelines.py --offline               # built-in sample, no internet
 
+RESUME AFTER A CRASH
+--------------------
+Long runs of the LLMLingua perplexity model can be killed by the OS
+(macOS/Apple-Silicon "bus error" / SIGBUS). Every per-sample result is cached
+on disk under --cache-dir (default .compare_cache/), so simply re-running the
+SAME command replays finished samples instantly and only recomputes the work
+lost to the crash. Use --no-cache to force a full recompute.
+
 OUTPUTS  (versioned, like evaluate_hf.py)
 -----------------------------------------
     results/comparison/run_<ts>/eval/comparison_results.csv
@@ -54,6 +62,7 @@ OUTPUTS  (versioned, like evaluate_hf.py)
 
 import argparse
 import csv
+import hashlib
 import json
 import os
 import time
@@ -167,6 +176,66 @@ def load_samples(args) -> List[Dict]:
 
 
 # ----------------------------------------------------------------------
+# On-disk resume cache (enables "resume from where it left off")
+# ----------------------------------------------------------------------
+class SampleCache:
+    """Per-sample on-disk cache of compression metrics, keyed by content.
+
+    Each (method, keep_ratio, sample) result is hashed and stored as a small
+    JSON file. Because both compression pipelines are deterministic for a fixed
+    input, a re-run replays cached samples instantly and only the NEW work
+    (e.g. everything after a `bus error` / SIGBUS crash) actually re-runs the
+    GPT-2 perplexity model. This gives a practical "resume from where it left
+    off" without changing either pipeline.
+    """
+
+    def __init__(self, cache_dir: str, enabled: bool = True):
+        self.enabled = enabled
+        self.cache_dir = cache_dir
+        self.hits = 0
+        self.writes = 0
+        if self.enabled:
+            os.makedirs(self.cache_dir, exist_ok=True)
+
+    def _key(self, method: str, keep: float, sample: Dict) -> str:
+        key_src = json.dumps(
+            {
+                "method": method,
+                "keep": round(float(keep), 6),
+                "document": sample.get("document", ""),
+                "question": sample.get("question", ""),
+                "answer": sample.get("answer", ""),
+            },
+            sort_keys=True,
+        )
+        return hashlib.sha256(key_src.encode("utf-8")).hexdigest()
+
+    def get(self, method: str, keep: float, sample: Dict) -> Optional[Dict]:
+        if not self.enabled:
+            return None
+        path = os.path.join(self.cache_dir, self._key(method, keep, sample) + ".json")
+        if os.path.exists(path):
+            try:
+                with open(path, "r", encoding="utf-8") as f:
+                    self.hits += 1
+                    return json.load(f)
+            except (json.JSONDecodeError, OSError):
+                return None  # corrupt/partial file: recompute
+        return None
+
+    def put(self, method: str, keep: float, sample: Dict, metrics: Dict) -> None:
+        if not self.enabled:
+            return
+        path = os.path.join(self.cache_dir, self._key(method, keep, sample) + ".json")
+        tmp = path + ".tmp"
+        # Atomic write so a crash mid-write never leaves a corrupt cache entry.
+        with open(tmp, "w", encoding="utf-8") as f:
+            json.dump(metrics, f)
+        os.replace(tmp, path)
+        self.writes += 1
+
+
+# ----------------------------------------------------------------------
 # Pipeline runners (each returns a per-sample metric dict or an error)
 # ----------------------------------------------------------------------
 def run_cc_pa(pipe, sample: Dict, keep: float) -> Dict:
@@ -213,15 +282,24 @@ def _metrics(method, keep, document, compressed, in_tok, out_tok, answer, latenc
     }
 
 
-def evaluate_method(method: str, pipe, samples: List[Dict], keep: float) -> Dict:
+def evaluate_method(method: str, pipe, samples: List[Dict], keep: float,
+                    cache: Optional["SampleCache"] = None) -> Dict:
     runner = run_cc_pa if method == "cc_pa" else run_llmlingua
     total = len(samples)
     loop_start = time.perf_counter()
     per_sample = []
     errors = 0
+    cached = 0
     for i, s in enumerate(samples, 1):
         try:
-            per_sample.append(runner(pipe, s, keep))
+            metrics = cache.get(method, keep, s) if cache else None
+            if metrics is not None:
+                cached += 1
+            else:
+                metrics = runner(pipe, s, keep)
+                if cache:
+                    cache.put(method, keep, s, metrics)
+            per_sample.append(metrics)
         except Exception as e:
             errors += 1
             if errors <= 2:
@@ -231,8 +309,12 @@ def evaluate_method(method: str, pipe, samples: List[Dict], keep: float) -> Dict
         eta = (elapsed / i) * (total - i)
         bar = "#" * int(24 * i / total) + "-" * (24 - int(24 * i / total))
         print(f"\r  {method:<10} keep={keep:.2f} [{bar}] {i}/{total} "
-              f"| elapsed {elapsed:5.1f}s | ETA {eta:5.1f}s", end="", flush=True)
+              f"| cached {cached} | elapsed {elapsed:5.1f}s | ETA {eta:5.1f}s",
+              end="", flush=True)
     print()
+    if cache and cached:
+        print(f"  [{method}] resumed {cached}/{total} samples from cache "
+              f"({total - cached} newly computed).")
 
     n = len(per_sample) or 1
     agg = {
@@ -363,6 +445,10 @@ def main():
     parser.add_argument("--config-path", default="config.yaml", help="CC_PA config.yaml path")
     parser.add_argument("--results-dir", default="results", help="Root results directory")
     parser.add_argument("--project", default="comparison", help="Results group name")
+    parser.add_argument("--cache-dir", default=".compare_cache",
+                        help="Directory for the per-sample resume cache")
+    parser.add_argument("--no-cache", action="store_true",
+                        help="Disable the resume cache (always recompute every sample)")
     args = parser.parse_args()
 
     print("=" * 100)
@@ -395,12 +481,17 @@ def main():
         print("[compare] No pipelines available. Exiting.")
         return
 
+    cache = SampleCache(args.cache_dir, enabled=not args.no_cache)
+    if cache.enabled:
+        print(f"[compare] Resume cache: {os.path.abspath(args.cache_dir)} "
+              f"(re-run to resume after a crash; use --no-cache to disable).")
+
     all_runs = []
     aggregate_rows = []
     for keep in args.keep_ratios:
         for method, pipe in pipes.items():
             print(f"\n[compare] {method} @ keep={keep} on {len(samples)} samples ...")
-            run = evaluate_method(method, pipe, samples, keep)
+            run = evaluate_method(method, pipe, samples, keep, cache=cache)
             all_runs.append(run)
             aggregate_rows.append(run["aggregate"])
 
