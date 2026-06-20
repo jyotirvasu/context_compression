@@ -1,0 +1,71 @@
+{
+  "mode": "real",
+  "model": "ollama/llama3.1",
+  "dataset": "hotpotqa/hotpot_qa",
+  "train_size": 20,
+  "val_size": 20,
+  "seed_score": 0.4714285714285714,
+  "best_score": 0.4714285714285714,
+  "improvement": 0.0,
+  "total_iterations": 6,
+  "total_metric_calls": 120,
+  "candidates_explored": 2,
+  "pareto_front_size": 2,
+  "wall_time_s": 7404.636405166995,
+  "seed_prompt": {
+    "system_prompt": "You are a precise question-answering assistant. Read the provided context and answer the question. Respond with the shortest exact answer span (a word, name, number, or short phrase) and nothing else."
+  },
+  "best_prompt": {
+    "system_prompt": "You are a precise question-answering assistant. Read the provided context and answer the question. Respond with the shortest exact answer span (a word, name, number, or short phrase) and nothing else."
+  },
+  "history": [
+    {
+      "iteration": 1,
+      "selected_idx": 0,
+      "subsample_score_before": 0.5142857142857143,
+      "subsample_score_after": 0.04226623469242212,
+      "accepted": false,
+      "total_evals": 30
+    },
+    {
+      "iteration": 2,
+      "selected_idx": 0,
+      "subsample_score_before": 0.4,
+      "subsample_score_after": 0.6,
+      "accepted": true,
+      "total_evals": 60
+    },
+    {
+      "iteration": 3,
+      "selected_idx": 0,
+      "subsample_score_before": 0.6,
+      "subsample_score_after": 0.0256532176831056,
+      "accepted": false,
+      "total_evals": 90
+    },
+    {
+      "iteration": 4,
+      "selected_idx": 1,
+      "subsample_score_before": 0.4,
+      "subsample_score_after": 0.2,
+      "accepted": false,
+      "total_evals": 100
+    },
+    {
+      "iteration": 5,
+      "selected_idx": 0,
+      "subsample_score_before": 0.2,
+      "subsample_score_after": 0.021904433333061843,
+      "accepted": false,
+      "total_evals": 110
+    },
+    {
+      "iteration": 6,
+      "selected_idx": 1,
+      "subsample_score_before": 0.27005649717514124,
+      "subsample_score_after": 0.10719308650343133,
+      "accepted": false,
+      "total_evals": 120
+    }
+  ]
+}
