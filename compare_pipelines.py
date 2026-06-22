@@ -42,6 +42,7 @@ USAGE  (on a machine with the models available)
     python compare_pipelines.py                         # default keep ratios
     python compare_pipelines.py --keep-ratios 0.3 0.5 0.7
     python compare_pipelines.py --num-samples 50
+    python compare_pipelines.py --dataset THUDM/LongBench --config hotpotqa --split test
     python compare_pipelines.py --offline               # built-in sample, no internet
 
 RESUME AFTER A CRASH
@@ -189,8 +190,16 @@ def load_samples(args) -> List[Dict]:
             paras = _hotpot_paragraphs(ctx)
         else:
             paras = _paragraphs_from_text(str(ctx))
-        question = row.get("question", "")
+        # LongBench (THUDM/LongBench) uses 'input' for the question and a list
+        # under 'answers'; HotpotQA-style sets use 'question'/'answer'.
+        question = row.get("question") or row.get("input") or ""
         answer = row.get("answer", "")
+        if not answer:
+            ans = row.get("answers")
+            if isinstance(ans, list):
+                answer = ans[0] if ans else ""
+            elif ans:
+                answer = ans
         if isinstance(answer, dict):
             answer = (answer.get("value") or "")
         if paras and question:

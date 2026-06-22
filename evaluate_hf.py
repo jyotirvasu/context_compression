@@ -20,6 +20,7 @@ USAGE (on a machine with internet / HF access)
     python evaluate_hf.py --num-samples 200
     python evaluate_hf.py --reduce-ratios 0.3 0.5 0.7   # sweep compression
     python evaluate_hf.py --dataset hotpotqa/hotpot_qa --config distractor --split validation
+    python evaluate_hf.py --dataset THUDM/LongBench --config hotpotqa --split test  # LongBench
     python evaluate_hf.py --offline                # use built-in sample (no internet)
 
 RESUME AFTER A CRASH
@@ -167,6 +168,20 @@ def adapt_row(dataset_name: str, row: Dict) -> Optional[Tuple[str, str, str]]:
         query = row["question"]
         answer = row.get("answer", "")
         return document, query, answer
+
+    if "longbench" in name:
+        # LongBench (THUDM/LongBench): context is a flat string, the question is
+        # under 'input', and gold answers are a list under 'answers'.
+        document = str(row.get("context", ""))
+        query = row.get("input", "")
+        answers = row.get("answers", [])
+        if isinstance(answers, list):
+            answer = answers[0] if answers else ""
+        else:
+            answer = str(answers)
+        if document and query:
+            return document, query, answer
+        return None
 
     if "2wiki" in name or "musique" in name:
         # Both expose 'context' similar to HotpotQA in many HF mirrors
