@@ -1,0 +1,71 @@
+# Context Compression Pipeline v1 - LongBench Configuration
+# ----------------------------------------------------------
+# Tuned for LONG-CONTEXT inputs (LongBench contexts are ~5k-15k tokens, vs
+# HotpotQA's ~1.3k). Select it at run time without touching the default config:
+#
+#   python evaluate_hf.py --dataset THUDM/LongBench --config hotpotqa \
+#       --split test --config-path config_longbench.yaml \
+#       --num-samples 200 --reduce-ratios 0.3 0.5 0.7 --chunk-size 25
+#
+#   python compare_pipelines.py --dataset THUDM/LongBench --config hotpotqa \
+#       --split test --config-path config_longbench.yaml \
+#       --num-samples 200 --keep-ratios 0.3 0.5 0.7 --chunk-size 25
+#
+# NOTE: LongBench (THUDM/LongBench) ships a loader script, so it requires
+#   pip install "datasets<3.0.0"   (datasets>=3.0 removed script support).
+
+pipeline:
+  name: "context_compression_longbench"
+  stages: ["chunking", "cleanup", "retrieval", "compression", "packing"]
+
+# Stage A: Chunking
+chunking:
+  method: "sentence"  # Options: "sentence", "paragraph", "fixed_token", "sliding_window"
+  max_chunk_tokens: 256
+  overlap_tokens: 32  # For sliding_window method
+  sentence_splitter: "spacy"  # Options: "spacy", "nltk"
+
+# Stage B: Cleanup Rules
+cleanup:
+  remove_urls: true
+  remove_emails: true
+  remove_excessive_whitespace: true
+  remove_special_chars: false
+  normalize_unicode: true
+  min_chunk_length: 10  # Minimum characters to keep a chunk
+  max_chunk_length: 2048  # Maximum characters per chunk
+  remove_duplicates: true
+  lowercase: false  # Typically keep original case for LLM input
+
+# Stage C: Retrieval (Embedding / BM25)
+# top_n raised so long contexts are not truncated to just 10 chunks before
+# compression even gets a chance to run.
+retrieval:
+  method: "bm25"  # Options: "embedding", "bm25", "hybrid"
+  top_n: 40
+  embedding_model: "all-MiniLM-L6-v2"
+  bm25_k1: 1.5
+  bm25_b: 0.75
+  hybrid_alpha: 0.5  # Weight for embedding score (1 - alpha for BM25)
+
+# Stage D: Selective Context Compression
+# target_token_budget raised so the compressed output can hold a meaningful
+# slice of a long document rather than being hard-capped at 2048.
+compression:
+  enabled: true
+  model_type: "gpt2"  # Options: "gpt2", "curie"
+  lang: "en"  # Options: "en", "zh"
+  reduce_ratio: 0.7  # Target reduction ratio (0.0 - 1.0)
+  target_token_budget: 8192  # Max tokens after compression (long-context)
+  granularity: "phrase"  # Options: "sentence", "phrase", "token"
+
+# Stage E: Position-Aware Packing (Lost in the Middle)
+# max_context_tokens raised to match the larger compression budget.
+packing:
+  strategy: "round_robin"  # Options: "edges_first", "decreasing", "round_robin"
+  max_context_tokens: 12288
+  # Based on "Lost in the Middle" (Liu et al., 2023):
+  # LLMs attend better to beginning and end of context.
+  # edges_first: place top chunks at start/end, less relevant in middle
+  prioritize_start_ratio: 0.4  # Fraction of top chunks placed at start
+  prioritize_end_ratio: 0.3    # Fraction of top chunks placed at end

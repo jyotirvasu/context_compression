@@ -269,14 +269,27 @@ def load_samples(args) -> List[Dict]:
 
     print(f"[data] Loading {args.dataset} ({args.config}/{args.split}) from HuggingFace ...")
     try:
+        kwargs = {"split": args.split, "trust_remote_code": True}
+        if args.config:
+            ds = load_dataset(args.dataset, args.config, **kwargs)
+        else:
+            ds = load_dataset(args.dataset, **kwargs)
+    except TypeError:
+        # Older datasets versions don't accept trust_remote_code; retry without.
         if args.config:
             ds = load_dataset(args.dataset, args.config, split=args.split)
         else:
             ds = load_dataset(args.dataset, split=args.split)
     except Exception as e:
-        print(f"[data] Failed to load dataset: {e}")
-        print("[data] Falling back to built-in OFFLINE sample.")
-        return OFFLINE_SAMPLE
+        # A real dataset was explicitly requested but could not be loaded. Do NOT
+        # silently fall back to the 3-sample synthetic set -- that produces
+        # meaningless "results". Fail loudly so the run is not mistaken for real.
+        print(f"[data] ERROR: could not load {args.dataset}: {e}")
+        if "scripts are no longer supported" in str(e):
+            print("[data] This dataset ships a loader script, which datasets>=3.0 "
+                  "removed. Fix: pip install \"datasets<3.0.0\"  (then re-run).")
+        print("[data] Aborting. Use --offline to run the built-in synthetic sample.")
+        raise SystemExit(2)
 
     n = min(args.num_samples, len(ds))
     samples = []
