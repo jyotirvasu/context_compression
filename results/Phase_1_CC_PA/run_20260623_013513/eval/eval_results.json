@@ -1,0 +1,136 @@
+{
+  "runs": [
+    {
+      "aggregate": {
+        "reduce_ratio": 0.3,
+        "num_samples": 3,
+        "avg_input_tokens": 55.666666666666664,
+        "avg_output_tokens": 44.666666666666664,
+        "avg_compression_ratio": 0.19789915966386554,
+        "avg_latency_ms": 1733.2846250016398,
+        "avg_keyword_retention": 93.41269841269839,
+        "answer_recall_pct": 100.0
+      },
+      "per_sample": [
+        {
+          "question": "What architecture do GPT models use?",
+          "answer": "Transformer",
+          "input_tokens": 56,
+          "output_tokens": 44,
+          "compression_ratio": 0.2142857142857143,
+          "latency_ms": 4774.420458008535,
+          "keyword_retention": 93.33333333333333,
+          "answer_retained": true
+        },
+        {
+          "question": "How many parameters does GPT-3 have?",
+          "answer": "175 billion",
+          "input_tokens": 60,
+          "output_tokens": 49,
+          "compression_ratio": 0.18333333333333335,
+          "latency_ms": 217.70499998820014,
+          "keyword_retention": 95.23809523809523,
+          "answer_retained": true
+        },
+        {
+          "question": "What does RAG retrieve to ground responses?",
+          "answer": "relevant documents",
+          "input_tokens": 51,
+          "output_tokens": 41,
+          "compression_ratio": 0.196078431372549,
+          "latency_ms": 207.7284170081839,
+          "keyword_retention": 91.66666666666666,
+          "answer_retained": true
+        }
+      ]
+    },
+    {
+      "aggregate": {
+        "reduce_ratio": 0.5,
+        "num_samples": 3,
+        "avg_input_tokens": 55.666666666666664,
+        "avg_output_tokens": 32.0,
+        "avg_compression_ratio": 0.4253734827264239,
+        "avg_latency_ms": 215.329291667634,
+        "avg_keyword_retention": 68.17460317460318,
+        "answer_recall_pct": 100.0
+      },
+      "per_sample": [
+        {
+          "question": "What architecture do GPT models use?",
+          "answer": "Transformer",
+          "input_tokens": 56,
+          "output_tokens": 25,
+          "compression_ratio": 0.5535714285714286,
+          "latency_ms": 245.20437500905246,
+          "keyword_retention": 53.333333333333336,
+          "answer_retained": true
+        },
+        {
+          "question": "How many parameters does GPT-3 have?",
+          "answer": "175 billion",
+          "input_tokens": 60,
+          "output_tokens": 39,
+          "compression_ratio": 0.35,
+          "latency_ms": 203.75087499269284,
+          "keyword_retention": 76.19047619047619,
+          "answer_retained": true
+        },
+        {
+          "question": "What does RAG retrieve to ground responses?",
+          "answer": "relevant documents",
+          "input_tokens": 51,
+          "output_tokens": 32,
+          "compression_ratio": 0.37254901960784315,
+          "latency_ms": 197.0326250011567,
+          "keyword_retention": 75.0,
+          "answer_retained": true
+        }
+      ]
+    },
+    {
+      "aggregate": {
+        "reduce_ratio": 0.7,
+        "num_samples": 3,
+        "avg_input_tokens": 55.666666666666664,
+        "avg_output_tokens": 15.666666666666666,
+        "avg_compression_ratio": 0.7178571428571429,
+        "avg_latency_ms": 216.21808300066428,
+        "avg_keyword_retention": 44.64285714285714,
+        "answer_recall_pct": 66.66666666666666
+      },
+      "per_sample": [
+        {
+          "question": "What architecture do GPT models use?",
+          "answer": "Transformer",
+          "input_tokens": 56,
+          "output_tokens": 11,
+          "compression_ratio": 0.8035714285714286,
+          "latency_ms": 244.94229099946097,
+          "keyword_retention": 33.33333333333333,
+          "answer_retained": false
+        },
+        {
+          "question": "How many parameters does GPT-3 have?",
+          "answer": "175 billion",
+          "input_tokens": 60,
+          "output_tokens": 19,
+          "compression_ratio": 0.6833333333333333,
+          "latency_ms": 205.81566699547693,
+          "keyword_retention": 38.095238095238095,
+          "answer_retained": true
+        },
+        {
+          "question": "What does RAG retrieve to ground responses?",
+          "answer": "relevant documents",
+          "input_tokens": 51,
+          "output_tokens": 17,
+          "compression_ratio": 0.6666666666666667,
+          "latency_ms": 197.89629100705497,
+          "keyword_retention": 62.5,
+          "answer_retained": true
+        }
+      ]
+    }
+  ]
+}

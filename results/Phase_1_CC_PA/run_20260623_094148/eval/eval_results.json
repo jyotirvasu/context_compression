@@ -1,0 +1,1546 @@
+{
+  "runs": [
+    {
+      "aggregate": {
+        "reduce_ratio": 0.3,
+        "num_samples": 50,
+        "avg_input_tokens": 13276.76,
+        "avg_output_tokens": 7031.68,
+        "avg_compression_ratio": 0.4389613322205429,
+        "avg_latency_ms": 23260.55836753978,
+        "avg_keyword_retention": 76.44473077976383,
+        "answer_recall_pct": 72.0
+      },
+      "per_sample": [
+        {
+          "question": "Which case was brought to court first Miller v. California or Gates v. Collier ?",
+          "answer": "Miller v. California",
+          "input_tokens": 11306,
+          "output_tokens": 7216,
+          "compression_ratio": 0.36175482044931895,
+          "latency_ms": 28995.98883400904,
+          "keyword_retention": 84.81915435557819,
+          "answer_retained": true
+        },
+        {
+          "question": "The actor that plays Phileas Fogg in \"Around the World in 80 Days\", co-starred with Gary Cooper in a 1939 Goldwyn Produc",
+          "answer": "Charles L. Clifford",
+          "input_tokens": 16201,
+          "output_tokens": 7284,
+          "compression_ratio": 0.550398123572619,
+          "latency_ms": 25088.61383299518,
+          "keyword_retention": 66.44270250093318,
+          "answer_retained": true
+        },
+        {
+          "question": "Prior to playing for Michigan State, Keith Nichol played football for a school located in what city?",
+          "answer": "Norman",
+          "input_tokens": 16239,
+          "output_tokens": 7415,
+          "compression_ratio": 0.5433832132520475,
+          "latency_ms": 24977.77858300833,
+          "keyword_retention": 65.01865671641791,
+          "answer_retained": false
+        },
+        {
+          "question": "Gary L. Bennett was a part of the space missions that have a primary destination of what celestial body?",
+          "answer": "Sun",
+          "input_tokens": 16280,
+          "output_tokens": 7071,
+          "compression_ratio": 0.5656633906633907,
+          "latency_ms": 23558.64595899766,
+          "keyword_retention": 69.37609841827768,
+          "answer_retained": true
+        },
+        {
+          "question": "Was Atom Egoyans biggest commercial success on stage or on film?",
+          "answer": "erotic thriller film",
+          "input_tokens": 14442,
+          "output_tokens": 7605,
+          "compression_ratio": 0.4734108849189863,
+          "latency_ms": 23611.798125013593,
+          "keyword_retention": 69.5187165775401,
+          "answer_retained": false
+        },
+        {
+          "question": "Celebrity Fifteen to One has had more than one appearance by an English writer and former Conservative Member of what?",
+          "answer": "Parliament",
+          "input_tokens": 14534,
+          "output_tokens": 7472,
+          "compression_ratio": 0.48589514242465937,
+          "latency_ms": 23121.786624993547,
+          "keyword_retention": 71.8586387434555,
+          "answer_retained": true
+        },
+        {
+          "question": "Thirukkalacherry is a village in which Indian town?",
+          "answer": "Tharangambadi",
+          "input_tokens": 15791,
+          "output_tokens": 7432,
+          "compression_ratio": 0.5293521626242796,
+          "latency_ms": 25179.461082996568,
+          "keyword_retention": 70.20713970912296,
+          "answer_retained": true
+        },
+        {
+          "question": "Which is a flowering plant, Pueraria or Pleiospilos?",
+          "answer": "Pleiospilos",
+          "input_tokens": 2186,
+          "output_tokens": 1747,
+          "compression_ratio": 0.2008234217749314,
+          "latency_ms": 7631.423416998587,
+          "keyword_retention": 92.67139479905437,
+          "answer_retained": true
+        },
+        {
+          "question": "After Russell D. Moore served at the Southern Baptist Theological Seminary he became the President of The Ethics & Relig",
+          "answer": "2013",
+          "input_tokens": 12062,
+          "output_tokens": 7499,
+          "compression_ratio": 0.3782954733874979,
+          "latency_ms": 29876.504791987827,
+          "keyword_retention": 85.2233676975945,
+          "answer_retained": true
+        },
+        {
+          "question": "For which band, was the female member of Fitz and The Tantrums, the front woman for ten years ?",
+          "answer": "The Rebirth",
+          "input_tokens": 8667,
+          "output_tokens": 6733,
+          "compression_ratio": 0.22314526364370602,
+          "latency_ms": 20049.367125000572,
+          "keyword_retention": 96.16888193901487,
+          "answer_retained": true
+        },
+        {
+          "question": "When was the American singer, songwriter, record producer, dancer and actress born who's second studio album is Chapter ",
+          "answer": "October 13, 1980",
+          "input_tokens": 16175,
+          "output_tokens": 7444,
+          "compression_ratio": 0.5397836166924266,
+          "latency_ms": 25323.55024998833,
+          "keyword_retention": 65.73791902481497,
+          "answer_retained": true
+        },
+        {
+          "question": "The Greatest Event in Television History aired on the channel that was founded by whom?",
+          "answer": "Betty Cohen",
+          "input_tokens": 15804,
+          "output_tokens": 7507,
+          "compression_ratio": 0.5249936724879778,
+          "latency_ms": 24627.585583992186,
+          "keyword_retention": 63.42681521321553,
+          "answer_retained": true
+        },
+        {
+          "question": "Who starred in her final film role in the 1964 film directed by the man who also did Vera Cruz and Kiss Me Deadly?",
+          "answer": "Mary Astor",
+          "input_tokens": 15399,
+          "output_tokens": 7491,
+          "compression_ratio": 0.5135398402493668,
+          "latency_ms": 25018.751582989353,
+          "keyword_retention": 69.93511175198269,
+          "answer_retained": true
+        },
+        {
+          "question": "Finally includes the song that peaked at what on the US Hot 100",
+          "answer": "number five",
+          "input_tokens": 10219,
+          "output_tokens": 6995,
+          "compression_ratio": 0.31549075251981606,
+          "latency_ms": 21240.624666999793,
+          "keyword_retention": 87.27770177838578,
+          "answer_retained": false
+        },
+        {
+          "question": "What are some other areas that share a common deer species with the forests of Mara and Mondrem?",
+          "answer": "New Zealand, Canada, the United States, the Falkland Islands, and Peru.",
+          "input_tokens": 16144,
+          "output_tokens": 7488,
+          "compression_ratio": 0.5361744301288405,
+          "latency_ms": 25214.3232080125,
+          "keyword_retention": 67.93025018953753,
+          "answer_retained": false
+        },
+        {
+          "question": "Professional cyclist Sara Symington competed in which Olympic Games held in Sydeney, Australia?",
+          "answer": "2000 Summer Olympic Games",
+          "input_tokens": 12170,
+          "output_tokens": 7319,
+          "compression_ratio": 0.3986031224322103,
+          "latency_ms": 22003.44479100022,
+          "keyword_retention": 80.80333854981743,
+          "answer_retained": false
+        },
+        {
+          "question": "Which retired Argentine footballer who played as a forward was a main player for Valencia CF?",
+          "answer": "Claudio Javier L\u00f3pez",
+          "input_tokens": 6116,
+          "output_tokens": 4714,
+          "compression_ratio": 0.2292347939829954,
+          "latency_ms": 13353.526209000847,
+          "keyword_retention": 95.3880764904387,
+          "answer_retained": true
+        },
+        {
+          "question": "What actor was also a president that Richard Darman worked with when they were in office?",
+          "answer": "George H. W. Bush",
+          "input_tokens": 16272,
+          "output_tokens": 7429,
+          "compression_ratio": 0.5434488692232056,
+          "latency_ms": 26615.480458000093,
+          "keyword_retention": 69.43341753879466,
+          "answer_retained": true
+        },
+        {
+          "question": "The song that came out ahead of The Wanted's \"Lightning\" on the UK Singles Chart was featured on which album?",
+          "answer": "\"Talk That Talk\"",
+          "input_tokens": 13925,
+          "output_tokens": 7331,
+          "compression_ratio": 0.4735368043087971,
+          "latency_ms": 23365.70424999809,
+          "keyword_retention": 71.50671307807062,
+          "answer_retained": true
+        },
+        {
+          "question": "Name a member of a British-American supergroup who recored a version of Nobody's child in 1990",
+          "answer": "Bob Dylan",
+          "input_tokens": 15382,
+          "output_tokens": 7450,
+          "compression_ratio": 0.5156676635027955,
+          "latency_ms": 23541.269166002166,
+          "keyword_retention": 71.71592775041051,
+          "answer_retained": true
+        },
+        {
+          "question": "What Friday night programming block included what collective series that includes \"Whatever Happened to... Robot Jones?\"",
+          "answer": "Cartoon Cartoon Fridays",
+          "input_tokens": 10958,
+          "output_tokens": 7283,
+          "compression_ratio": 0.33537141814199667,
+          "latency_ms": 21859.34116700082,
+          "keyword_retention": 86.36127017178553,
+          "answer_retained": true
+        },
+        {
+          "question": "Where does the city situated where Kellyville Ridge is located?",
+          "answer": "on the Cumberland Plain",
+          "input_tokens": 15083,
+          "output_tokens": 7256,
+          "compression_ratio": 0.5189285951070741,
+          "latency_ms": 24239.91545800527,
+          "keyword_retention": 72.21163012392755,
+          "answer_retained": false
+        },
+        {
+          "question": "Oak Beach, New York and Great South Bay are both situated between what same island?",
+          "answer": "Long Island",
+          "input_tokens": 5068,
+          "output_tokens": 4018,
+          "compression_ratio": 0.20718232044198892,
+          "latency_ms": 12361.391208003624,
+          "keyword_retention": 94.97076023391813,
+          "answer_retained": true
+        },
+        {
+          "question": "Who is a guest in the final two episodes of season eighteen of South Park?",
+          "answer": "PewDiePie",
+          "input_tokens": 11303,
+          "output_tokens": 7309,
+          "compression_ratio": 0.3533575157037955,
+          "latency_ms": 22823.786666995147,
+          "keyword_retention": 83.86342376052386,
+          "answer_retained": true
+        },
+        {
+          "question": "Robbie Tucker plays in what series that follows a group of friends who run an Irish bar?",
+          "answer": "It's Always Sunny in Philadelphia",
+          "input_tokens": 14147,
+          "output_tokens": 7537,
+          "compression_ratio": 0.4672368700077755,
+          "latency_ms": 23726.519249990815,
+          "keyword_retention": 74.70214455917395,
+          "answer_retained": false
+        },
+        {
+          "question": "High School Confidential, an eight part documentary followed twelve high school teenagers from a high school in Overland",
+          "answer": "#364",
+          "input_tokens": 9183,
+          "output_tokens": 7299,
+          "compression_ratio": 0.20516171185886967,
+          "latency_ms": 24885.183083009906,
+          "keyword_retention": 96.4524765729585,
+          "answer_retained": false
+        },
+        {
+          "question": "The large subunit and small subunit that use two types of RNA are major components that make up what?",
+          "answer": "Ribosomes",
+          "input_tokens": 16233,
+          "output_tokens": 7603,
+          "compression_ratio": 0.5316330930819935,
+          "latency_ms": 24582.698124999297,
+          "keyword_retention": 66.73521850899743,
+          "answer_retained": true
+        },
+        {
+          "question": "Whiich genus has more species, Dracula or Pistacia?",
+          "answer": "Dracula",
+          "input_tokens": 9693,
+          "output_tokens": 7319,
+          "compression_ratio": 0.24491901372124214,
+          "latency_ms": 25984.458249993622,
+          "keyword_retention": 90.60702875399362,
+          "answer_retained": true
+        },
+        {
+          "question": "Band-e-Amir Dragons is named after the lakes in which Afghan national park?",
+          "answer": "Band-e Amir National Park",
+          "input_tokens": 3062,
+          "output_tokens": 2532,
+          "compression_ratio": 0.17308948399738733,
+          "latency_ms": 7110.894750003354,
+          "keyword_retention": 94.70046082949308,
+          "answer_retained": true
+        },
+        {
+          "question": "The 1958 Pro Bowl was played at the California stadium that is the home for which college?",
+          "answer": "University of Southern California",
+          "input_tokens": 16126,
+          "output_tokens": 7468,
+          "compression_ratio": 0.5368969366240853,
+          "latency_ms": 23634.9252910004,
+          "keyword_retention": 66.0968660968661,
+          "answer_retained": false
+        },
+        {
+          "question": "Yau Ma Tei North is a district of a city with how many citizens?",
+          "answer": "7.2 million",
+          "input_tokens": 16300,
+          "output_tokens": 7472,
+          "compression_ratio": 0.5415950920245398,
+          "latency_ms": 25836.568792001344,
+          "keyword_retention": 66.80102601685599,
+          "answer_retained": false
+        },
+        {
+          "question": "Spider9 was founded in 2011 by the head of which subsidiary of Wanxiang Group?",
+          "answer": "A123 Systems, LLC",
+          "input_tokens": 14343,
+          "output_tokens": 7560,
+          "compression_ratio": 0.47291361639824303,
+          "latency_ms": 24658.23683301278,
+          "keyword_retention": 73.38164251207729,
+          "answer_retained": true
+        },
+        {
+          "question": "What is the population of the city at which the transmitter of WLLZ-LP was placed? ",
+          "answer": "143,372",
+          "input_tokens": 14147,
+          "output_tokens": 7495,
+          "compression_ratio": 0.4702056973209868,
+          "latency_ms": 24164.04912500002,
+          "keyword_retention": 68.97422940879233,
+          "answer_retained": false
+        },
+        {
+          "question": "Charles Haughey held what position when he dissolved the list of members who were elected to the lower house of the Oire",
+          "answer": "Taoiseach of Ireland",
+          "input_tokens": 15793,
+          "output_tokens": 7341,
+          "compression_ratio": 0.5351738111821693,
+          "latency_ms": 23929.876584006706,
+          "keyword_retention": 61.59695817490495,
+          "answer_retained": false
+        },
+        {
+          "question": "What city, located in Lincoln County, Montana, United States, is Vegepet based in?",
+          "answer": "Troy, Montana",
+          "input_tokens": 13774,
+          "output_tokens": 7414,
+          "compression_ratio": 0.4617395092202701,
+          "latency_ms": 25064.277750003384,
+          "keyword_retention": 82.94797687861272,
+          "answer_retained": true
+        },
+        {
+          "question": "McLaren MP4/11 was driven by what Finnish former professional racing driver",
+          "answer": "Mika H\u00e4kkinen",
+          "input_tokens": 16325,
+          "output_tokens": 7440,
+          "compression_ratio": 0.5442572741194487,
+          "latency_ms": 23644.60129199142,
+          "keyword_retention": 69.83087834151664,
+          "answer_retained": true
+        },
+        {
+          "question": "Which of the movie which has Rich Lee 3-D previsualizations was directed by Francis Lawrence?",
+          "answer": "Constantine",
+          "input_tokens": 15465,
+          "output_tokens": 7323,
+          "compression_ratio": 0.5264791464597478,
+          "latency_ms": 23834.257834008895,
+          "keyword_retention": 67.97931583134446,
+          "answer_retained": true
+        },
+        {
+          "question": "Who choreographed one who is said to be the last muse for the choreographer and starred in the Nutcracker?",
+          "answer": "George Balanchine",
+          "input_tokens": 13331,
+          "output_tokens": 7412,
+          "compression_ratio": 0.4440027004725827,
+          "latency_ms": 23318.935874995077,
+          "keyword_retention": 78.34302325581395,
+          "answer_retained": true
+        },
+        {
+          "question": "Which utility holding company did Alfred A. Marcus work as a consultant?",
+          "answer": "Xcel Energy Inc.",
+          "input_tokens": 15960,
+          "output_tokens": 7386,
+          "compression_ratio": 0.5372180451127819,
+          "latency_ms": 24857.350250007585,
+          "keyword_retention": 64.75524475524476,
+          "answer_retained": true
+        },
+        {
+          "question": "Which film was released first, Summer Magic or Around the World in 80 Days?",
+          "answer": "Summer Magic",
+          "input_tokens": 15568,
+          "output_tokens": 7043,
+          "compression_ratio": 0.5475976361767729,
+          "latency_ms": 22821.679124986986,
+          "keyword_retention": 67.28754365541327,
+          "answer_retained": true
+        },
+        {
+          "question": "The physicist who is responsible for identifying the Rabi cycle won what award?",
+          "answer": "Nobel Prize",
+          "input_tokens": 16269,
+          "output_tokens": 5889,
+          "compression_ratio": 0.6380232343721188,
+          "latency_ms": 19640.49387499108,
+          "keyword_retention": 73.33736396614269,
+          "answer_retained": true
+        },
+        {
+          "question": "For what type of work is the production company for The Year Without a Santa Claus best known?",
+          "answer": "seasonal television specials, particularly its work in stop motion animation",
+          "input_tokens": 16127,
+          "output_tokens": 7397,
+          "compression_ratio": 0.5413282073541266,
+          "latency_ms": 24852.539833984338,
+          "keyword_retention": 67.44014732965009,
+          "answer_retained": false
+        },
+        {
+          "question": "Which three-time Olivier Award winning English actress starred in the 1981 BBC television serial, Sons and Lovers?",
+          "answer": "Dame Eileen June Atkins",
+          "input_tokens": 11951,
+          "output_tokens": 7465,
+          "compression_ratio": 0.3753660781524558,
+          "latency_ms": 22549.41237499588,
+          "keyword_retention": 80.55555555555556,
+          "answer_retained": true
+        },
+        {
+          "question": "The historical Nimavar school in the Nimavar Bazaar, or bazar, is located in which country?",
+          "answer": "Iran",
+          "input_tokens": 16232,
+          "output_tokens": 7527,
+          "compression_ratio": 0.5362863479546575,
+          "latency_ms": 24432.459292002022,
+          "keyword_retention": 65.19090170593014,
+          "answer_retained": true
+        },
+        {
+          "question": "Which name adopted by African-American activist Allen Donaldson co-found Black Power movement of the 1960s and 1970s",
+          "answer": "Hakim Abdullah Jamal",
+          "input_tokens": 16235,
+          "output_tokens": 7465,
+          "compression_ratio": 0.5401909454881428,
+          "latency_ms": 26341.081499995198,
+          "keyword_retention": 66.23702112423916,
+          "answer_retained": true
+        },
+        {
+          "question": "Which person is known for playing in punk bands, Keith Morris or Rome Ramirez?",
+          "answer": "Keith Morris",
+          "input_tokens": 13708,
+          "output_tokens": 7663,
+          "compression_ratio": 0.4409833673767143,
+          "latency_ms": 23485.614500008523,
+          "keyword_retention": 73.69635440701431,
+          "answer_retained": true
+        },
+        {
+          "question": "Arnold Richards was the former chair of what organization that is a member of the Center for Jewish History?",
+          "answer": "YIVO",
+          "input_tokens": 11304,
+          "output_tokens": 7764,
+          "compression_ratio": 0.3131634819532909,
+          "latency_ms": 34824.6601659921,
+          "keyword_retention": 95.97141000649772,
+          "answer_retained": true
+        },
+        {
+          "question": "When was the plaintiff in the 1892 Barbed Wire Patent Case born?",
+          "answer": "January 18, 1813",
+          "input_tokens": 9931,
+          "output_tokens": 7447,
+          "compression_ratio": 0.2501258684925989,
+          "latency_ms": 24488.984666997567,
+          "keyword_retention": 94.05436013590034,
+          "answer_retained": true
+        },
+        {
+          "question": "Which mountain is higher, Tongshanjiabu or Himalchuli?",
+          "answer": "Himalchuli has three main peaks: East (7893 m), West (7540 m) and North (7371 m)",
+          "input_tokens": 9940,
+          "output_tokens": 7548,
+          "compression_ratio": 0.2406438631790745,
+          "latency_ms": 23144.08591701067,
+          "keyword_retention": 92.88366336633663,
+          "answer_retained": false
+        },
+        {
+          "question": "When did the place in Canada where Fran\u00e7ois Beaucourt (1740-1794) was mainly active acquired its present name?",
+          "answer": "1763",
+          "input_tokens": 14965,
+          "output_tokens": 7267,
+          "compression_ratio": 0.5144002672903442,
+          "latency_ms": 23534.01100001065,
+          "keyword_retention": 69.81062012625326,
+          "answer_retained": true
+        }
+      ]
+    },
+    {
+      "aggregate": {
+        "reduce_ratio": 0.5,
+        "num_samples": 50,
+        "avg_input_tokens": 13276.76,
+        "avg_output_tokens": 5248.86,
+        "avg_compression_ratio": 0.5802303201971398,
+        "avg_latency_ms": 23431.83081838186,
+        "avg_keyword_retention": 67.97732442141019,
+        "answer_recall_pct": 60.0
+      },
+      "per_sample": [
+        {
+          "question": "Which case was brought to court first Miller v. California or Gates v. Collier ?",
+          "answer": "Miller v. California",
+          "input_tokens": 11306,
+          "output_tokens": 5310,
+          "compression_ratio": 0.530337873695383,
+          "latency_ms": 24029.760207995423,
+          "keyword_retention": 75.80234335201223,
+          "answer_retained": false
+        },
+        {
+          "question": "The actor that plays Phileas Fogg in \"Around the World in 80 Days\", co-starred with Gary Cooper in a 1939 Goldwyn Produc",
+          "answer": "Charles L. Clifford",
+          "input_tokens": 16201,
+          "output_tokens": 5444,
+          "compression_ratio": 0.6639713597926054,
+          "latency_ms": 24327.904666002723,
+          "keyword_retention": 58.93990294886151,
+          "answer_retained": false
+        },
+        {
+          "question": "Prior to playing for Michigan State, Keith Nichol played football for a school located in what city?",
+          "answer": "Norman",
+          "input_tokens": 16239,
+          "output_tokens": 5369,
+          "compression_ratio": 0.6693761931153397,
+          "latency_ms": 24551.924792001955,
+          "keyword_retention": 57.4160447761194,
+          "answer_retained": false
+        },
+        {
+          "question": "Gary L. Bennett was a part of the space missions that have a primary destination of what celestial body?",
+          "answer": "Sun",
+          "input_tokens": 16280,
+          "output_tokens": 5300,
+          "compression_ratio": 0.6744471744471745,
+          "latency_ms": 23239.336416998412,
+          "keyword_retention": 62.91739894551846,
+          "answer_retained": true
+        },
+        {
+          "question": "Was Atom Egoyans biggest commercial success on stage or on film?",
+          "answer": "erotic thriller film",
+          "input_tokens": 14442,
+          "output_tokens": 5817,
+          "compression_ratio": 0.5972164520149563,
+          "latency_ms": 22252.803625000524,
+          "keyword_retention": 61.16824352118469,
+          "answer_retained": false
+        },
+        {
+          "question": "Celebrity Fifteen to One has had more than one appearance by an English writer and former Conservative Member of what?",
+          "answer": "Parliament",
+          "input_tokens": 14534,
+          "output_tokens": 5590,
+          "compression_ratio": 0.6153846153846154,
+          "latency_ms": 22852.74412498984,
+          "keyword_retention": 63.61256544502618,
+          "answer_retained": true
+        },
+        {
+          "question": "Thirukkalacherry is a village in which Indian town?",
+          "answer": "Tharangambadi",
+          "input_tokens": 15791,
+          "output_tokens": 5796,
+          "compression_ratio": 0.632955480970173,
+          "latency_ms": 24701.049416995374,
+          "keyword_retention": 62.8470691934773,
+          "answer_retained": true
+        },
+        {
+          "question": "Which is a flowering plant, Pueraria or Pleiospilos?",
+          "answer": "Pleiospilos",
+          "input_tokens": 2186,
+          "output_tokens": 1350,
+          "compression_ratio": 0.3824336688014639,
+          "latency_ms": 7589.521624991903,
+          "keyword_retention": 80.85106382978722,
+          "answer_retained": true
+        },
+        {
+          "question": "After Russell D. Moore served at the Southern Baptist Theological Seminary he became the President of The Ethics & Relig",
+          "answer": "2013",
+          "input_tokens": 12062,
+          "output_tokens": 5627,
+          "compression_ratio": 0.5334936163157022,
+          "latency_ms": 28938.797082999372,
+          "keyword_retention": 75.48682703321879,
+          "answer_retained": true
+        },
+        {
+          "question": "For which band, was the female member of Fitz and The Tantrums, the front woman for ten years ?",
+          "answer": "The Rebirth",
+          "input_tokens": 8667,
+          "output_tokens": 5026,
+          "compression_ratio": 0.42009922695280955,
+          "latency_ms": 19845.29337499407,
+          "keyword_retention": 86.16106333072713,
+          "answer_retained": true
+        },
+        {
+          "question": "When was the American singer, songwriter, record producer, dancer and actress born who's second studio album is Chapter ",
+          "answer": "October 13, 1980",
+          "input_tokens": 16175,
+          "output_tokens": 5557,
+          "compression_ratio": 0.6564451313755796,
+          "latency_ms": 27006.070499992347,
+          "keyword_retention": 59.77361776229865,
+          "answer_retained": true
+        },
+        {
+          "question": "The Greatest Event in Television History aired on the channel that was founded by whom?",
+          "answer": "Betty Cohen",
+          "input_tokens": 15804,
+          "output_tokens": 5573,
+          "compression_ratio": 0.6473677549987344,
+          "latency_ms": 24469.710875011515,
+          "keyword_retention": 57.01114099116404,
+          "answer_retained": true
+        },
+        {
+          "question": "Who starred in her final film role in the 1964 film directed by the man who also did Vera Cruz and Kiss Me Deadly?",
+          "answer": "Mary Astor",
+          "input_tokens": 15399,
+          "output_tokens": 5630,
+          "compression_ratio": 0.6343918436262095,
+          "latency_ms": 25122.43804099853,
+          "keyword_retention": 61.67988464311463,
+          "answer_retained": true
+        },
+        {
+          "question": "Finally includes the song that peaked at what on the US Hot 100",
+          "answer": "number five",
+          "input_tokens": 10219,
+          "output_tokens": 5241,
+          "compression_ratio": 0.4871318132889715,
+          "latency_ms": 21233.592167001916,
+          "keyword_retention": 78.9329685362517,
+          "answer_retained": false
+        },
+        {
+          "question": "What are some other areas that share a common deer species with the forests of Mara and Mondrem?",
+          "answer": "New Zealand, Canada, the United States, the Falkland Islands, and Peru.",
+          "input_tokens": 16144,
+          "output_tokens": 5595,
+          "compression_ratio": 0.6534316154608524,
+          "latency_ms": 25403.095457993913,
+          "keyword_retention": 59.85595147839272,
+          "answer_retained": false
+        },
+        {
+          "question": "Professional cyclist Sara Symington competed in which Olympic Games held in Sydeney, Australia?",
+          "answer": "2000 Summer Olympic Games",
+          "input_tokens": 12170,
+          "output_tokens": 5342,
+          "compression_ratio": 0.5610517666392769,
+          "latency_ms": 21899.563832994318,
+          "keyword_retention": 71.98748043818466,
+          "answer_retained": false
+        },
+        {
+          "question": "Which retired Argentine footballer who played as a forward was a main player for Valencia CF?",
+          "answer": "Claudio Javier L\u00f3pez",
+          "input_tokens": 6116,
+          "output_tokens": 3483,
+          "compression_ratio": 0.4305101373446697,
+          "latency_ms": 13360.387250009808,
+          "keyword_retention": 84.3644544431946,
+          "answer_retained": false
+        },
+        {
+          "question": "What actor was also a president that Richard Darman worked with when they were in office?",
+          "answer": "George H. W. Bush",
+          "input_tokens": 16272,
+          "output_tokens": 5404,
+          "compression_ratio": 0.6678957718780727,
+          "latency_ms": 26423.082708992297,
+          "keyword_retention": 60.70010826416456,
+          "answer_retained": false
+        },
+        {
+          "question": "The song that came out ahead of The Wanted's \"Lightning\" on the UK Singles Chart was featured on which album?",
+          "answer": "\"Talk That Talk\"",
+          "input_tokens": 13925,
+          "output_tokens": 5405,
+          "compression_ratio": 0.6118491921005387,
+          "latency_ms": 23602.78924999875,
+          "keyword_retention": 64.99254102436599,
+          "answer_retained": true
+        },
+        {
+          "question": "Name a member of a British-American supergroup who recored a version of Nobody's child in 1990",
+          "answer": "Bob Dylan",
+          "input_tokens": 15382,
+          "output_tokens": 5578,
+          "compression_ratio": 0.6373683526199454,
+          "latency_ms": 23685.63224999525,
+          "keyword_retention": 63.38259441707718,
+          "answer_retained": true
+        },
+        {
+          "question": "What Friday night programming block included what collective series that includes \"Whatever Happened to... Robot Jones?\"",
+          "answer": "Cartoon Cartoon Fridays",
+          "input_tokens": 10958,
+          "output_tokens": 5420,
+          "compression_ratio": 0.5053841941960211,
+          "latency_ms": 21770.330291998107,
+          "keyword_retention": 76.62675689744924,
+          "answer_retained": true
+        },
+        {
+          "question": "Where does the city situated where Kellyville Ridge is located?",
+          "answer": "on the Cumberland Plain",
+          "input_tokens": 15083,
+          "output_tokens": 5483,
+          "compression_ratio": 0.6364781542133529,
+          "latency_ms": 22986.65920899657,
+          "keyword_retention": 64.68064823641564,
+          "answer_retained": false
+        },
+        {
+          "question": "Oak Beach, New York and Great South Bay are both situated between what same island?",
+          "answer": "Long Island",
+          "input_tokens": 5068,
+          "output_tokens": 3049,
+          "compression_ratio": 0.39838200473559593,
+          "latency_ms": 12293.965958000626,
+          "keyword_retention": 85.14619883040936,
+          "answer_retained": true
+        },
+        {
+          "question": "Who is a guest in the final two episodes of season eighteen of South Park?",
+          "answer": "PewDiePie",
+          "input_tokens": 11303,
+          "output_tokens": 5479,
+          "compression_ratio": 0.5152614350172521,
+          "latency_ms": 22561.886415991466,
+          "keyword_retention": 73.01216089803555,
+          "answer_retained": true
+        },
+        {
+          "question": "Robbie Tucker plays in what series that follows a group of friends who run an Irish bar?",
+          "answer": "It's Always Sunny in Philadelphia",
+          "input_tokens": 14147,
+          "output_tokens": 5625,
+          "compression_ratio": 0.6023891991234891,
+          "latency_ms": 23938.025875002495,
+          "keyword_retention": 65.9253375694996,
+          "answer_retained": false
+        },
+        {
+          "question": "High School Confidential, an eight part documentary followed twelve high school teenagers from a high school in Overland",
+          "answer": "#364",
+          "input_tokens": 9183,
+          "output_tokens": 5557,
+          "compression_ratio": 0.3948600675160623,
+          "latency_ms": 53851.500791992294,
+          "keyword_retention": 86.61311914323963,
+          "answer_retained": false
+        },
+        {
+          "question": "The large subunit and small subunit that use two types of RNA are major components that make up what?",
+          "answer": "Ribosomes",
+          "input_tokens": 16233,
+          "output_tokens": 5639,
+          "compression_ratio": 0.6526212037208157,
+          "latency_ms": 31690.685375011526,
+          "keyword_retention": 60.20565552699229,
+          "answer_retained": true
+        },
+        {
+          "question": "Whiich genus has more species, Dracula or Pistacia?",
+          "answer": "Dracula",
+          "input_tokens": 9693,
+          "output_tokens": 5507,
+          "compression_ratio": 0.43185804188589705,
+          "latency_ms": 26240.847291017417,
+          "keyword_retention": 80.5111821086262,
+          "answer_retained": true
+        },
+        {
+          "question": "Band-e-Amir Dragons is named after the lakes in which Afghan national park?",
+          "answer": "Band-e Amir National Park",
+          "input_tokens": 3062,
+          "output_tokens": 1934,
+          "compression_ratio": 0.36838667537557157,
+          "latency_ms": 7035.876084002666,
+          "keyword_retention": 85.02304147465438,
+          "answer_retained": true
+        },
+        {
+          "question": "The 1958 Pro Bowl was played at the California stadium that is the home for which college?",
+          "answer": "University of Southern California",
+          "input_tokens": 16126,
+          "output_tokens": 5423,
+          "compression_ratio": 0.6637107776261937,
+          "latency_ms": 22914.845749997767,
+          "keyword_retention": 57.787274453941116,
+          "answer_retained": false
+        },
+        {
+          "question": "Yau Ma Tei North is a district of a city with how many citizens?",
+          "answer": "7.2 million",
+          "input_tokens": 16300,
+          "output_tokens": 5644,
+          "compression_ratio": 0.6537423312883436,
+          "latency_ms": 24917.656332982006,
+          "keyword_retention": 59.6555514840601,
+          "answer_retained": false
+        },
+        {
+          "question": "Spider9 was founded in 2011 by the head of which subsidiary of Wanxiang Group?",
+          "answer": "A123 Systems, LLC",
+          "input_tokens": 14343,
+          "output_tokens": 5629,
+          "compression_ratio": 0.6075437495642474,
+          "latency_ms": 23723.0509580113,
+          "keyword_retention": 65.36231884057972,
+          "answer_retained": true
+        },
+        {
+          "question": "What is the population of the city at which the transmitter of WLLZ-LP was placed? ",
+          "answer": "143,372",
+          "input_tokens": 14147,
+          "output_tokens": 5643,
+          "compression_ratio": 0.6011168445606843,
+          "latency_ms": 23715.261457982706,
+          "keyword_retention": 62.70843860535624,
+          "answer_retained": false
+        },
+        {
+          "question": "Charles Haughey held what position when he dissolved the list of members who were elected to the lower house of the Oire",
+          "answer": "Taoiseach of Ireland",
+          "input_tokens": 15793,
+          "output_tokens": 5373,
+          "compression_ratio": 0.6597859811308808,
+          "latency_ms": 23546.67700000573,
+          "keyword_retention": 54.752851711026615,
+          "answer_retained": false
+        },
+        {
+          "question": "What city, located in Lincoln County, Montana, United States, is Vegepet based in?",
+          "answer": "Troy, Montana",
+          "input_tokens": 13774,
+          "output_tokens": 5497,
+          "compression_ratio": 0.6009147669522288,
+          "latency_ms": 24252.515875006793,
+          "keyword_retention": 72.89017341040463,
+          "answer_retained": true
+        },
+        {
+          "question": "McLaren MP4/11 was driven by what Finnish former professional racing driver",
+          "answer": "Mika H\u00e4kkinen",
+          "input_tokens": 16325,
+          "output_tokens": 5295,
+          "compression_ratio": 0.6756508422664624,
+          "latency_ms": 22908.426042005885,
+          "keyword_retention": 61.75668303327878,
+          "answer_retained": true
+        },
+        {
+          "question": "Which of the movie which has Rich Lee 3-D previsualizations was directed by Francis Lawrence?",
+          "answer": "Constantine",
+          "input_tokens": 15465,
+          "output_tokens": 5433,
+          "compression_ratio": 0.6486905916585839,
+          "latency_ms": 23423.008042009315,
+          "keyword_retention": 60.81941129673827,
+          "answer_retained": true
+        },
+        {
+          "question": "Who choreographed one who is said to be the last muse for the choreographer and starred in the Nutcracker?",
+          "answer": "George Balanchine",
+          "input_tokens": 13331,
+          "output_tokens": 5625,
+          "compression_ratio": 0.5780511589528168,
+          "latency_ms": 22914.250791014638,
+          "keyword_retention": 68.31395348837209,
+          "answer_retained": true
+        },
+        {
+          "question": "Which utility holding company did Alfred A. Marcus work as a consultant?",
+          "answer": "Xcel Energy Inc.",
+          "input_tokens": 15960,
+          "output_tokens": 5424,
+          "compression_ratio": 0.6601503759398496,
+          "latency_ms": 24184.96204202529,
+          "keyword_retention": 57.48251748251748,
+          "answer_retained": true
+        },
+        {
+          "question": "Which film was released first, Summer Magic or Around the World in 80 Days?",
+          "answer": "Summer Magic",
+          "input_tokens": 15568,
+          "output_tokens": 5271,
+          "compression_ratio": 0.6614208633093526,
+          "latency_ms": 22307.126250001602,
+          "keyword_retention": 59.99223903764067,
+          "answer_retained": true
+        },
+        {
+          "question": "The physicist who is responsible for identifying the Rabi cycle won what award?",
+          "answer": "Nobel Prize",
+          "input_tokens": 16269,
+          "output_tokens": 4268,
+          "compression_ratio": 0.737660581473969,
+          "latency_ms": 19277.734917006455,
+          "keyword_retention": 63.845223700120926,
+          "answer_retained": false
+        },
+        {
+          "question": "For what type of work is the production company for The Year Without a Santa Claus best known?",
+          "answer": "seasonal television specials, particularly its work in stop motion animation",
+          "input_tokens": 16127,
+          "output_tokens": 5607,
+          "compression_ratio": 0.6523221925962671,
+          "latency_ms": 24031.284292024793,
+          "keyword_retention": 59.889502762430936,
+          "answer_retained": false
+        },
+        {
+          "question": "Which three-time Olivier Award winning English actress starred in the 1981 BBC television serial, Sons and Lovers?",
+          "answer": "Dame Eileen June Atkins",
+          "input_tokens": 11951,
+          "output_tokens": 5636,
+          "compression_ratio": 0.5284076646305749,
+          "latency_ms": 22855.94220799976,
+          "keyword_retention": 72.54273504273505,
+          "answer_retained": true
+        },
+        {
+          "question": "The historical Nimavar school in the Nimavar Bazaar, or bazar, is located in which country?",
+          "answer": "Iran",
+          "input_tokens": 16232,
+          "output_tokens": 5767,
+          "compression_ratio": 0.6447141448989651,
+          "latency_ms": 23933.415334002348,
+          "keyword_retention": 58.32656376929326,
+          "answer_retained": true
+        },
+        {
+          "question": "Which name adopted by African-American activist Allen Donaldson co-found Black Power movement of the 1960s and 1970s",
+          "answer": "Hakim Abdullah Jamal",
+          "input_tokens": 16235,
+          "output_tokens": 5444,
+          "compression_ratio": 0.6646750846935633,
+          "latency_ms": 25240.927417005878,
+          "keyword_retention": 57.57250268528465,
+          "answer_retained": true
+        },
+        {
+          "question": "Which person is known for playing in punk bands, Keith Morris or Rome Ramirez?",
+          "answer": "Keith Morris",
+          "input_tokens": 13708,
+          "output_tokens": 5748,
+          "compression_ratio": 0.5806828129559382,
+          "latency_ms": 23195.779625006253,
+          "keyword_retention": 64.79003230272265,
+          "answer_retained": true
+        },
+        {
+          "question": "Arnold Richards was the former chair of what organization that is a member of the Center for Jewish History?",
+          "answer": "YIVO",
+          "input_tokens": 11304,
+          "output_tokens": 5852,
+          "compression_ratio": 0.4823071479122435,
+          "latency_ms": 26569.816666975385,
+          "keyword_retention": 84.92527615334633,
+          "answer_retained": true
+        },
+        {
+          "question": "When was the plaintiff in the 1892 Barbed Wire Patent Case born?",
+          "answer": "January 18, 1813",
+          "input_tokens": 9931,
+          "output_tokens": 5620,
+          "compression_ratio": 0.4340952572751988,
+          "latency_ms": 24367.09870901541,
+          "keyword_retention": 85.56058890147226,
+          "answer_retained": false
+        },
+        {
+          "question": "Which mountain is higher, Tongshanjiabu or Himalchuli?",
+          "answer": "Himalchuli has three main peaks: East (7893 m), West (7540 m) and North (7371 m)",
+          "input_tokens": 9940,
+          "output_tokens": 5750,
+          "compression_ratio": 0.42152917505030185,
+          "latency_ms": 23095.530834019883,
+          "keyword_retention": 82.92079207920791,
+          "answer_retained": false
+        },
+        {
+          "question": "When did the place in Canada where Fran\u00e7ois Beaucourt (1740-1794) was mainly active acquired its present name?",
+          "answer": "1763",
+          "input_tokens": 14965,
+          "output_tokens": 5364,
+          "compression_ratio": 0.6415636485131975,
+          "latency_ms": 23310.955417022342,
+          "keyword_retention": 61.34422577051615,
+          "answer_retained": true
+        }
+      ]
+    },
+    {
+      "aggregate": {
+        "reduce_ratio": 0.7,
+        "num_samples": 50,
+        "avg_input_tokens": 13276.76,
+        "avg_output_tokens": 3038.1,
+        "avg_compression_ratio": 0.7566586430694784,
+        "avg_latency_ms": 22665.552469218095,
+        "avg_keyword_retention": 49.35902640731803,
+        "answer_recall_pct": 44.0
+      },
+      "per_sample": [
+        {
+          "question": "Which case was brought to court first Miller v. California or Gates v. Collier ?",
+          "answer": "Miller v. California",
+          "input_tokens": 11306,
+          "output_tokens": 3077,
+          "compression_ratio": 0.7278436228551212,
+          "latency_ms": 24191.337041993393,
+          "keyword_retention": 56.29139072847682,
+          "answer_retained": false
+        },
+        {
+          "question": "The actor that plays Phileas Fogg in \"Around the World in 80 Days\", co-starred with Gary Cooper in a 1939 Goldwyn Produc",
+          "answer": "Charles L. Clifford",
+          "input_tokens": 16201,
+          "output_tokens": 3157,
+          "compression_ratio": 0.8051354854638603,
+          "latency_ms": 24594.9934579985,
+          "keyword_retention": 41.955953714072415,
+          "answer_retained": false
+        },
+        {
+          "question": "Prior to playing for Michigan State, Keith Nichol played football for a school located in what city?",
+          "answer": "Norman",
+          "input_tokens": 16239,
+          "output_tokens": 3003,
+          "compression_ratio": 0.8150748198780713,
+          "latency_ms": 24761.171665988513,
+          "keyword_retention": 42.16417910447761,
+          "answer_retained": false
+        },
+        {
+          "question": "Gary L. Bennett was a part of the space missions that have a primary destination of what celestial body?",
+          "answer": "Sun",
+          "input_tokens": 16280,
+          "output_tokens": 3023,
+          "compression_ratio": 0.8143120393120393,
+          "latency_ms": 23125.081083009718,
+          "keyword_retention": 46.00175746924429,
+          "answer_retained": false
+        },
+        {
+          "question": "Was Atom Egoyans biggest commercial success on stage or on film?",
+          "answer": "erotic thriller film",
+          "input_tokens": 14442,
+          "output_tokens": 3397,
+          "compression_ratio": 0.7647832710150948,
+          "latency_ms": 22639.774709008634,
+          "keyword_retention": 42.61620732208968,
+          "answer_retained": false
+        },
+        {
+          "question": "Celebrity Fifteen to One has had more than one appearance by an English writer and former Conservative Member of what?",
+          "answer": "Parliament",
+          "input_tokens": 14534,
+          "output_tokens": 3268,
+          "compression_ratio": 0.7751479289940828,
+          "latency_ms": 22851.686124995467,
+          "keyword_retention": 47.07678883071553,
+          "answer_retained": true
+        },
+        {
+          "question": "Thirukkalacherry is a village in which Indian town?",
+          "answer": "Tharangambadi",
+          "input_tokens": 15791,
+          "output_tokens": 3568,
+          "compression_ratio": 0.7740485086441644,
+          "latency_ms": 24951.81449998927,
+          "keyword_retention": 46.05553107095637,
+          "answer_retained": true
+        },
+        {
+          "question": "Which is a flowering plant, Pueraria or Pleiospilos?",
+          "answer": "Pleiospilos",
+          "input_tokens": 2186,
+          "output_tokens": 777,
+          "compression_ratio": 0.6445562671546203,
+          "latency_ms": 7684.7826250013895,
+          "keyword_retention": 58.392434988179666,
+          "answer_retained": true
+        },
+        {
+          "question": "After Russell D. Moore served at the Southern Baptist Theological Seminary he became the President of The Ethics & Relig",
+          "answer": "2013",
+          "input_tokens": 12062,
+          "output_tokens": 3329,
+          "compression_ratio": 0.7240092853589786,
+          "latency_ms": 29501.130541000748,
+          "keyword_retention": 53.264604810996566,
+          "answer_retained": true
+        },
+        {
+          "question": "For which band, was the female member of Fitz and The Tantrums, the front woman for ten years ?",
+          "answer": "The Rebirth",
+          "input_tokens": 8667,
+          "output_tokens": 2941,
+          "compression_ratio": 0.660666897427022,
+          "latency_ms": 19792.12524999457,
+          "keyword_retention": 65.05082095387021,
+          "answer_retained": true
+        },
+        {
+          "question": "When was the American singer, songwriter, record producer, dancer and actress born who's second studio album is Chapter ",
+          "answer": "October 13, 1980",
+          "input_tokens": 16175,
+          "output_tokens": 3140,
+          "compression_ratio": 0.8058732612055641,
+          "latency_ms": 25269.037874997593,
+          "keyword_retention": 42.054854157596864,
+          "answer_retained": false
+        },
+        {
+          "question": "The Greatest Event in Television History aired on the channel that was founded by whom?",
+          "answer": "Betty Cohen",
+          "input_tokens": 15804,
+          "output_tokens": 3242,
+          "compression_ratio": 0.7948620602379144,
+          "latency_ms": 24519.36000000569,
+          "keyword_retention": 42.60468689973108,
+          "answer_retained": true
+        },
+        {
+          "question": "Who starred in her final film role in the 1964 film directed by the man who also did Vera Cruz and Kiss Me Deadly?",
+          "answer": "Mary Astor",
+          "input_tokens": 15399,
+          "output_tokens": 3210,
+          "compression_ratio": 0.791544905513345,
+          "latency_ms": 25296.939584004576,
+          "keyword_retention": 44.232155731795245,
+          "answer_retained": false
+        },
+        {
+          "question": "Finally includes the song that peaked at what on the US Hot 100",
+          "answer": "number five",
+          "input_tokens": 10219,
+          "output_tokens": 3079,
+          "compression_ratio": 0.6986985027889225,
+          "latency_ms": 21220.686959000886,
+          "keyword_retention": 58.00273597811218,
+          "answer_retained": false
+        },
+        {
+          "question": "What are some other areas that share a common deer species with the forests of Mara and Mondrem?",
+          "answer": "New Zealand, Canada, the United States, the Falkland Islands, and Peru.",
+          "input_tokens": 16144,
+          "output_tokens": 3236,
+          "compression_ratio": 0.7995540138751239,
+          "latency_ms": 25006.373208991135,
+          "keyword_retention": 43.97270659590599,
+          "answer_retained": false
+        },
+        {
+          "question": "Professional cyclist Sara Symington competed in which Olympic Games held in Sydeney, Australia?",
+          "answer": "2000 Summer Olympic Games",
+          "input_tokens": 12170,
+          "output_tokens": 3020,
+          "compression_ratio": 0.7518488085456039,
+          "latency_ms": 22179.50495799596,
+          "keyword_retention": 51.85185185185185,
+          "answer_retained": false
+        },
+        {
+          "question": "Which retired Argentine footballer who played as a forward was a main player for Valencia CF?",
+          "answer": "Claudio Javier L\u00f3pez",
+          "input_tokens": 6116,
+          "output_tokens": 1998,
+          "compression_ratio": 0.6733158927403532,
+          "latency_ms": 13419.299957997282,
+          "keyword_retention": 60.51743532058492,
+          "answer_retained": false
+        },
+        {
+          "question": "What actor was also a president that Richard Darman worked with when they were in office?",
+          "answer": "George H. W. Bush",
+          "input_tokens": 16272,
+          "output_tokens": 3009,
+          "compression_ratio": 0.8150811209439528,
+          "latency_ms": 26580.820916002267,
+          "keyword_retention": 42.47564056297365,
+          "answer_retained": false
+        },
+        {
+          "question": "The song that came out ahead of The Wanted's \"Lightning\" on the UK Singles Chart was featured on which album?",
+          "answer": "\"Talk That Talk\"",
+          "input_tokens": 13925,
+          "output_tokens": 3053,
+          "compression_ratio": 0.780754039497307,
+          "latency_ms": 23566.745666001225,
+          "keyword_retention": 47.09099950273496,
+          "answer_retained": true
+        },
+        {
+          "question": "Name a member of a British-American supergroup who recored a version of Nobody's child in 1990",
+          "answer": "Bob Dylan",
+          "input_tokens": 15382,
+          "output_tokens": 3230,
+          "compression_ratio": 0.7900143024314134,
+          "latency_ms": 23875.667625005008,
+          "keyword_retention": 44.991789819376024,
+          "answer_retained": false
+        },
+        {
+          "question": "What Friday night programming block included what collective series that includes \"Whatever Happened to... Robot Jones?\"",
+          "answer": "Cartoon Cartoon Fridays",
+          "input_tokens": 10958,
+          "output_tokens": 3101,
+          "compression_ratio": 0.717010403358277,
+          "latency_ms": 21849.24416699505,
+          "keyword_retention": 54.34669442998439,
+          "answer_retained": true
+        },
+        {
+          "question": "Where does the city situated where Kellyville Ridge is located?",
+          "answer": "on the Cumberland Plain",
+          "input_tokens": 15083,
+          "output_tokens": 3193,
+          "compression_ratio": 0.7883047139163296,
+          "latency_ms": 23233.510417005164,
+          "keyword_retention": 48.617731172545284,
+          "answer_retained": false
+        },
+        {
+          "question": "Oak Beach, New York and Great South Bay are both situated between what same island?",
+          "answer": "Long Island",
+          "input_tokens": 5068,
+          "output_tokens": 1744,
+          "compression_ratio": 0.6558800315706392,
+          "latency_ms": 12616.577292006696,
+          "keyword_retention": 60.93567251461989,
+          "answer_retained": true
+        },
+        {
+          "question": "Who is a guest in the final two episodes of season eighteen of South Park?",
+          "answer": "PewDiePie",
+          "input_tokens": 11303,
+          "output_tokens": 3168,
+          "compression_ratio": 0.7197204282049013,
+          "latency_ms": 22865.214249992277,
+          "keyword_retention": 52.52572497661365,
+          "answer_retained": false
+        },
+        {
+          "question": "Robbie Tucker plays in what series that follows a group of friends who run an Irish bar?",
+          "answer": "It's Always Sunny in Philadelphia",
+          "input_tokens": 14147,
+          "output_tokens": 3239,
+          "compression_ratio": 0.77104686505973,
+          "latency_ms": 23806.292000008398,
+          "keyword_retention": 47.49801429706116,
+          "answer_retained": false
+        },
+        {
+          "question": "High School Confidential, an eight part documentary followed twelve high school teenagers from a high school in Overland",
+          "answer": "#364",
+          "input_tokens": 9183,
+          "output_tokens": 3237,
+          "compression_ratio": 0.6475008167265599,
+          "latency_ms": 20821.534666989464,
+          "keyword_retention": 63.72155287817939,
+          "answer_retained": false
+        },
+        {
+          "question": "The large subunit and small subunit that use two types of RNA are major components that make up what?",
+          "answer": "Ribosomes",
+          "input_tokens": 16233,
+          "output_tokens": 3279,
+          "compression_ratio": 0.7980040657919054,
+          "latency_ms": 23926.046499982476,
+          "keyword_retention": 45.861182519280206,
+          "answer_retained": true
+        },
+        {
+          "question": "Whiich genus has more species, Dracula or Pistacia?",
+          "answer": "Dracula",
+          "input_tokens": 9693,
+          "output_tokens": 3369,
+          "compression_ratio": 0.652429588362736,
+          "latency_ms": 25474.269208993064,
+          "keyword_retention": 56.805111821086264,
+          "answer_retained": true
+        },
+        {
+          "question": "Band-e-Amir Dragons is named after the lakes in which Afghan national park?",
+          "answer": "Band-e Amir National Park",
+          "input_tokens": 3062,
+          "output_tokens": 1166,
+          "compression_ratio": 0.6192031352057479,
+          "latency_ms": 7076.815249980427,
+          "keyword_retention": 58.294930875576036,
+          "answer_retained": true
+        },
+        {
+          "question": "The 1958 Pro Bowl was played at the California stadium that is the home for which college?",
+          "answer": "University of Southern California",
+          "input_tokens": 16126,
+          "output_tokens": 3070,
+          "compression_ratio": 0.809624209351358,
+          "latency_ms": 23097.511250001844,
+          "keyword_retention": 42.45014245014245,
+          "answer_retained": false
+        },
+        {
+          "question": "Yau Ma Tei North is a district of a city with how many citizens?",
+          "answer": "7.2 million",
+          "input_tokens": 16300,
+          "output_tokens": 3220,
+          "compression_ratio": 0.8024539877300614,
+          "latency_ms": 25185.047582985135,
+          "keyword_retention": 43.75229021619641,
+          "answer_retained": false
+        },
+        {
+          "question": "Spider9 was founded in 2011 by the head of which subsidiary of Wanxiang Group?",
+          "answer": "A123 Systems, LLC",
+          "input_tokens": 14343,
+          "output_tokens": 3334,
+          "compression_ratio": 0.7675521160147807,
+          "latency_ms": 23759.24045901047,
+          "keyword_retention": 50.04830917874396,
+          "answer_retained": true
+        },
+        {
+          "question": "What is the population of the city at which the transmitter of WLLZ-LP was placed? ",
+          "answer": "143,372",
+          "input_tokens": 14147,
+          "output_tokens": 3257,
+          "compression_ratio": 0.7697745104969251,
+          "latency_ms": 23657.76575001655,
+          "keyword_retention": 46.1344113188479,
+          "answer_retained": false
+        },
+        {
+          "question": "Charles Haughey held what position when he dissolved the list of members who were elected to the lower house of the Oire",
+          "answer": "Taoiseach of Ireland",
+          "input_tokens": 15793,
+          "output_tokens": 3017,
+          "compression_ratio": 0.8089659975938707,
+          "latency_ms": 23522.194000019226,
+          "keyword_retention": 40.446768060836504,
+          "answer_retained": false
+        },
+        {
+          "question": "What city, located in Lincoln County, Montana, United States, is Vegepet based in?",
+          "answer": "Troy, Montana",
+          "input_tokens": 13774,
+          "output_tokens": 3221,
+          "compression_ratio": 0.7661536227675331,
+          "latency_ms": 24251.33570798789,
+          "keyword_retention": 53.35260115606937,
+          "answer_retained": true
+        },
+        {
+          "question": "McLaren MP4/11 was driven by what Finnish former professional racing driver",
+          "answer": "Mika H\u00e4kkinen",
+          "input_tokens": 16325,
+          "output_tokens": 2845,
+          "compression_ratio": 0.8257274119448699,
+          "latency_ms": 22916.661625000415,
+          "keyword_retention": 44.51718494271686,
+          "answer_retained": false
+        },
+        {
+          "question": "Which of the movie which has Rich Lee 3-D previsualizations was directed by Francis Lawrence?",
+          "answer": "Constantine",
+          "input_tokens": 15465,
+          "output_tokens": 3158,
+          "compression_ratio": 0.7957969608794051,
+          "latency_ms": 23378.406542004086,
+          "keyword_retention": 45.704057279236274,
+          "answer_retained": true
+        },
+        {
+          "question": "Who choreographed one who is said to be the last muse for the choreographer and starred in the Nutcracker?",
+          "answer": "George Balanchine",
+          "input_tokens": 13331,
+          "output_tokens": 3179,
+          "compression_ratio": 0.7615332683219563,
+          "latency_ms": 23047.103290999075,
+          "keyword_retention": 50.145348837209305,
+          "answer_retained": true
+        },
+        {
+          "question": "Which utility holding company did Alfred A. Marcus work as a consultant?",
+          "answer": "Xcel Energy Inc.",
+          "input_tokens": 15960,
+          "output_tokens": 3209,
+          "compression_ratio": 0.7989348370927318,
+          "latency_ms": 24227.166208002018,
+          "keyword_retention": 40.6993006993007,
+          "answer_retained": false
+        },
+        {
+          "question": "Which film was released first, Summer Magic or Around the World in 80 Days?",
+          "answer": "Summer Magic",
+          "input_tokens": 15568,
+          "output_tokens": 3039,
+          "compression_ratio": 0.8047918807810894,
+          "latency_ms": 22371.99520901777,
+          "keyword_retention": 41.52114862242918,
+          "answer_retained": true
+        },
+        {
+          "question": "The physicist who is responsible for identifying the Rabi cycle won what award?",
+          "answer": "Nobel Prize",
+          "input_tokens": 16269,
+          "output_tokens": 2451,
+          "compression_ratio": 0.8493453807855431,
+          "latency_ms": 19240.02679201658,
+          "keyword_retention": 46.07013301088271,
+          "answer_retained": false
+        },
+        {
+          "question": "For what type of work is the production company for The Year Without a Santa Claus best known?",
+          "answer": "seasonal television specials, particularly its work in stop motion animation",
+          "input_tokens": 16127,
+          "output_tokens": 3252,
+          "compression_ratio": 0.798350592174614,
+          "latency_ms": 23752.816207997967,
+          "keyword_retention": 43.16758747697974,
+          "answer_retained": false
+        },
+        {
+          "question": "Which three-time Olivier Award winning English actress starred in the 1981 BBC television serial, Sons and Lovers?",
+          "answer": "Dame Eileen June Atkins",
+          "input_tokens": 11951,
+          "output_tokens": 3189,
+          "compression_ratio": 0.7331604049870304,
+          "latency_ms": 21979.363708989695,
+          "keyword_retention": 52.29700854700855,
+          "answer_retained": true
+        },
+        {
+          "question": "The historical Nimavar school in the Nimavar Bazaar, or bazar, is located in which country?",
+          "answer": "Iran",
+          "input_tokens": 16232,
+          "output_tokens": 3484,
+          "compression_ratio": 0.7853622474125185,
+          "latency_ms": 24696.950958983507,
+          "keyword_retention": 44.191714053614945,
+          "answer_retained": true
+        },
+        {
+          "question": "Which name adopted by African-American activist Allen Donaldson co-found Black Power movement of the 1960s and 1970s",
+          "answer": "Hakim Abdullah Jamal",
+          "input_tokens": 16235,
+          "output_tokens": 3201,
+          "compression_ratio": 0.8028333846627657,
+          "latency_ms": 25303.878124977928,
+          "keyword_retention": 41.997851772287866,
+          "answer_retained": true
+        },
+        {
+          "question": "Which person is known for playing in punk bands, Keith Morris or Rome Ramirez?",
+          "answer": "Keith Morris",
+          "input_tokens": 13708,
+          "output_tokens": 3320,
+          "compression_ratio": 0.7578056609279253,
+          "latency_ms": 23792.476000002353,
+          "keyword_retention": 45.45454545454545,
+          "answer_retained": true
+        },
+        {
+          "question": "Arnold Richards was the former chair of what organization that is a member of the Center for Jewish History?",
+          "answer": "YIVO",
+          "input_tokens": 11304,
+          "output_tokens": 3383,
+          "compression_ratio": 0.700725406935598,
+          "latency_ms": 27319.02604099014,
+          "keyword_retention": 60.55880441845354,
+          "answer_retained": true
+        },
+        {
+          "question": "When was the plaintiff in the 1892 Barbed Wire Patent Case born?",
+          "answer": "January 18, 1813",
+          "input_tokens": 9931,
+          "output_tokens": 3270,
+          "compression_ratio": 0.6707280233611923,
+          "latency_ms": 24585.552208998706,
+          "keyword_retention": 63.81653454133635,
+          "answer_retained": false
+        },
+        {
+          "question": "Which mountain is higher, Tongshanjiabu or Himalchuli?",
+          "answer": "Himalchuli has three main peaks: East (7893 m), West (7540 m) and North (7371 m)",
+          "input_tokens": 9940,
+          "output_tokens": 3405,
+          "compression_ratio": 0.6574446680080483,
+          "latency_ms": 23056.96654197527,
+          "keyword_retention": 62.5,
+          "answer_retained": false
+        },
+        {
+          "question": "When did the place in Canada where Fran\u00e7ois Beaucourt (1740-1794) was mainly active acquired its present name?",
+          "answer": "1763",
+          "input_tokens": 14965,
+          "output_tokens": 3148,
+          "compression_ratio": 0.7896424991647177,
+          "latency_ms": 23438.301749993116,
+          "keyword_retention": 43.85443743037505,
+          "answer_retained": false
+        }
+      ]
+    }
+  ]
+}
